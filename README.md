@@ -24,40 +24,40 @@
 
 - 前端工程化
 
-  ✅ router 动态加载、权限拦截
-  ✅ @reduxjs/toolkit 封装
-  ✅ ant Design 动态主题
-  ✅ tailwindcss 动态主题
-  ✅ Ant Design、Tailwindcss 双主题同步
-  ❌ modal 封装
-  ❌ form表单 封装
-  ❌ table 封装
-  ❌ 按钮权限封装
-  ❌ 数据驱动
-  ❌ 富文本、取色器等集成表单
-  ❌ 传输加密
-  ❌ 等等等
+  - ✅ router 动态加载、权限拦截
+  - ✅ @reduxjs/toolkit 封装
+  - ✅ ant Design 动态主题
+  - ✅ tailwindcss 动态主题
+  - ✅ Ant Design、Tailwindcss 双主题同步
+  - ❌ modal 封装
+  - ❌ form表单 封装
+  - ❌ table 封装
+  - ❌ 按钮权限封装
+  - ❌ 数据驱动
+  - ❌ 富文本、取色器等集成表单
+  - ❌ 传输加密
+  - ❌ 等等等
 
 - 接口请求
 
-  ✅ ahooks useRequest 与 axios 封装
-  ✅ axios 拦截器、节流、防抖、依赖刷新、错误重试等
-  ✅ mock 封装
+  - ✅ ahooks useRequest 与 axios 封装
+  - ✅ axios 拦截器、节流、防抖、依赖刷新、错误重试等
+  - ✅ mock 封装
 
 - 基础功能
 
-  ✅ 登录页
-  ❌ 用户管理
-  ❌ 角色管理
-  ❌ 菜单管理
-  ❌ 元素管理
-  ❌ 接口管理
-  ❌ 字典管理
-  ❌ 主题更换
-  ❌ 皮肤更换
-  ❌ 全屏操作
-  ❌ 动态面包屑
-  ❌ 操作日志
-  ❌ 登录日志
-  ❌ 系统缓存
-  ❌ 等等等
+  - ✅ 登录页
+  - ❌ 用户管理
+  - ❌ 角色管理
+  - ❌ 菜单管理
+  - ❌ 元素管理
+  - ❌ 接口管理
+  - ❌ 字典管理
+  - ❌ 主题更换
+  - ❌ 皮肤更换
+  - ❌ 全屏操作
+  - ❌ 动态面包屑
+  - ❌ 操作日志
+  - ❌ 登录日志
+  - ❌ 系统缓存
+  - ❌ 等等等
