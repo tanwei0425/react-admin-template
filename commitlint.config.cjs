@@ -30,20 +30,17 @@ module.exports = {
       2,
       'always',
       [
-        'build',
-        'chore',
-        'ci',
-        'docs',
-        'feat',
-        'fix',
-        'perf',
-        'refactor',
-        'revert',
-        'style',
-        'test',
-        'translation',
-        'security',
-        'changeset',
+        'feat', // ✨ 新功能	｜ 添加新功能模块、接口等
+        'fix', // 🐛 修复 bug ｜ 修复逻辑或样式问题
+        'docs', // 📝 文档变更 ｜ 修改 README、注释等
+        'style', // 💄 代码格式	｜ 仅仅修改了空格、缩进、格式等，不影响逻辑
+        'refactor', // ♻️ 重构 ｜	优化重写代码，未改变功能
+        'test', // ✅ 测试 ｜ 添加或修改测试代码
+        'chore', // 🔧 杂务 | 构建/工程依赖/工具
+        'perf', // ⚡ 性能优化	｜ 提升性能、减少资源占用等
+        'revert', // ⏪  回滚提交 ｜ 还原某次提交
+        'build', // 📦 构建相关 ｜ 打包流程、工具配置（如 Vite、Webpack）
+        'ci', // 🧪 CI配置 ｜ CI/CD 配置文件或脚本变更
       ],
     ],
   },
