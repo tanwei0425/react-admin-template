@@ -1,2 +1,8 @@
-# react-admin-template
-🌱 A ready-to-use admin project base template built with the React19、 Ant Design5、Vite6、react-router7 | 基于 React19、Ant Design5、Vite6、react-router7、Tailwindcss4，开箱即用的后台管理端项目基础模板
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

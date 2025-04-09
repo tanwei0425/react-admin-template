@@ -1,0 +1,11 @@
+@import 'tailwindcss'prefix(tw);
+
+@theme {
+  /* tailwindcss默认主题颜色 */
+  --color-primary: var(--ant-color-primary);
+}
+
+:root {
+  /* tailwindcss默认主题颜色(与ant同步) */
+  --ant-color-primary: #1677ff;
+}
