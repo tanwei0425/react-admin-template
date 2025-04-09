@@ -1,7 +1,7 @@
 
 # react-admin-template 后台管理系统
 
-## react-admin-template 简单上手，可扩展性高
+## react admin template 简单上手，可扩展性高
 
 一个可用于生产环境的基于 React19、Ant Design5、Vite6、react-router7、Tailwindcss4，开箱即用的后台管理端项目基础模板
 
