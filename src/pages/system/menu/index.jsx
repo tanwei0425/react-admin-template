@@ -1,9 +1,7 @@
 // import React from 'react'
 
 const Index = () => {
-    return (
-        <div>菜单管理</div>
-    )
-}
+  return <div>菜单管理</div>;
+};
 
-export default Index
+export default Index;

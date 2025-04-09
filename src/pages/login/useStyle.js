@@ -9,10 +9,8 @@ export const useStyle = createStyles(({ token, css }) => {
       background: #ffffff;
     `,
     content: css`
-      background: linear-gradient(
-            rgba(255, 255, 255, 0.9),
-            rgba(255, 255, 255, 0.9)
-          )
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9))
           center center / cover no-repeat,
         url(${loginBg});
     `,

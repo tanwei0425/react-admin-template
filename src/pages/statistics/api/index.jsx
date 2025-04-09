@@ -1,9 +1,7 @@
 // import React from 'react'
 
 const Index = () => {
-    return (
-        <div>api统计</div>
-    )
-}
+  return <div>api统计</div>;
+};
 
-export default Index
+export default Index;

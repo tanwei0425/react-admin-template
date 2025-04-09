@@ -1,5 +1,5 @@
-import { Bubble, Attachments, Prompts, Sender, Welcome } from "@ant-design/x";
-import { Badge, Button, Space } from "antd";
+import { Bubble, Attachments, Prompts, Sender, Welcome } from '@ant-design/x';
+import { Badge, Button, Space } from 'antd';
 import {
   CloudUploadOutlined,
   EllipsisOutlined,
@@ -11,9 +11,9 @@ import {
   ReadOutlined,
   SmileOutlined,
   UserOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import { useStyle } from "../useStyle";
+import { useStyle } from '../useStyle';
 const renderTitle = (icon, title) => (
   <Space align="start">
     {icon}
@@ -35,55 +35,55 @@ const Chat = ({
   const { styles } = useStyle();
   const placeholderPromptsItems = [
     {
-      key: "1",
+      key: '1',
       label: renderTitle(
         <FireOutlined
           style={{
-            color: "#FF4D4F",
+            color: '#FF4D4F',
           }}
         />,
-        "热门话题"
+        '热门话题'
       ),
-      description: "当下最火爆的热门话题是？",
+      description: '当下最火爆的热门话题是？',
       children: [
         {
-          key: "1-1",
+          key: '1-1',
           description: `热门话题 1?`,
         },
         {
-          key: "1-2",
+          key: '1-2',
           description: `热门话题 2?`,
         },
         {
-          key: "1-3",
+          key: '1-3',
           description: `热门话题 3?`,
         },
       ],
     },
     {
-      key: "2",
+      key: '2',
       label: renderTitle(
         <ReadOutlined
           style={{
-            color: "#00b96b",
+            color: '#00b96b',
           }}
         />,
-        "猜你喜欢"
+        '猜你喜欢'
       ),
-      description: "你对什么感兴趣?",
+      description: '你对什么感兴趣?',
       children: [
         {
-          key: "2-1",
+          key: '2-1',
           icon: <HeartOutlined />,
           description: `猜你喜欢 1`,
         },
         {
-          key: "2-2",
+          key: '2-2',
           icon: <SmileOutlined />,
           description: `猜你喜欢 2`,
         },
         {
-          key: "2-3",
+          key: '2-3',
           icon: <CommentOutlined />,
           description: `猜你喜欢 3`,
         },
@@ -92,23 +92,23 @@ const Chat = ({
   ];
   const senderPromptsItems = [
     {
-      key: "1",
-      description: "热门话题",
+      key: '1',
+      description: '热门话题',
       icon: (
         <FireOutlined
           style={{
-            color: "#FF4D4F",
+            color: '#FF4D4F',
           }}
         />
       ),
     },
     {
-      key: "2",
-      description: "猜你喜欢",
+      key: '2',
+      description: '猜你喜欢',
       icon: (
         <ReadOutlined
           style={{
-            color: "#00b96b",
+            color: '#00b96b',
           }}
         />
       ),
@@ -116,8 +116,8 @@ const Chat = ({
   ];
   const roles = {
     ai: {
-      placement: "start",
-      avatar: { icon: <UserOutlined />, style: { background: "#fde3cf" } },
+      placement: 'start',
+      avatar: { icon: <UserOutlined />, style: { background: '#fde3cf' } },
       typing: {
         step: 5,
         interval: 20,
@@ -131,8 +131,8 @@ const Chat = ({
       },
     },
     local: {
-      placement: "end",
-      avatar: { icon: <UserOutlined />, style: { background: "#87d068" } },
+      placement: 'end',
+      avatar: { icon: <UserOutlined />, style: { background: '#87d068' } },
       styles: {
         content: {
           borderRadius: 8,
@@ -148,7 +148,7 @@ const Chat = ({
       items={placeholderPromptsItems}
       styles={{
         list: {
-          width: "100%",
+          width: '100%',
         },
         item: {
           flex: 1,
@@ -159,8 +159,8 @@ const Chat = ({
   );
   const items = messages.map(({ id, message, status }) => ({
     key: id,
-    loading: status === "loading",
-    role: status === "local" ? "local" : "ai",
+    loading: status === 'loading',
+    role: status === 'local' ? 'local' : 'ai',
     content: message,
   }));
   const attachmentsNode = (
@@ -189,14 +189,14 @@ const Chat = ({
         items={attachedFiles}
         onChange={handleFileChange}
         placeholder={(type) =>
-          type === "drop"
+          type === 'drop'
             ? {
-                title: "将文件拖放到此处",
+                title: '将文件拖放到此处',
               }
             : {
                 icon: <CloudUploadOutlined />,
-                title: "上传文件",
-                description: "单击或将文件拖到此区域进行上传",
+                title: '上传文件',
+                description: '单击或将文件拖到此区域进行上传',
               }
         }
       />
@@ -226,7 +226,7 @@ const Chat = ({
               : [
                   {
                     content: placeholderNode,
-                    variant: "borderless",
+                    variant: 'borderless',
                   },
                 ]
           }

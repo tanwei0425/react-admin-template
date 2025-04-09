@@ -1,4 +1,4 @@
-@import 'tailwindcss'prefix(tw);
+@import 'tailwindcss' prefix(tw);
 
 @theme {
   /* tailwindcss默认主题颜色 */
