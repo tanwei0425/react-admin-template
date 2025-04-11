@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getLocalStorageItem } from '@utils';
 const token = getLocalStorageItem('token');
-const initialState = {
+export const initialState = {
+  // 全局loading动画
   fullScreenLoading: !!token,
   /** 数据字典 */
   dictData: {},
-  /** 菜单列表 */
-  menusList: [],
+  /** 路由 */
+  routesData: [],
   /** 用户信息 */
   user: {
     id: '',

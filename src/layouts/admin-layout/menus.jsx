@@ -9,7 +9,7 @@ import { arrayToTree } from '@utils';
 const Menus = ({ collapsed }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { menusList } = useSelector((state) => state.userInfo);
+  const { routesData } = useSelector((state) => state.userInfo);
   const { theme } = useSelector((state) => state.theme);
   const [menusTree, setMenuTree] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
@@ -44,16 +44,16 @@ const Menus = ({ collapsed }) => {
   };
 
   useEffect(() => {
-    const newMenuTree = arrayToTree(menusList);
-    const showMenuTree = newMenuTree?.filter((val) => val.isShow === '1');
-    setMenuTree(showMenuTree);
+    const routesDataTree = arrayToTree(routesData);
+    const menuTree = routesDataTree?.filter((val) => val.isShow === '1');
+    setMenuTree(menuTree);
   }, []);
 
   const filterFatherSelectedKeys = (path, arr = []) => {
-    const nowRoter = menusList.find((item) => item.path === path);
-    if (nowRoter?.isShow === '0') {
-      menusList.forEach((val) => {
-        if (val.id === nowRoter.pid && val?.path) {
+    const targetRoutes = routesData.find((item) => item.path === path);
+    if (targetRoutes?.isShow === '0') {
+      routesData.forEach((val) => {
+        if (val.id === targetRoutes.pid && val?.path) {
           val.isShow === '1' ? arr.push(val.path) : filterFatherSelectedKeys(val.path, arr);
         }
       });
@@ -79,19 +79,19 @@ const Menus = ({ collapsed }) => {
     // 非菜单路由选中父菜单
     const selectedKeys = filterFatherSelectedKeys(pathname);
     setSelectedKeys(selectedKeys);
-  }, [collapsed, openKeys, menusList]);
+  }, [collapsed, openKeys, routesData]);
 
   useEffect(() => {
     // 可折叠项菜单
     const target = menusTree.filter((val) => val.children).map((val) => val.path);
     setRootSubmenuKeys(target);
-  }, [menusList]);
+  }, [routesData]);
 
   useEffect(() => {
     // pathname查找当前数据
-    const nowData = menusList.find((val) => val.path === pathname);
+    const nowRoutesPath = routesData.find((val) => val.path === pathname);
     // 根据数据递归找到所有父级
-    const openKeys = filterFatherOpenKeys(nowData, menusList);
+    const openKeys = filterFatherOpenKeys(nowRoutesPath, routesData);
     // 展开菜单
     setOpenKeys(openKeys);
   }, [collapsed, pathname]);

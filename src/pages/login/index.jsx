@@ -6,7 +6,7 @@ import loginLeftBg from '@assets/images/login-left-bg.png';
 import { Navigate } from 'react-router-dom';
 import LoginForm from './loginForm';
 import { useStyle } from './useStyle';
-
+import Helmet from '@components/helmet';
 const Index = () => {
   const { styles } = useStyle();
   const token = getLocalStorageItem('token');
@@ -25,6 +25,7 @@ const Index = () => {
   }
   return (
     <Flex className={styles.login}>
+      <Helmet title="登录" />
       <Flex className={styles.content} flex={1} vertical="vertical" justify="center" align="center">
         <div className={styles.title}>{website.title}</div>
         <img className={styles.illustration} src={loginLeftBg} alt="" />

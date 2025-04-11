@@ -21,8 +21,8 @@ export const useStyle = createStyles(({ css }) => {
     `,
     settingIcon: css`
       display: inline-block;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       vertical-align: middle; /* 让图标和文字基线对齐 */
       animation: ${rotate} 5s linear infinite;
       color: #777;

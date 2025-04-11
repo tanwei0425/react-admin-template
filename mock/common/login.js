@@ -56,7 +56,7 @@ const loginAnalysisData = [
             name: 'tanwei',
             role: [],
           },
-          menusList: [
+          routesData: [
             {
               id: '1',
               pid: 0,

@@ -8,8 +8,8 @@ const Index = () => {
     dispatch(setUserInfo({ fullScreenLoading: true }));
     const res = await runAsync();
     if (res.code === 200) {
-      const { user = {}, menusList = [], dictData = {} } = res?.data || {};
-      dispatch(setUserInfo({ user, menusList, dictData, fullScreenLoading: false }));
+      const { user = {}, routesData = [], dictData = {} } = res?.data || {};
+      dispatch(setUserInfo({ user, routesData, dictData, fullScreenLoading: false }));
     }
   };
   return { systemConfig };

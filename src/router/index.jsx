@@ -5,17 +5,23 @@ import lazyLoad from '@router/lazyLoad';
 import AuthRouter from '@router/authRouter';
 import Login from '@pages/login';
 const RouteList = () => {
-  const { menusList } = useSelector((state) => state.userInfo);
-  const dynamicRoutes = menusList
+  const { routesData } = useSelector((state) => state.userInfo);
+  const dynamicRoutes = routesData
     ?.filter((item) => item.cmpPath && item.path && item.isRouter === '1')
     ?.map((item) => ({
       path: item.path,
+      handle: {
+        title: item.name,
+      },
       lazy: lazyLoad(item.cmpPath),
     }));
   const router = createBrowserRouter(
     [
       {
         path: '/login',
+        handle: {
+          title: '登录',
+        },
         element: <Login />,
       },
       {

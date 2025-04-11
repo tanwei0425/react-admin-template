@@ -76,7 +76,7 @@ export const useStyle = createStyles(({ token, css }) => {
     headerInfo: css`
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
     `,
     headerInfoUser: css`
       width: 30px;
@@ -86,11 +86,15 @@ export const useStyle = createStyles(({ token, css }) => {
       font-size: ${token.fontSizeLG}px;
       cursor: default;
     `,
-    themeSvg: css`
-      width: 26px;
-      height: 26px;
-      color: ${token.colorPrimary};
+    github: css`
+      font-size: 22px;
       cursor: pointer;
+    `,
+    content: css`
+      padding: 12px;
+    `,
+    breadcrumb: css`
+      padding-bottom: 12px;
     `,
   };
 });

@@ -33,7 +33,7 @@ const Layouts = () => {
         <Header className={styles.header}>
           <Headers />
         </Header>
-        <Content className="tw:p-3.5">
+        <Content className={styles.content}>
           <Breadcrumb />
           <Outlet />
         </Content>

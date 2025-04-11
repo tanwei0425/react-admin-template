@@ -33,7 +33,19 @@ function treeToArray(list, newArr = []) {
   });
   return newArr;
 }
-
+/**
+ * 查找父级
+ * @param {*} data
+ * @param {*} all
+ * @param {*} arr
+ * @returns
+ */
+const findParent = (data = [], all, arr = []) => {
+  data && arr.unshift(data);
+  const parent = all.find((val) => val.id === data?.pid);
+  parent && findParent(parent, all, arr);
+  return arr;
+};
 /**
  * 列表字典翻译
  * @param {*} dictData // 数据源
@@ -86,4 +98,4 @@ function exportStreamFile(
   }
 }
 
-export { arrayToTree, treeToArray, tableColumnToDict, exportFile, exportStreamFile };
+export { arrayToTree, treeToArray, findParent, tableColumnToDict, exportFile, exportStreamFile };
