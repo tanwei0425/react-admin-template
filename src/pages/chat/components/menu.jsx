@@ -2,12 +2,7 @@ import { Conversations } from '@ant-design/x';
 import { Button } from 'antd';
 import { CommentOutlined } from '@ant-design/icons';
 import { useStyle } from '../useStyle';
-const Menu = ({
-  activeKey,
-  onAddConversation,
-  onConversationClick,
-  conversationsItems,
-}) => {
+const Menu = ({ activeKey, onAddConversation, onConversationClick, conversationsItems }) => {
   const { styles } = useStyle();
 
   return (
@@ -22,12 +17,7 @@ const Menu = ({
         <span>TanWei</span>
       </div>
       {/* 🌟 添加会话 */}
-      <Button
-        onClick={onAddConversation}
-        type="primary"
-        className={styles.addBtn}
-        icon={<CommentOutlined />}
-      >
+      <Button onClick={onAddConversation} type="primary" className={styles.addBtn} icon={<CommentOutlined />}>
         开启新对话
       </Button>
       {/* 🌟 会话管理 */}

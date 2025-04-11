@@ -1,50 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Spin } from 'antd';
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Layouts from '@layouts/admin-layout';
-import AuthRouter from '@router/authRouter';
 import lazyLoad from '@router/lazyLoad';
-import { useSystemConfigApi } from '@api/common';
-import { setUserInfo } from '@store/slices/userInfo';
-import { getLocalStorageItem } from '@utils';
+import AuthRouter from '@router/authRouter';
 import Login from '@pages/login';
 const RouteList = () => {
-  const dispatch = useDispatch();
-  const [loadingStatus, setLoadingStatus] = useState(
-    window.location.pathname !== '/login'
-  );
-  const token = getLocalStorageItem('token');
-  const [dynamicRoutes, setDynamicRoutes] = useState([]);
-  const { runAsync } = useSystemConfigApi();
-  const getSystemConfig = async () => {
-    setLoadingStatus(true);
-    const res = await runAsync();
-    if (res.code === 200) {
-      const { user = {}, menusList = [], dictData = {} } = res?.data || {};
-      dispatch(setUserInfo({ user, menusList, dictData }));
-      const data = menusList
-        ?.filter((item) => item.cmpPath && item.path && item.isRouter === '1')
-        ?.map((item) => ({
-          path: item.path,
-          lazy: lazyLoad(item.cmpPath),
-        }));
-      setDynamicRoutes(data);
-      setLoadingStatus(false);
-    }
-  };
-  useEffect(() => {
-    if (token) {
-      getSystemConfig();
-    } else {
-      setLoadingStatus(false);
-    }
-  }, [token]);
-
+  const { menusList } = useSelector((state) => state.userInfo);
+  const dynamicRoutes = menusList
+    ?.filter((item) => item.cmpPath && item.path && item.isRouter === '1')
+    ?.map((item) => ({
+      path: item.path,
+      lazy: lazyLoad(item.cmpPath),
+    }));
   const router = createBrowserRouter(
     [
       {
@@ -73,12 +40,6 @@ const RouteList = () => {
       basename: import.meta.env.VITE_BASE_URL,
     }
   );
-  return loadingStatus ? (
-    <Spin spinning={true} size={'large'} tip={'系统加载中，请稍等！'}>
-      <div style={{ width: '100vw', height: '100vh' }}></div>
-    </Spin>
-  ) : (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 };
 export default RouteList;

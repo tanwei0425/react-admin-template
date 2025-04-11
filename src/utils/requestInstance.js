@@ -1,11 +1,7 @@
 import axios from 'axios';
 import { App } from 'antd';
 import NProgress from 'nprogress';
-import {
-  getLocalStorageItem,
-  setLocalStorageItem,
-  clearAllLocalStorage,
-} from '@utils';
+import { getLocalStorageItem, setLocalStorageItem, clearAllLocalStorage } from '@utils';
 let notificationApi; // 全局存储 notification API
 const AxiosInterceptor = () => {
   const { notification } = App.useApp(); // 获取 notification 实例
@@ -37,8 +33,7 @@ requestInstance.interceptors.response.use(
     const { headers, data } = response;
     const newToken = headers?.authorization;
     if (newToken) {
-      newToken !== getLocalStorageItem('token') &&
-        setLocalStorageItem('token', `Bearer ${newToken}`);
+      newToken !== getLocalStorageItem('token') && setLocalStorageItem('token', `Bearer ${newToken}`);
     }
     const { code, message } = data || {};
     if (code !== 200) {

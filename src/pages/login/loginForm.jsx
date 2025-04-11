@@ -1,16 +1,10 @@
 import { Button, Form, Input, Row, Col, Spin } from 'antd';
-import {
-  UserOutlined,
-  LockOutlined,
-  VerifiedOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, LockOutlined, VerifiedOutlined } from '@ant-design/icons';
 import { setLocalStorageItem } from '@utils';
-// import { useNavigate } from 'react-router-dom';
 import { useStyle } from './useStyle';
 import { useCaptchaApi, useLoginApi } from '@api/login';
 
 const Index = () => {
-  // const navigate = useNavigate();
   const [form] = Form.useForm();
   const { styles } = useStyle();
   const { data, loading, run } = useCaptchaApi();
@@ -25,7 +19,7 @@ const Index = () => {
     const res = await loginRunAsync(reqData);
     if (res.code === 200) {
       setLocalStorageItem('token', res.data.token);
-      // navigate('/');
+      // 直接href跳转，不用单独写请求用户信息了
       window.location.href = '/';
     } else {
       run();
@@ -56,11 +50,7 @@ const Index = () => {
           },
         ]}
       >
-        <Input
-          placeholder="请输入账号"
-          addonBefore={<UserOutlined />}
-          autoComplete="off"
-        />
+        <Input placeholder="请输入账号" addonBefore={<UserOutlined />} autoComplete="off" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -72,11 +62,7 @@ const Index = () => {
           },
         ]}
       >
-        <Input.Password
-          placeholder="请输入密码"
-          addonBefore={<LockOutlined />}
-          autoComplete="off"
-        />
+        <Input.Password placeholder="请输入密码" addonBefore={<LockOutlined />} autoComplete="off" />
       </Form.Item>
       <Form.Item extra="点击右侧验证码可以刷新验证码">
         <Row gutter={8}>
@@ -92,11 +78,7 @@ const Index = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="请输入验证码"
-                addonBefore={<VerifiedOutlined />}
-                autoComplete="off"
-              />
+              <Input placeholder="请输入验证码" addonBefore={<VerifiedOutlined />} autoComplete="off" />
             </Form.Item>
           </Col>
           <Col span={8}>

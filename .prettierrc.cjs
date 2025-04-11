@@ -1,7 +1,7 @@
 // .prettierrc.cjs
 module.exports = {
   // ———— Prettier 常用选项 ————
-  printWidth: 80, // 一行最多 80 字符
+  printWidth: 110, // 一行最多 80 字符
   tabWidth: 2, // 缩进使用 2 个空格
   useTabs: false, // 不用 tab，改用空格
   semi: true, // 语句末尾加分号

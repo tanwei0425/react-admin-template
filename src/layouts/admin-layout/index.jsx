@@ -25,9 +25,7 @@ const Layouts = () => {
       >
         <div className={styles.siderHeader}>
           <MenuSvg className={styles.siderLogo} />
-          {!collapsed && (
-            <div className={styles.siderTitle}>{website.menuTitle}</div>
-          )}
+          {!collapsed && <div className={styles.siderTitle}>{website.menuTitle}</div>}
         </div>
         <Menus collapsed={collapsed} />
       </Sider>
@@ -35,8 +33,8 @@ const Layouts = () => {
         <Header className={styles.header}>
           <Headers />
         </Header>
-        <Breadcrumb />
-        <Content>
+        <Content className="tw:p-3.5">
+          <Breadcrumb />
           <Outlet />
         </Content>
       </Layout>

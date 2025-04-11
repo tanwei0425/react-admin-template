@@ -2,15 +2,13 @@ import { useState } from 'react';
 import { Dropdown, Modal } from 'antd';
 import { useStyle } from './useStyle';
 import { useLogoutApi } from '@api/login';
-
 import { SettingSvg } from '@assets/icons';
+import useClearSysConfig from '@hooks/useClearSysConfig';
 const Setting = () => {
   const { styles } = useStyle();
   const [open, setOpen] = useState(false);
-  const { loading, run } = useLogoutApi();
-  const logout = () => {
-    setOpen(true);
-  };
+  const { loading, runAsync } = useLogoutApi();
+  const clearSysConfig = useClearSysConfig();
   const items = [
     {
       label: 'tanwei',
@@ -30,16 +28,15 @@ const Setting = () => {
     {
       label: '退出登录',
       key: '4',
-      onClick: logout,
+      onClick: () => setOpen(true),
     },
   ];
   const handleOk = async () => {
-    await run();
-    setOpen(false);
-  };
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setOpen(false);
+    const res = await runAsync();
+    if (res.code === 200) {
+      clearSysConfig({});
+      setOpen(false);
+    }
   };
   return (
     <>
@@ -54,13 +51,13 @@ const Setting = () => {
         <SettingSvg className={styles.settingIcon} />
       </Dropdown>
       <Modal
-        title="Title"
+        title="退出登录"
         open={open}
         onOk={handleOk}
         confirmLoading={loading}
-        onCancel={handleCancel}
+        onCancel={() => setOpen(false)}
       >
-        <div>是否确定退出系统？</div>
+        <div>是否确定退出登录？</div>
       </Modal>
     </>
   );

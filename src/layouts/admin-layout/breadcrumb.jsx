@@ -29,13 +29,8 @@ const TBreadcrumb = () => {
   const { menusList } = useSelector((state) => state.userInfo);
   const { breadcrumb } = useSelector((state) => state.theme);
   const menusListData = _.cloneDeep(menusList);
-  const allPathname = Object.fromEntries(
-    menusListData.map((menu) => [menu.path, menu])
-  );
-  const targetMenuList = findParent(
-    allPathname[location.pathname],
-    menusListData
-  );
+  const allPathname = Object.fromEntries(menusListData.map((menu) => [menu.path, menu]));
+  const targetMenuList = findParent(allPathname[location.pathname], menusListData);
   // let routes = [];
 
   // if (!navigationMode?.breadcrumb) {
@@ -58,10 +53,8 @@ const TBreadcrumb = () => {
         )}
       </Helmet>
       {breadcrumb ? (
-        <div>
-          <Breadcrumb
-            items={targetMenuList.map((val) => ({ title: val.name }))}
-          />
+        <div className="tw:pb-2">
+          <Breadcrumb items={targetMenuList.map((val) => ({ title: val.name }))} />
         </div>
       ) : (
         <div>

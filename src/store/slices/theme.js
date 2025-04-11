@@ -31,10 +31,7 @@ export const themeSlice = createSlice({
         state[key] = value;
       });
       // 更新localStorage的主题配置（用于长久保存主题配置）
-      setLocalStorageItem(
-        globalConfig.SESSION_LOGIN_THEME,
-        JSON.stringify(state)
-      );
+      setLocalStorageItem(globalConfig.SESSION_LOGIN_THEME, JSON.stringify(state));
     },
   },
 });

@@ -20,11 +20,7 @@ const Headers = () => {
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </div>
       <div className={styles.headerInfo}>
-        <img
-          src={userAvatar}
-          className={styles.headerInfoUser}
-          alt="头像错误"
-        />
+        <img src={userAvatar} className={styles.headerInfoUser} alt="头像错误" />
         <div className={styles.username}>{website.username}</div>
         <Setting />
         <ThemeSvg className={styles.themeSvg} />

@@ -54,9 +54,7 @@ const Menus = ({ collapsed }) => {
     if (nowRoter?.isShow === '0') {
       menusList.forEach((val) => {
         if (val.id === nowRoter.pid && val?.path) {
-          val.isShow === '1'
-            ? arr.push(val.path)
-            : filterFatherSelectedKeys(val.path, arr);
+          val.isShow === '1' ? arr.push(val.path) : filterFatherSelectedKeys(val.path, arr);
         }
       });
     } else {
@@ -65,11 +63,7 @@ const Menus = ({ collapsed }) => {
     return arr;
   };
 
-  const filterFatherOpenKeys = (
-    targetData,
-    dataSource,
-    targetOpenKeys = []
-  ) => {
+  const filterFatherOpenKeys = (targetData, dataSource, targetOpenKeys = []) => {
     if (targetData?.pid && targetData?.path && targetData.pid !== 0) {
       const newData = dataSource.find((val) => val.id === targetData.pid);
       // 只有在栏目下(isRouter === 0)，添加
@@ -89,9 +83,7 @@ const Menus = ({ collapsed }) => {
 
   useEffect(() => {
     // 可折叠项菜单
-    const target = menusTree
-      .filter((val) => val.children)
-      .map((val) => val.path);
+    const target = menusTree.filter((val) => val.children).map((val) => val.path);
     setRootSubmenuKeys(target);
   }, [menusList]);
 

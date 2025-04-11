@@ -10,9 +10,7 @@ function arrayToTree(list, pid = 0) {
       ...item,
       children: arrayToTree(list, item.id),
     }));
-  tree.forEach(
-    (val) => (!val.children || val.children?.length <= 0) && delete val.children
-  );
+  tree.forEach((val) => (!val.children || val.children?.length <= 0) && delete val.children);
   return tree || [];
 }
 
@@ -88,10 +86,4 @@ function exportStreamFile(
   }
 }
 
-export {
-  arrayToTree,
-  treeToArray,
-  tableColumnToDict,
-  exportFile,
-  exportStreamFile,
-};
+export { arrayToTree, treeToArray, tableColumnToDict, exportFile, exportStreamFile };

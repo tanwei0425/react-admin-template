@@ -16,6 +16,18 @@ export const setLocalStorageItem = (key, value) => {
 };
 
 /**
+ * 删除localStorage
+ * @param {*} key
+ */
+export const removeLocalStorage = (key) => {
+  if (Array.isArray(key)) {
+    key.forEach((key) => localStorage.removeItem(key));
+  } else {
+    localStorage.removeItem(key);
+  }
+};
+
+/**
  * 清空localStorage
  */
 export const clearAllLocalStorage = () => {

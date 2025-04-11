@@ -165,12 +165,7 @@ const Chat = ({
   }));
   const attachmentsNode = (
     <Badge dot={attachedFiles.length > 0 && !headerOpen}>
-      <Button
-        type="text"
-        disabled
-        icon={<PaperClipOutlined />}
-        onClick={() => setHeaderOpen(!headerOpen)}
-      />
+      <Button type="text" disabled icon={<PaperClipOutlined />} onClick={() => setHeaderOpen(!headerOpen)} />
     </Badge>
   );
   const senderHeader = (

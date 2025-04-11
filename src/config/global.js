@@ -12,14 +12,7 @@ export const globalConfig = {
     colorPrimary: null,
   },
   // 供用户选择的主题色，如不提供该功能，则设为空数组
-  customColorPrimarys: [
-    '#1677ff',
-    '#f5222d',
-    '#fa8c16',
-    '#722ed1',
-    '#13c2c2',
-    '#52c41a',
-  ],
+  customColorPrimarys: ['#1677ff', '#f5222d', '#fa8c16', '#722ed1', '#13c2c2', '#52c41a'],
   // 左侧导航sider主题，light=亮色，dark=暗色，theme=跟随主题
   siderTheme: 'theme',
   // localStroge用户登录信息标识
