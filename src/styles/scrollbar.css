@@ -1,0 +1,59 @@
+/*—————— 全局自定义属性 ——————*/
+:root {
+  /* 滚动条尺寸和圆角 */
+  --custom-scrollbar-size    : 8px;
+  --custom-scrollbar-radius  : 4px;
+  /* 默认配色（可选） */
+  --custom-scroll-thumb      : rgba(0, 0, 0, 0.4);
+  --custom-scroll-thumb-hover: rgba(0, 0, 0, 0.6);
+}
+
+/*—————— 主题色定义 ——————*/
+.scrollbar-dark-theme {
+  --custom-scroll-thumb      : rgba(255, 255, 255, 0.4);
+  --custom-scroll-thumb-hover: rgba(255, 255, 255, 0.6);
+}
+
+.scrollbar-light-theme {
+  --custom-scroll-thumb      : rgba(0, 0, 0, 0.4);
+  --custom-scroll-thumb-hover: rgba(0, 0, 0, 0.6);
+}
+
+/*—————— 通用滚动条样式 ——————*/
+* {
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--custom-scroll-thumb) transparent;
+}
+
+/* WebKit 内核（Chrome/Safari/Edge Chromium） */
+::-webkit-scrollbar {
+  width : var(--custom-scrollbar-size);
+  height: var(--custom-scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--custom-scroll-thumb);
+  border-radius   : var(--custom-scrollbar-radius);
+  border          : 2px solid transparent;
+  background-clip : content-box;
+  transition      : background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--custom-scroll-thumb-hover);
+}
+
+/* IE10+ / Edge Legacy 支持（可选） */
+@supports (-ms-overflow-style: none) {
+  * {
+    -ms-overflow-style      : scrollbar;
+    /* IE5.5–9 旧式属性（已废弃，仅作兼容） */
+    /* scrollbar-face-color : var(--custom-scroll-thumb); */
+    /* scrollbar-track-color: transparent; */
+  }
+}

@@ -1,17 +1,19 @@
 import { useMatches } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import { website } from '@config';
+import { globalConfig } from '@config';
 function Index({ title }) {
   const matches = useMatches();
+  const { dynamicTitle } = useSelector((state) => state.theme);
   const routesTitle = title ? title : matches[matches?.length - 1]?.handle?.title;
   return (
     <Helmet>
-      {routesTitle ? (
+      {routesTitle && dynamicTitle ? (
         <title>
-          {routesTitle} - {website.title}
+          {routesTitle} - {globalConfig.title}
         </title>
       ) : (
-        <title>{website.title}</title>
+        <title>{globalConfig.title}</title>
       )}
     </Helmet>
   );

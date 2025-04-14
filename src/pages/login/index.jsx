@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Flex, App } from 'antd';
-import { website } from '@config';
+import { globalConfig } from '@config';
 import { getLocalStorageItem } from '@utils';
 import loginLeftBg from '@assets/images/login-left-bg.png';
 import { Navigate } from 'react-router-dom';
@@ -27,9 +27,9 @@ const Index = () => {
     <Flex className={styles.login}>
       <Helmet title="登录" />
       <Flex className={styles.content} flex={1} vertical="vertical" justify="center" align="center">
-        <div className={styles.title}>{website.title}</div>
+        <div className={styles.title}>{globalConfig.title}</div>
         <img className={styles.illustration} src={loginLeftBg} alt="" />
-        <div className={styles.footer}>{website.title} 后台管理系统</div>
+        <div className={styles.footer}>{globalConfig.title} 后台管理系统</div>
       </Flex>
       <Flex className={styles.loginForm}>
         <div className={styles.formTitle}>登录</div>

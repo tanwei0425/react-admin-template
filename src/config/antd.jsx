@@ -2,12 +2,13 @@
 const myTheme = {
   token: {
     myFontSize18: 18,
+    myPadding14: 14,
   },
 };
 /** antd 默认的主题修改 */
 const antdTheme = {
   token: {
-    colorPrimary: '#00b96b',
+    colorPrimary: 'rgb(0, 185, 107)',
   },
 };
 

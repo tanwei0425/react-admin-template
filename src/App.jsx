@@ -11,6 +11,7 @@ import { theme, antAppConfig, antConfigProvider } from '@config';
 import useGetAllConfig from '@/hooks/useGetAllConfig';
 function App() {
   const token = getLocalStorageItem('token');
+  const { colorPrimary } = useSelector((state) => state.theme);
   const { fullScreenLoading } = useSelector((state) => state.userInfo);
   const { systemConfig } = useGetAllConfig();
   useEffect(() => {
@@ -19,11 +20,20 @@ function App() {
   useEffect(() => {
     // ant的主题色同步给tailwind
     theme.token?.colorPrimary &&
-      document.documentElement.style.setProperty('--ant-color-primary', theme.token.colorPrimary);
-  }, [theme.token?.colorPrimary]);
+      document.documentElement.style.setProperty('--ant-color-primary', colorPrimary);
+  }, [colorPrimary]);
   return (
     // ThemeProvider theme生效后 ConfigProvider theme不生效
-    <ThemeProvider theme={theme}>
+    <ThemeProvider
+      theme={{
+        ...theme,
+        // 主题改为动态设置
+        token: {
+          ...theme?.token,
+          colorPrimary,
+        },
+      }}
+    >
       <ConfigProvider locale={zhCN} {...antConfigProvider}>
         <AppContainer {...antAppConfig}>
           <AxiosInterceptor />

@@ -1,7 +1,8 @@
 import { createStyles, keyframes } from 'antd-style';
 
 export const useStyle = createStyles(({ token, css }) => {
-  const height = 60;
+  const siderTopHeight = 56;
+  const siderBottomHeight = 50;
   const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -19,10 +20,14 @@ export const useStyle = createStyles(({ token, css }) => {
       display: flex;
       background: ${token.colorBgContainer};
       font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
-      .ant-prompts {
+      '.ant-prompts': {
         color: ${token.colorText};
+      }
     `,
     sider: css`
+      box-shadow:
+        0px 2px 4px 0px rgba(45, 45, 46, 0.15),
+        0px 0px 1px 0px rgba(45, 45, 46, 0.1);
       .ant-layout-sider-children {
         display: flex;
         flex-direction: column;
@@ -31,10 +36,9 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     siderHeader: css`
       display: flex;
-      height: ${height}px;
+      height: ${siderTopHeight}px;
       align-items: center;
       padding: 0 ${token.paddingSM}px;
-      border-bottom: 1px solid rgba(58, 60, 62, 1);
     `,
     siderLogo: css`
       width: 45px;
@@ -50,33 +54,79 @@ export const useStyle = createStyles(({ token, css }) => {
       opacity: 0;
       animation: ${fadeIn} 1s forwards;
     `,
-
-    siderMenus: css`
-      flex: 1; /* 自适应高度 */
-      padding-top: ${token.paddingXS}px;
-      overflow-y: auto; /* 允许滚动 */
+    siderMenuTrigger: css`
+      line-height: ${siderBottomHeight}px;
+      height: ${siderBottomHeight}px;
+      color: rgba(255, 255, 255, 0.65);
+      padding-right: 22px;
+      font-size: 16px;
+      border-top: 1px solid #f0f0f0;
+      text-align: right;
     `,
-    header: css`
+    siderMenuTriggerDark: css`
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+    `,
+    siderMenuTriggerIcon: css`
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: ${token.myFontSize18}px;
+      color: rgba(0, 0, 0, 0.85);
+      &:hover {
+        color: ${token.colorPrimary};
+      }
+    `,
+    siderMenuTriggerIconDark: css`
+      color: #fff;
+    `,
+    menu: css`
+      height: calc(100vh - ${siderTopHeight}px - ${siderBottomHeight}px);
+      padding: ${token.paddingXS}px 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-inline-end: none !important;
+    `,
+    menuTrigger: css`
+      height: calc(100vh - ${siderTopHeight}px);
+    `,
+    mainContainer: css`
+      height: 100vh;
+      overflow-y: auto;
+    `,
+    mainContainerFixed: css`
+      overflow-y: hidden;
+    `,
+    mainHeader: css`
       width: 100%;
-      height: ${height}px;
+      height: ${siderTopHeight}px;
       background-color: #fff;
       padding: 0;
+      box-shadow:
+        0px 2px 4px 0px rgba(45, 45, 46, 0.15),
+        0px 0px 1px 0px rgba(45, 45, 46, 0.1);
     `,
     headerContainer: css`
       display: flex;
-      height: ${height}px;
+      height: ${siderTopHeight}px;
       align-items: center;
       justify-content: space-between;
-      padding: 0 ${token.padding}px;
-    `,
-    headerTriggerIcon: css`
-      cursor: pointer;
-      font-size: ${token.myFontSize18}px;
+      padding: 0 ${token.paddingSM}px;
     `,
     headerInfo: css`
       display: flex;
+      height: ${siderTopHeight}px;
       align-items: center;
       gap: 9px;
+      vertical-align: middle;
+    `,
+    headerTriggerIcon: css`
+      display: flex;
+      cursor: pointer;
+      transition: color 0.3s;
+      font-size: ${token.myFontSize18}px;
+      color: rgba(0, 0, 0, 0.85);
+      &:hover {
+        color: ${token.colorPrimary};
+      }
     `,
     headerInfoUser: css`
       width: 30px;
@@ -90,11 +140,20 @@ export const useStyle = createStyles(({ token, css }) => {
       font-size: 22px;
       cursor: pointer;
     `,
-    content: css`
-      padding: 12px;
+    mainContent: css`
+      margin: 0 ${token.paddingSM}px;
     `,
     breadcrumb: css`
-      padding-bottom: 12px;
+      padding: ${token.paddingSM}px;
+    `,
+    aloneBreadcrumb: css`
+      margin-top: ${token.paddingSM}px;
+    `,
+    mainOutletFixed: css`
+      overflow-y: auto;
+    `,
+    mainOutlet: css`
+      background-color: #fff;
     `,
   };
 });

@@ -2,15 +2,16 @@ import { useState, createElement, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import { useSelector } from 'react-redux';
-import _ from 'lodash';
+import lodash from 'lodash';
 import * as Icon from '@ant-design/icons';
 import { arrayToTree } from '@utils';
-
+import { useStyle } from './useStyle';
 const Menus = ({ collapsed }) => {
   const navigate = useNavigate();
+  const { styles, cx } = useStyle();
   const { pathname } = useLocation();
   const { routesData } = useSelector((state) => state.userInfo);
-  const { theme } = useSelector((state) => state.theme);
+  const { overallStyle, menuTrigger } = useSelector((state) => state.theme);
   const [menusTree, setMenuTree] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -30,7 +31,7 @@ const Menus = ({ collapsed }) => {
   };
   const render = (menus = []) => {
     return menus.map((menu) => {
-      const targetMenu = _.filter(menu?.children, { isShow: '1' });
+      const targetMenu = lodash.filter(menu?.children, { isShow: '1' });
       let data = {
         key: menu.path,
         label: <span>{menu.name}</span>,
@@ -99,8 +100,13 @@ const Menus = ({ collapsed }) => {
   const onClick = ({ key }) => key && navigate(key);
   return (
     <Menu
+      className={cx(
+        styles.menu,
+        overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme',
+        menuTrigger && styles.menuTrigger
+      )}
       mode="inline"
-      theme={theme}
+      theme={overallStyle}
       forceSubMenuRender={true}
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}

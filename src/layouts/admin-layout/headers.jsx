@@ -5,12 +5,12 @@ import Setting from '@layouts/admin-layout/setting';
 import Theme from '@layouts/admin-layout/theme';
 import Helmet from '@components/helmet';
 import { useStyle } from './useStyle';
-import { website } from '@config';
+import { globalConfig } from '@config';
 import userAvatar from '@assets/images/userAvatar.svg';
-
+import Breadcrumb from '@layouts/admin-layout/breadcrumb';
 const Headers = () => {
   const dispatch = useDispatch();
-  const { collapsed } = useSelector((state) => state.theme);
+  const { collapsed, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
   const { styles } = useStyle();
   const onCollapse = () => {
     dispatch(setTheme({ collapsed: !collapsed }));
@@ -22,17 +22,22 @@ const Headers = () => {
     <>
       <Helmet />
       <div className={styles.headerContainer}>
-        <div className={styles.headerTriggerIcon} onClick={onCollapse}>
-          {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        <div className={styles.headerInfo}>
+          {menuTrigger && (
+            <span className={styles.headerTriggerIcon} onClick={onCollapse}>
+              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            </span>
+          )}
+          {!aloneBreadcrumb && <Breadcrumb />}
         </div>
         <div className={styles.headerInfo}>
           <img src={userAvatar} className={styles.headerInfoUser} alt="头像错误" />
-          <div className={styles.username}>{website.username}</div>
+          <div className={styles.username}>{globalConfig.username}</div>
           <div className={styles.github} onClick={jumpGitHub}>
             <GithubOutlined />
           </div>
           <Setting />
-          <Theme />
+          {systemStyle && <Theme />}
         </div>
       </div>
     </>
