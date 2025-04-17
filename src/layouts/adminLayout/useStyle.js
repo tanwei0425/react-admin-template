@@ -55,16 +55,20 @@ export const useStyle = createStyles(({ token, css }) => {
       animation: ${fadeIn} 1s forwards;
     `,
     siderMenuTrigger: css`
-      line-height: ${siderBottomHeight}px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       height: ${siderBottomHeight}px;
+      padding: 0 ${token.padding}px;
       color: rgba(255, 255, 255, 0.65);
-      padding-right: 22px;
       font-size: 16px;
       border-top: 1px solid #f0f0f0;
-      text-align: right;
     `,
     siderMenuTriggerDark: css`
       border-top: 1px solid rgba(255, 255, 255, 0.15);
+    `,
+    siderMenuTriggerCollapsed: css`
+      justify-content: center;
     `,
     siderMenuTriggerIcon: css`
       cursor: pointer;
@@ -153,6 +157,7 @@ export const useStyle = createStyles(({ token, css }) => {
       overflow-y: auto;
     `,
     mainOutlet: css`
+      border-radius: ${token.borderRadius}px;
       background-color: #fff;
     `,
   };

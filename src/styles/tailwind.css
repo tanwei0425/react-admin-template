@@ -1,8 +1,8 @@
-@import 'tailwindcss' prefix(tw);
+@import 'tailwindcss'prefix(tw);
 
 @theme {
   /* tailwindcss默认主题颜色 */
-  --color-primary: var(--ant-color-primary);
+  --color-primary: var(--tw-color-primary);
 
   /* 全局加载动画 */
   --animate-fullScreen: spinner 1.8s cubic-bezier(0.75, 0, 0.5, 1) infinite;
@@ -10,7 +10,7 @@
   @keyframes spinner {
     50% {
       border-radius: 50%;
-      transform: scale(0.5) rotate(360deg);
+      transform    : scale(0.5) rotate(360deg);
     }
 
     100% {

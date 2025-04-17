@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getLocalStorageItem } from '@utils';
 const token = getLocalStorageItem('token');
+// 里面的更改都会引起全局组件的刷新（会导致app组件重新渲染）
 export const initialState = {
   // 全局loading动画
   fullScreenLoading: !!token,

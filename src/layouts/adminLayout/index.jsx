@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
-import Headers from '@layouts/admin-layout/headers';
-import Breadcrumb from '@layouts/admin-layout/breadcrumb';
-import Menus from '@layouts/admin-layout/menus';
-import { setTheme } from '@store/slices/theme';
+import Headers from '@layouts/adminLayout/headers';
+import Breadcrumb from '@layouts/adminLayout/breadcrumb';
+import Menus from '@layouts/adminLayout/menus';
+import { setCommon } from '@store/slices/common';
 import { useStyle } from './useStyle';
 import { globalConfig } from '@config';
 import { MenuSvg } from '@assets/icons';
@@ -14,14 +14,13 @@ const { Content, Header, Sider } = Layout;
 const Layouts = () => {
   const dispatch = useDispatch();
   const { styles, cx } = useStyle();
-  const { collapsed, overallStyle, menuTrigger, fixedHeader, breadcrumb, aloneBreadcrumb } = useSelector(
+  const { collapsed } = useSelector((state) => state.common);
+  const { overallStyle, menuTrigger, fixedHeader, breadcrumb, aloneBreadcrumb } = useSelector(
     (state) => state.theme
   );
   const onCollapse = () => {
-    dispatch(setTheme({ collapsed: !collapsed }));
+    dispatch(setCommon({ collapsed: !collapsed }));
   };
-  console.log(fixedHeader, 'fixedHeader');
-
   return (
     <Layout className={styles.layouts}>
       <Sider
@@ -40,7 +39,11 @@ const Layouts = () => {
         <Menus collapsed={collapsed} />
         {!menuTrigger && (
           <div
-            className={cx(styles.siderMenuTrigger, overallStyle === 'dark' && styles.siderMenuTriggerDark)}
+            className={cx(
+              styles.siderMenuTrigger,
+              overallStyle === 'dark' && styles.siderMenuTriggerDark,
+              collapsed && styles.siderMenuTriggerCollapsed
+            )}
           >
             <span
               className={cx(

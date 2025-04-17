@@ -1,19 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { MenuUnfoldOutlined, MenuFoldOutlined, GithubOutlined } from '@ant-design/icons';
-import { setTheme } from '@store/slices/theme';
-import Setting from '@layouts/admin-layout/setting';
-import Theme from '@layouts/admin-layout/theme';
-import Helmet from '@components/helmet';
+import { setCommon } from '@store/slices/common';
 import { useStyle } from './useStyle';
 import { globalConfig } from '@config';
+import Setting from '@layouts/adminLayout/setting';
+import Theme from '@layouts/themeProvider/setting';
+import Helmet from '@components/helmet';
 import userAvatar from '@assets/images/userAvatar.svg';
-import Breadcrumb from '@layouts/admin-layout/breadcrumb';
+import Breadcrumb from '@layouts/adminLayout/breadcrumb';
 const Headers = () => {
   const dispatch = useDispatch();
-  const { collapsed, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
+  const { collapsed } = useSelector((state) => state.common);
+  const { systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
   const { styles } = useStyle();
   const onCollapse = () => {
-    dispatch(setTheme({ collapsed: !collapsed }));
+    dispatch(setCommon({ collapsed: !collapsed }));
   };
   const jumpGitHub = () => {
     window.open('https://github.com/tanwei0425/react-admin-template');

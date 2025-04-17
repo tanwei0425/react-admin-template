@@ -1,19 +1,18 @@
 import { Tooltip } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { setTheme } from '@store/slices/theme';
+import { useSelector } from 'react-redux';
+import useSetSysTheme from '@hooks/useSetSysTheme';
 import { useStyle } from './useStyle';
-// import useSetSysTheme from '@/hooks/useSetSysTheme';
 const OverallStyle = () => {
-  const dispatch = useDispatch();
   const { styles, cx } = useStyle();
   const { overallStyle } = useSelector((state) => state.theme);
+  const { setThemeSkin } = useSetSysTheme();
   const data = [
     { title: '暗色菜单', type: 'dark' },
     { title: '亮色菜单', type: 'light' },
   ];
   const onClick = (title, type) => {
-    dispatch(setTheme({ overallStyle: type }));
+    setThemeSkin({ overallStyle: type });
   };
   return (
     <>

@@ -9,15 +9,14 @@ export const useStyle = createStyles(({ token, css }) => {
       cursor: pointer;
     `,
     themeSpace: css`
-      .tanwei-space-item {
-        width: 100%;
-      }
+      width: 100%;
+      .tanwei-space-item,
       .tanwei-space-item-split {
         width: 100%;
       }
     `,
     themeSpaceDivider: css`
-      margin: 15px 0 5px 0;
+      margin: 10px 0;
     `,
     overallStyleItem: css`
       position: relative;

@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Drawer, Space, Divider } from 'antd';
+import { Space, Divider } from 'antd';
 import { useStyle } from './useStyle';
 import { ThemeSvg } from '@assets/icons';
-import OverallStyle from '@layouts/admin-layout/theme/overallStyle';
-import ThemeColor from '@layouts/admin-layout/theme/themeColor';
-import NavigationMode from '@layouts/admin-layout/theme/navigationMode';
+import CustomDrawer from '@components/customDrawer';
+
+import OverallStyle from '@layouts/themeProvider/setting/overallStyle';
+import ThemeColor from '@layouts/themeProvider/setting/themeColor';
+import NavigationMode from '@layouts/themeProvider/setting/navigationMode';
 
 const Setting = () => {
   const [open, setOpen] = useState(false);
@@ -18,30 +20,21 @@ const Setting = () => {
   return (
     <>
       <ThemeSvg className={styles.themeSvg} onClick={showDrawer} />
-      <Drawer
-        title="系统风格设置"
-        onClose={onClose}
-        open={open}
-        placement="right"
-        width={300}
-        destroyOnClose={true}
-        closable={false}
-        zIndex={1997}
-      >
+      <CustomDrawer title="系统风格设置" open={open} width={300} onClose={onClose} showConfirmButton={false}>
         {open && (
           <Space
             className={styles.themeSpace}
             split={<Divider className={styles.themeSpaceDivider} variant="dashed" />}
             direction={'vertical'}
             align={'start'}
-            size={'large'}
+            size={'middle'}
           >
             <OverallStyle />
             <ThemeColor />
             <NavigationMode />
           </Space>
         )}
-      </Drawer>
+      </CustomDrawer>
     </>
   );
 };

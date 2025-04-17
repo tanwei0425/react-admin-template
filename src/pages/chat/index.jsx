@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { useXAgent, useXChat } from '@ant-design/x';
 import { Button, App } from 'antd';
-import { setTheme } from '@store/slices/theme';
 import useApiRequest from '@hooks/useApiRequest';
 import { useStyle } from './useStyle';
 import Menu from './components/menu';
@@ -12,8 +9,6 @@ import Chat from './components/chat';
 const Independent = () => {
   const { styles } = useStyle();
   const { notification } = App.useApp();
-  // const globalTheme = useSelector((state) => state.theme);
-  const dispatch = useDispatch();
   const [headerOpen, setHeaderOpen] = useState(false);
   const [content, setContent] = useState('');
   const [conversationsItems, setConversationsItems] = useState([
@@ -22,8 +17,6 @@ const Independent = () => {
       label: '测试对话栏目 1',
     },
   ]);
-  // console.log(globalTheme, 'globalTheme');
-
   const [activeKey, setActiveKey] = useState(conversationsItems[0].key);
   const [attachedFiles, setAttachedFiles] = useState([]);
   const { run } = useApiRequest(
@@ -61,7 +54,6 @@ const Independent = () => {
     if (!nextContent) return;
     onRequest(nextContent);
     setContent('');
-    dispatch(setTheme({ dark: true }));
   };
   const onPromptsItemClick = (info) => {
     onRequest(info.data.description);
@@ -75,7 +67,6 @@ const Independent = () => {
       },
     ]);
     setActiveKey(`${conversationsItems.length}`);
-    dispatch(setTheme({ dark: false }));
   };
   const onConversationClick = (key) => setActiveKey(key);
   const handleFileChange = (info) => setAttachedFiles(info.fileList);

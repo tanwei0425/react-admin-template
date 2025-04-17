@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Layouts from '@layouts/admin-layout';
+import Layouts from '@layouts/adminLayout';
 import lazyLoad from '@router/lazyLoad';
 import AuthRouter from '@router/authRouter';
 import Login from '@pages/login';

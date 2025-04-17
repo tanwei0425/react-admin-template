@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Dropdown, Modal, Checkbox } from 'antd';
 import { useStyle } from './useStyle';
 import { useLogoutApi } from '@api/login';
 import { SettingSvg } from '@assets/icons';
 import useClearSysConfig from '@hooks/useClearSysConfig';
-import { setTheme } from '@store/slices/theme';
+import useSetSysTheme from '@hooks/useSetSysTheme';
+
 const Setting = () => {
-  const dispatch = useDispatch();
   const { systemStyle } = useSelector((state) => state.theme);
   const { styles } = useStyle();
+  const { setThemeSkin } = useSetSysTheme();
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { loading, runAsync } = useLogoutApi();
@@ -48,7 +49,7 @@ const Setting = () => {
   };
   const handleMenuClick = ({ key }) => {
     if (key === 'systemStyle') {
-      dispatch(setTheme({ systemStyle: !systemStyle }));
+      setThemeSkin({ systemStyle: !systemStyle });
     } else if (key === 'logout') {
       setDropdownOpen(false);
       setOpen(true);

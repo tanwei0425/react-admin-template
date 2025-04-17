@@ -1,6 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useSystemConfigApi } from '@api/common';
 import { setUserInfo } from '@store/slices/userInfo';
+/**
+ * 获取全局用户信息
+ * @returns
+ */
 const Index = () => {
   const dispatch = useDispatch();
   const { runAsync } = useSystemConfigApi();

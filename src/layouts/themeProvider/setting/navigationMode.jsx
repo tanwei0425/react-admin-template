@@ -1,12 +1,12 @@
 import { List, Switch } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTheme } from '@store/slices/theme';
+import { useSelector } from 'react-redux';
+import useSetSysTheme from '@hooks/useSetSysTheme';
 
 const NavigationMode = () => {
-  const dispatch = useDispatch();
   const { menuTrigger, breadcrumb, aloneBreadcrumb, fixedHeader, dynamicTitle } = useSelector(
     (state) => state.theme
   );
+  const { setThemeSkin } = useSetSysTheme();
   const dataSource = [
     { key: 'menuTrigger', title: '触发器固定顶部', value: menuTrigger },
     { key: 'breadcrumb', title: '显示面包屑', value: breadcrumb },
@@ -14,10 +14,7 @@ const NavigationMode = () => {
     { key: 'dynamicTitle', title: '动态标题', value: dynamicTitle },
     { key: 'fixedHeader', title: '固定Header', value: fixedHeader },
   ];
-
-  const onChange = (e, key) => {
-    dispatch(setTheme({ [key]: e }));
-  };
+  const onChange = (e, key) => setThemeSkin({ [key]: e });
 
   return (
     <List
