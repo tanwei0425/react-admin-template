@@ -37,7 +37,7 @@ const ThemeColor = () => {
   const onChangeComplete = (value) => setThemeSkin({ colorPrimary: value.toCssString() });
   return (
     <div className="tw:flex tw:items-center tw:justify-between">
-      <div className="tw:text-[15px] tw:font-medium">主题色</div>
+      <div>主题颜色</div>
       <ColorPicker
         value={colorPrimary}
         styles={{ popupOverlayInner: { width: 560 } }}

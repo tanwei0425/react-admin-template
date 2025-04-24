@@ -18,14 +18,13 @@ const NavigationMode = () => {
 
   return (
     <List
-      header={<p className="tw:mb-2 tw:text-[15px] tw:font-medium">导航模式</p>}
       dataSource={dataSource}
       split={false}
       //   loading={loading}
-      renderItem={(item) => {
+      renderItem={(item, index) => {
         return (
           <List.Item
-            className="tw:w-full tw:border-none"
+            className={`tw:w-full tw:border-none ${index !== 0 ? 'tw:!pt-2' : 'tw:!pt-0'}`}
             actions={[
               <Switch
                 key={item.key}

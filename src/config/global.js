@@ -10,6 +10,8 @@ export const globalConfig = {
 export const initTheme = {
   // 是否显示系统风格
   systemStyle: true,
+  // 布局
+  themeLayout: 'longitudinal',
   // 主题
   overallStyle: 'dark',
   // 主题色

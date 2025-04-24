@@ -1,0 +1,17 @@
+/* 进度条主线 */
+#nprogress .bar {
+  background: var(--tw-color-primary) !important;
+}
+
+/* “光晕”效果 */
+#nprogress .peg {
+  box-shadow:
+    0 0 10px var(--tw-color-primary),
+    0 0 5px var(--tw-color-primary) !important;
+}
+
+/* Spinner 边框 */
+#nprogress .spinner-icon {
+  border-top-color: var(--tw-color-primary) !important;
+  border-left-color: var(--tw-color-primary) !important;
+}

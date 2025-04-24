@@ -145,20 +145,20 @@ export const useStyle = createStyles(({ token, css }) => {
       cursor: pointer;
     `,
     mainContent: css`
-      padding: 0 ${token.paddingSM}px;
+      margin: 0 ${token.paddingSM}px;
     `,
     breadcrumb: css`
       padding: ${token.paddingSM}px;
     `,
     aloneBreadcrumb: css`
-      padding-top: ${token.paddingSM}px;
+      margin-top: ${token.paddingSM}px;
     `,
     mainOutletFixed: css`
       overflow-y: auto;
     `,
     mainOutlet: css`
       border-radius: ${token.borderRadius}px;
-      ${'' /* background-color: #fff; */}
+      background-color: #fff;
     `,
   };
 });

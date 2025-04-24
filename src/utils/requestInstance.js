@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { App } from 'antd';
-import NProgress from 'nprogress';
+import NProgress from '@utils/progress';
 import { getLocalStorageItem, setLocalStorageItem, clearAllLocalStorage } from '@utils';
 let notificationApi; // 全局存储 notification API
 const AxiosInterceptor = () => {
