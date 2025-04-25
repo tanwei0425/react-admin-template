@@ -3,9 +3,8 @@ import { useSelector } from 'react-redux';
 import useSetSysTheme from '@hooks/useSetSysTheme';
 
 const NavigationMode = () => {
-  const { menuTrigger, breadcrumb, aloneBreadcrumb, fixedHeader, dynamicTitle } = useSelector(
-    (state) => state.theme
-  );
+  const { menuTrigger, breadcrumb, showFooter, watermark, aloneBreadcrumb, fixedHeader, dynamicTitle } =
+    useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const dataSource = [
     { key: 'menuTrigger', title: '触发器固定顶部', value: menuTrigger },
@@ -13,6 +12,8 @@ const NavigationMode = () => {
     { key: 'aloneBreadcrumb', title: '独立面包屑', value: aloneBreadcrumb },
     { key: 'dynamicTitle', title: '动态标题', value: dynamicTitle },
     { key: 'fixedHeader', title: '固定Header', value: fixedHeader },
+    { key: 'watermark', title: '水印', value: watermark },
+    { key: 'showFooter', title: '页脚', value: showFooter },
   ];
   const onChange = (e, key) => setThemeSkin({ [key]: e });
 

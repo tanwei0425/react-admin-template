@@ -8,7 +8,7 @@ const myTheme = {
 /** antd 默认的主题修改 */
 const antdTheme = {
   token: {
-    colorPrimary: 'rgb(0, 185, 107)',
+    colorPrimary: '#1890ff',
   },
 };
 
@@ -30,6 +30,4 @@ export const antAppConfig = {
 };
 
 // configProvider的全局配置（App.useApp()中的请在antAppConfig配置）
-export const antConfigProvider = {
-  prefixCls: 'tanwei',
-};
+export const antConfigProvider = {};

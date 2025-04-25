@@ -11,7 +11,7 @@ const Menus = ({ collapsed }) => {
   const { styles, cx } = useStyle();
   const { pathname } = useLocation();
   const { routesData } = useSelector((state) => state.userInfo);
-  const { overallStyle, menuTrigger } = useSelector((state) => state.theme);
+  const { overallStyle } = useSelector((state) => state.theme);
   const [menusTree, setMenuTree] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -100,11 +100,7 @@ const Menus = ({ collapsed }) => {
   const onClick = ({ key }) => key && navigate(key);
   return (
     <Menu
-      className={cx(
-        styles.menu,
-        overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme',
-        menuTrigger && styles.menuTrigger
-      )}
+      className={cx(styles.menu, overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme')}
       mode="inline"
       theme={overallStyle}
       forceSubMenuRender={true}

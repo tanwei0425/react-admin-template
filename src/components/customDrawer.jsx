@@ -1,10 +1,5 @@
 import { Drawer, Button } from 'antd';
 
-/**
- *
- * @param {*} param0
- * @returns
- */
 const CustomDrawer = ({
   children,
   onClose /** 取消按钮的回调 */,
@@ -27,11 +22,7 @@ const CustomDrawer = ({
   };
 
   const defaultFooter = showFooter && (
-    <div
-      className={
-        'tw:absolute tw:right-0 tw:bottom-0 tw:w-full tw:border-t tw:border-t-[#e9e9e9] tw:p-[10px_16px] tw:bg-white tw:text-right'
-      }
-    >
+    <div className={'tw:w-full tw:bg-white tw:text-right'}>
       <Button {...cancelButtonProps} onClick={handleCancel}>
         {cancelText}
       </Button>
@@ -48,6 +39,7 @@ const CustomDrawer = ({
       className="customDrawer"
       keyboard={false}
       maskClosable={false}
+      closable={false}
       destroyOnClose={true}
       footer={defaultFooter}
       onClose={onClose}

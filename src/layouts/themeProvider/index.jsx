@@ -4,6 +4,7 @@ import { ConfigProvider } from 'antd';
 import { ThemeProvider } from 'antd-style';
 import zhCN from 'antd/locale/zh_CN';
 import { theme, antConfigProvider } from '@config';
+import CustomWatermark from '@layouts/themeProvider/customWatermark';
 
 const ThemeProviderWrapper = ({ children }) => {
   const { colorPrimary } = useSelector((state) => state.theme);
@@ -23,7 +24,7 @@ const ThemeProviderWrapper = ({ children }) => {
       }}
     >
       <ConfigProvider locale={zhCN} {...antConfigProvider}>
-        {children}
+        <CustomWatermark>{children}</CustomWatermark>
       </ConfigProvider>
     </ThemeProvider>
   );

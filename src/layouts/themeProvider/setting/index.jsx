@@ -21,7 +21,15 @@ const Setting = () => {
   return (
     <>
       <ThemeSvg className={styles.themeSvg} onClick={showDrawer} />
-      <CustomDrawer title="系统风格设置" open={open} width={280} onClose={onClose} showConfirmButton={false}>
+      <CustomDrawer
+        title="系统风格设置"
+        open={open}
+        maskClosable={true}
+        destroyOnClose={false}
+        width={280}
+        onClose={onClose}
+        showConfirmButton={false}
+      >
         {open && (
           <Space className={styles.themeSpace} direction={'vertical'} align={'start'} size={'middle'}>
             <Divider className={cx(styles.themeSpaceDivider, styles.themeSpaceDividerFirst)}>

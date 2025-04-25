@@ -5,6 +5,8 @@ export const globalConfig = {
   menuTitle: 'React Admin',
   menuIcon: '@assets/images/menu-logo.svg',
   username: 'demo',
+  // watermarkText: 'React Admin Template',
+  watermarkText: ['React Admin Template', 'Happy Working'],
 };
 // 默认主题配置
 export const initTheme = {
@@ -22,8 +24,13 @@ export const initTheme = {
   breadcrumb: true,
   // 独立面包屑
   aloneBreadcrumb: true,
+
   // 动态标题
   dynamicTitle: true,
   // 固定header
   fixedHeader: true,
+  // 水印
+  watermark: false,
+  // 显示页脚
+  showFooter: false,
 };

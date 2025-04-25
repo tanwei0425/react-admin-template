@@ -12,8 +12,8 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     themeSpace: css`
       width: 100%;
-      .tanwei-space-item,
-      .tanwei-space-item-split {
+      .ant-space-item,
+      .ant-space-item-split {
         width: 100%;
       }
     `,

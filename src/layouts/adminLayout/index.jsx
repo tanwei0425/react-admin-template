@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Layout } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import Headers from '@layouts/adminLayout/headers';
+import Footers from '@layouts/adminLayout/footers';
 import Breadcrumb from '@layouts/adminLayout/breadcrumb';
 import Menus from '@layouts/adminLayout/menus';
 import { setCommon } from '@store/slices/common';
@@ -10,12 +11,12 @@ import { useStyle } from './useStyle';
 import { globalConfig } from '@config';
 import { MenuSvg } from '@assets/icons';
 
-const { Content, Header, Sider } = Layout;
+const { Content, Header, Footer, Sider } = Layout;
 const Layouts = () => {
   const dispatch = useDispatch();
   const { styles, cx } = useStyle();
   const { collapsed } = useSelector((state) => state.common);
-  const { overallStyle, menuTrigger, fixedHeader, breadcrumb, aloneBreadcrumb } = useSelector(
+  const { overallStyle, menuTrigger, fixedHeader, showFooter, breadcrumb, aloneBreadcrumb } = useSelector(
     (state) => state.theme
   );
   const onCollapse = () => {
@@ -73,6 +74,11 @@ const Layouts = () => {
             <Outlet />
           </div>
         </Content>
+        {showFooter && (
+          <Footer className={styles.mainFooter}>
+            <Footers />
+          </Footer>
+        )}
       </Layout>
     </Layout>
   );

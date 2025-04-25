@@ -83,14 +83,11 @@ export const useStyle = createStyles(({ token, css }) => {
       color: #fff;
     `,
     menu: css`
-      height: calc(100vh - ${siderTopHeight}px - ${siderBottomHeight}px);
+      flex: 1; /* 占用剩余空间 */
       padding: ${token.paddingXS}px 0;
       overflow-y: auto;
       overflow-x: hidden;
       border-inline-end: none !important;
-    `,
-    menuTrigger: css`
-      height: calc(100vh - ${siderTopHeight}px);
     `,
     mainContainer: css`
       height: 100vh;
@@ -102,7 +99,7 @@ export const useStyle = createStyles(({ token, css }) => {
     mainHeader: css`
       width: 100%;
       height: ${siderTopHeight}px;
-      background-color: #fff;
+      background-color: ${token.colorBgContainer};
       padding: 0;
       box-shadow:
         0px 2px 4px 0px rgba(45, 45, 46, 0.15),
@@ -158,7 +155,17 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     mainOutlet: css`
       border-radius: ${token.borderRadius}px;
-      ${'' /* background-color: #fff; */}
+      background-color: ${token.colorBgContainer};
+    `,
+    mainFooter: css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding: 0;
+      background-color: ${token.colorBgContainer};
+      border-top: 1px solid ${token.colorBorderSecondary};
+      margin-top: ${token.paddingSM}px;
     `,
   };
 });
