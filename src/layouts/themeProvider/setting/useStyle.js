@@ -1,8 +1,6 @@
 import { createStyles } from 'antd-style';
 
 export const useStyle = createStyles(({ token, css }) => {
-  console.log(token, 'token');
-
   return {
     themeSvg: css`
       width: 24px;

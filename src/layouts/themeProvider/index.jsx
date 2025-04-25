@@ -4,14 +4,23 @@ import { ConfigProvider } from 'antd';
 import { ThemeProvider } from 'antd-style';
 import zhCN from 'antd/locale/zh_CN';
 import { theme, antConfigProvider } from '@config';
-import CustomWatermark from '@layouts/themeProvider/customWatermark';
+import CustomWatermark from '@layouts/customWatermark';
 
 const ThemeProviderWrapper = ({ children }) => {
-  const { colorPrimary } = useSelector((state) => state.theme);
+  const { colorPrimary, grayMode, weakMode } = useSelector((state) => state.theme);
   useEffect(() => {
-    // ant的主题色同步给tailwind
-    colorPrimary && document.documentElement.style.setProperty('--tw-color-primary', colorPrimary);
-  }, [colorPrimary]);
+    const root = document.documentElement;
+    // 处理滤镜效果
+    let filter = '';
+    if (grayMode) {
+      filter = 'grayscale(1)';
+    } else if (weakMode) {
+      filter = 'invert(80%)';
+    }
+    root.style.filter = filter;
+    // 同步主题色到 Tailwind CSS 变量
+    root.style.setProperty('--tw-color-primary', colorPrimary);
+  }, [colorPrimary, grayMode, weakMode]);
   return (
     <ThemeProvider
       theme={{

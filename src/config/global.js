@@ -24,7 +24,6 @@ export const initTheme = {
   breadcrumb: true,
   // 独立面包屑
   aloneBreadcrumb: true,
-
   // 动态标题
   dynamicTitle: true,
   // 固定header
@@ -33,4 +32,8 @@ export const initTheme = {
   watermark: false,
   // 显示页脚
   showFooter: false,
+  // 色弱模式
+  weakMode: false,
+  // 灰色模式
+  grayMode: false,
 };

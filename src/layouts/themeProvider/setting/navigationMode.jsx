@@ -3,8 +3,17 @@ import { useSelector } from 'react-redux';
 import useSetSysTheme from '@hooks/useSetSysTheme';
 
 const NavigationMode = () => {
-  const { menuTrigger, breadcrumb, showFooter, watermark, aloneBreadcrumb, fixedHeader, dynamicTitle } =
-    useSelector((state) => state.theme);
+  const {
+    menuTrigger,
+    breadcrumb,
+    showFooter,
+    watermark,
+    grayMode,
+    weakMode,
+    aloneBreadcrumb,
+    fixedHeader,
+    dynamicTitle,
+  } = useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const dataSource = [
     { key: 'menuTrigger', title: '触发器固定顶部', value: menuTrigger },
@@ -14,8 +23,21 @@ const NavigationMode = () => {
     { key: 'fixedHeader', title: '固定Header', value: fixedHeader },
     { key: 'watermark', title: '水印', value: watermark },
     { key: 'showFooter', title: '页脚', value: showFooter },
+    { key: 'weakMode', title: '色弱模式', value: weakMode },
+    { key: 'grayMode', title: '灰色模式', value: grayMode },
   ];
-  const onChange = (e, key) => setThemeSkin({ [key]: e });
+  const onChange = (e, key) => {
+    let data = { [key]: e };
+    // 色弱和灰色模式互斥
+    if (key === 'weakMode' && e) {
+      data['grayMode'] = false;
+    }
+    // 色弱和灰色模式互斥
+    if (key === 'grayMode' && e) {
+      data['weakMode'] = false;
+    }
+    setThemeSkin(data);
+  };
 
   return (
     <List
