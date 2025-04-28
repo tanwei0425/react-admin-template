@@ -14,7 +14,6 @@ export const useStyle = createStyles(({ token, css }) => {
   return {
     layouts: css`
       width: 100%;
-      min-width: 1000px;
       height: 100vh;
       border-radius: ${token.borderRadius}px;
       display: flex;
@@ -92,6 +91,7 @@ export const useStyle = createStyles(({ token, css }) => {
     mainContainer: css`
       height: 100vh;
       overflow-y: auto;
+      overflow-x: hidden;
     `,
     mainContainerFixed: css`
       overflow-y: hidden;
@@ -107,6 +107,7 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     headerContainer: css`
       display: flex;
+      width: 100%;
       height: ${siderTopHeight}px;
       align-items: center;
       justify-content: space-between;
@@ -143,6 +144,7 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     mainContent: css`
       padding: 0 ${token.paddingSM}px;
+      overflow-x: hidden;
     `,
     breadcrumb: css`
       padding: ${token.paddingSM}px;
@@ -166,6 +168,16 @@ export const useStyle = createStyles(({ token, css }) => {
       background-color: ${token.colorBgContainer};
       border-top: 1px solid ${token.colorBorderSecondary};
       margin-top: ${token.paddingSM}px;
+    `,
+
+    // 横向布局
+    transverseHeader: css`
+      flex: 1;
+      margin-right: 20px;
+      height: ${siderTopHeight}px;
+    `,
+    transverseMenu: css`
+      height: ${siderTopHeight}px;
     `,
   };
 });

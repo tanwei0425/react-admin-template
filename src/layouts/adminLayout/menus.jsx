@@ -6,109 +6,134 @@ import lodash from 'lodash';
 import * as Icon from '@ant-design/icons';
 import { arrayToTree } from '@utils';
 import { useStyle } from './useStyle';
-const Menus = ({ collapsed }) => {
+
+const Menus = () => {
   const navigate = useNavigate();
   const { styles, cx } = useStyle();
   const { pathname } = useLocation();
+  const { collapsed } = useSelector((state) => state.common);
   const { routesData } = useSelector((state) => state.userInfo);
-  const { overallStyle } = useSelector((state) => state.theme);
+  const { themeLayout, overallStyle, menuAccordionMode } = useSelector((state) => state.theme);
   const [menusTree, setMenuTree] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
-  const [rootSubmenuKeys, setRootSubmenuKeys] = useState([]);
-  const defaultProps = collapsed ? {} : { openKeys };
+  const layoutStatus = themeLayout === 'vertical';
   // 渲染图标
   const renderIcon = (title) => Icon[title] && createElement(Icon[title]);
 
-  // 只展开当前父级菜单
+  // 递归查找所有父级路径
+  const findAllParentKeys = (currentPath) => {
+    let keys = [];
+    const findParents = (path) => {
+      const item = routesData.find((i) => i.path === path);
+      if (item?.pid) {
+        const parent = routesData.find((i) => i.id === item.pid);
+        if (parent) {
+          keys.push(parent.path);
+          findParents(parent.path);
+        }
+      }
+    };
+    findParents(currentPath);
+    return keys.reverse();
+  };
+
+  // 处理菜单展开逻辑
   const onOpenChange = (keys) => {
-    const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys(keys);
+    if (menuAccordionMode) {
+      const latestOpenKey = keys.find((key) => !openKeys.includes(key));
+      const allParents = latestOpenKey ? findAllParentKeys(latestOpenKey) : [];
+      const validKeys = [...allParents, latestOpenKey].filter(Boolean);
+
+      // 保留每个层级的最后一个key
+      const levelMap = new Map();
+      validKeys.forEach((key) => {
+        const level = findAllParentKeys(key).length;
+        levelMap.set(level, key);
+      });
+      setOpenKeys(Array.from(levelMap.values()));
     } else {
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+      setOpenKeys(keys);
     }
   };
-  const render = (menus = []) => {
+
+  // 生成菜单项
+  const renderMenuItems = (menus = []) => {
     return menus.map((menu) => {
-      const targetMenu = lodash.filter(menu?.children, { isShow: '1' });
-      let data = {
+      const validChildren = lodash.filter(menu?.children, { isShow: '1' });
+      return {
         key: menu.path,
         label: <span>{menu.name}</span>,
         icon: menu.icon && renderIcon(menu.icon),
+        children: validChildren.length > 0 ? renderMenuItems(validChildren) : null,
       };
-      if (menu?.children && targetMenu.length > 0) {
-        data.children = render(menu?.children);
-      }
-      return data;
     });
   };
 
+  // 初始化菜单树
   useEffect(() => {
     const routesDataTree = arrayToTree(routesData);
-    const menuTree = routesDataTree?.filter((val) => val.isShow === '1');
-    setMenuTree(menuTree);
-  }, []);
-
-  const filterFatherSelectedKeys = (path, arr = []) => {
-    const targetRoutes = routesData.find((item) => item.path === path);
-    if (targetRoutes?.isShow === '0') {
-      routesData.forEach((val) => {
-        if (val.id === targetRoutes.pid && val?.path) {
-          val.isShow === '1' ? arr.push(val.path) : filterFatherSelectedKeys(val.path, arr);
-        }
-      });
-    } else {
-      arr.push(path);
-    }
-    return arr;
-  };
-
-  const filterFatherOpenKeys = (targetData, dataSource, targetOpenKeys = []) => {
-    if (targetData?.pid && targetData?.path && targetData.pid !== 0) {
-      const newData = dataSource.find((val) => val.id === targetData.pid);
-      // 只有在栏目下(isRouter === 0)，添加
-      // rootSubmenuKeys.includes(newData?.path) && targetOpenKeys.push(newData.path);
-      targetOpenKeys.push(newData.path);
-      return filterFatherOpenKeys(newData, dataSource, targetOpenKeys);
-    } else {
-      return targetOpenKeys;
-    }
-  };
-
-  useEffect(() => {
-    // 非菜单路由选中父菜单
-    const selectedKeys = filterFatherSelectedKeys(pathname);
-    setSelectedKeys(selectedKeys);
-  }, [collapsed, openKeys, routesData]);
-
-  useEffect(() => {
-    // 可折叠项菜单
-    const target = menusTree.filter((val) => val.children).map((val) => val.path);
-    setRootSubmenuKeys(target);
+    const validMenuTree = routesDataTree?.filter((val) => val.isShow === '1');
+    setMenuTree(validMenuTree);
   }, [routesData]);
 
+  // 处理路径和折叠状态变化
   useEffect(() => {
-    // pathname查找当前数据
-    const nowRoutesPath = routesData.find((val) => val.path === pathname);
-    // 根据数据递归找到所有父级
-    const openKeys = filterFatherOpenKeys(nowRoutesPath, routesData);
-    // 展开菜单
-    setOpenKeys(openKeys);
-  }, [collapsed, pathname]);
+    const currentRoute = routesData.find((item) => item.path === pathname);
+    // 更新选中状态
+    setSelectedKeys(currentRoute?.isShow === '1' ? [pathname] : []);
 
-  const onClick = ({ key }) => key && navigate(key);
+    if (layoutStatus) {
+      // 计算需要展开的keys
+      const parentKeys = findAllParentKeys(pathname);
+      let newOpenKeys = [];
+
+      if (menuAccordionMode) {
+        newOpenKeys = parentKeys.reduce((item, key) => {
+          const level = findAllParentKeys(key).length;
+          if (!item.some((k) => findAllParentKeys(k).length === level)) {
+            item.push(key);
+          }
+          return item;
+        }, []);
+      } else {
+        newOpenKeys = [...new Set([...openKeys, ...parentKeys])];
+      }
+
+      if (!collapsed) {
+        setOpenKeys((prev) => (menuAccordionMode ? newOpenKeys : [...new Set([...prev, ...newOpenKeys])]));
+      }
+    }
+  }, [pathname, collapsed, menuAccordionMode, routesData, layoutStatus]);
+
+  // 处理菜单点击
+  const onClick = ({ key }) => {
+    if (key) {
+      navigate(key);
+      if (!layoutStatus) return; // 横向布局不处理展开逻辑
+
+      // 手风琴模式保持父级展开
+      if (menuAccordionMode) {
+        const parentKeys = findAllParentKeys(key);
+        setOpenKeys((prev) => [...new Set([...prev, ...parentKeys])]);
+      }
+    }
+  };
   return (
     <Menu
-      className={cx(styles.menu, overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme')}
-      mode="inline"
-      theme={overallStyle}
-      forceSubMenuRender={true}
+      className={cx(
+        layoutStatus
+          ? [styles.menu, overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme']
+          : styles.transverseMenu
+      )}
+      mode={layoutStatus ? 'inline' : 'horizontal'}
+      theme={layoutStatus ? overallStyle : 'light'}
+      forceSubMenuRender
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}
       onClick={onClick}
-      {...defaultProps}
-      items={render(menusTree)}
+      openKeys={!collapsed && openKeys}
+      items={renderMenuItems(menusTree)}
     />
   );
 };

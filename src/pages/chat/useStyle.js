@@ -4,7 +4,6 @@ export const useStyle = createStyles(({ token, css }) => {
   return {
     layout: css`
       width: 100%;
-      min-width: 1000px;
       height: 100vh;
       border-radius: ${token.borderRadius}px;
       display: flex;

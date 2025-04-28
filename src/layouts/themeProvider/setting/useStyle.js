@@ -7,6 +7,7 @@ export const useStyle = createStyles(({ token, css }) => {
       height: 24px;
       color: ${token.colorPrimary};
       cursor: pointer;
+      flex-shrink: 0;
     `,
     themeSpace: css`
       width: 100%;

@@ -13,17 +13,19 @@ export const initTheme = {
   // 是否显示系统风格
   systemStyle: true,
   // 布局
-  themeLayout: 'longitudinal',
+  themeLayout: 'vertical',
   // 主题
   overallStyle: 'dark',
   // 主题色
   colorPrimary: theme.token?.colorPrimary,
-  // 触发器固定顶部
-  menuTrigger: true,
   // 面包屑
   breadcrumb: true,
   // 独立面包屑
   aloneBreadcrumb: true,
+  // 触发器固定顶部
+  menuTrigger: true,
+  // 菜单手风琴
+  menuAccordionMode: true,
   // 动态标题
   dynamicTitle: true,
   // 固定header

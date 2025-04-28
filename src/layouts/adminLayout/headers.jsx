@@ -8,10 +8,11 @@ import Theme from '@layouts/themeProvider/setting';
 import Helmet from '@components/helmet';
 import userAvatar from '@assets/images/userAvatar.svg';
 import Breadcrumb from '@layouts/adminLayout/breadcrumb';
+import Menus from '@layouts/adminLayout/menus';
 const Headers = () => {
   const dispatch = useDispatch();
   const { collapsed } = useSelector((state) => state.common);
-  const { systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
+  const { themeLayout, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
   const { styles } = useStyle();
   const onCollapse = () => {
     dispatch(setCommon({ collapsed: !collapsed }));
@@ -23,14 +24,20 @@ const Headers = () => {
     <>
       <Helmet />
       <div className={styles.headerContainer}>
-        <div className={styles.headerInfo}>
-          {menuTrigger && (
-            <span className={styles.headerTriggerIcon} onClick={onCollapse}>
-              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            </span>
-          )}
-          {!aloneBreadcrumb && <Breadcrumb />}
-        </div>
+        {themeLayout === 'vertical' ? (
+          <div className={styles.headerInfo}>
+            {menuTrigger && (
+              <span className={styles.headerTriggerIcon} onClick={onCollapse}>
+                {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+              </span>
+            )}
+            {!aloneBreadcrumb && <Breadcrumb />}
+          </div>
+        ) : (
+          <div className={styles.transverseHeader}>
+            <Menus />
+          </div>
+        )}
         <div className={styles.headerInfo}>
           <img src={userAvatar} className={styles.headerInfoUser} alt="头像错误" />
           <div className={styles.username}>{globalConfig.username}</div>

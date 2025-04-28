@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Space, Divider } from 'antd';
 import { useStyle } from './useStyle';
 import { ThemeSvg } from '@assets/icons';
@@ -12,6 +13,7 @@ import NavigationMode from '@layouts/themeProvider/setting/navigationMode';
 const Setting = () => {
   const [open, setOpen] = useState(false);
   const { styles, cx } = useStyle();
+  const { themeLayout } = useSelector((state) => state.theme);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -33,23 +35,27 @@ const Setting = () => {
         {open && (
           <Space className={styles.themeSpace} direction={'vertical'} align={'start'} size={'middle'}>
             <Divider className={cx(styles.themeSpaceDivider, styles.themeSpaceDividerFirst)}>
-              <ProductOutlined className="tw:pr-2" />
-              布局样式
+              <ProductOutlined />
+              <span className="tw:px-2">布局样式</span>
             </Divider>
             <ThemeLayout />
+            {themeLayout === 'vertical' && (
+              <>
+                <Divider className={styles.themeSpaceDivider}>
+                  <ProductOutlined />
+                  <span className="tw:px-2">主题风格</span>
+                </Divider>
+                <OverallStyle />
+              </>
+            )}
             <Divider className={styles.themeSpaceDivider}>
-              <ProductOutlined className="tw:pr-2" />
-              主题风格
-            </Divider>
-            <OverallStyle />
-            <Divider className={styles.themeSpaceDivider}>
-              <FireOutlined className="tw:pr-2" />
-              全局主题
+              <FireOutlined />
+              <span className="tw:px-2">全局主题</span>
             </Divider>
             <ThemeColor />
             <Divider className={styles.themeSpaceDivider}>
-              <LaptopOutlined className="tw:pr-2" />
-              界面设置
+              <LaptopOutlined />
+              <span className="tw:px-2">界面设置</span>
             </Divider>
             <NavigationMode />
           </Space>

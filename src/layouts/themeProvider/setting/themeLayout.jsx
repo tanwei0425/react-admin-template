@@ -8,17 +8,24 @@ const ThemeLayout = () => {
   const { themeLayout } = useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const onClick = (type) => {
-    setThemeSkin({ themeLayout: type });
+    let data = { themeLayout: type };
+    // transverse 布局的时候独立面包屑只能为true，菜单手风琴和菜单触发器固定顶部为true禁用
+    if (type === 'transverse') {
+      data['aloneBreadcrumb'] = true;
+      data['menuTrigger'] = true;
+      data['menuAccordionMode'] = true;
+    }
+    setThemeSkin(data);
   };
   return (
     <div className={styles.themeLayout}>
-      <Tooltip placement="top" key={'longitudinal'} title={'纵向'}>
+      <Tooltip placement="top" title={'纵向'}>
         <div
-          onClick={() => onClick('longitudinal')}
+          onClick={() => onClick('vertical')}
           className={cx(
             styles.themeLayoutItem,
             styles.themeLayoutVertical,
-            themeLayout === 'longitudinal' && styles.themeLayoutActive
+            themeLayout === 'vertical' && styles.themeLayoutActive
           )}
         >
           <div className={cx(styles.themeLayoutItemDark, styles.themeLayoutItemPrimary)}></div>
@@ -38,7 +45,7 @@ const ThemeLayout = () => {
               )}
             ></div>
           </div>
-          {themeLayout === 'longitudinal' && (
+          {themeLayout === 'vertical' && (
             <span
               role="img"
               aria-label="check-circle"
@@ -49,13 +56,13 @@ const ThemeLayout = () => {
           )}
         </div>
       </Tooltip>
-      <Tooltip placement="top" key={'landscape'} title={'横向'}>
+      <Tooltip placement="top" title={'横向'}>
         <div
-          onClick={() => onClick('landscape')}
+          onClick={() => onClick('transverse')}
           className={cx(
             styles.themeLayoutItem,
             styles.themeLayoutClassic,
-            themeLayout === 'landscape' && styles.themeLayoutActive
+            themeLayout === 'transverse' && styles.themeLayoutActive
           )}
         >
           <div className={cx(styles.themeLayoutItemLight, styles.themeLayoutItemPrimary)}></div>
@@ -66,7 +73,7 @@ const ThemeLayout = () => {
               styles.themeLayoutItemPrimaryOpacity
             )}
           ></div>
-          {themeLayout === 'landscape' && (
+          {themeLayout === 'transverse' && (
             <span
               role="img"
               aria-label="check-circle"
