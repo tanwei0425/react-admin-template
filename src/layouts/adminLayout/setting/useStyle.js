@@ -1,6 +1,6 @@
 import { createStyles, keyframes } from 'antd-style';
 
-export const useStyle = createStyles(({ css }) => {
+export const useStyle = createStyles(({ token, css }) => {
   const rotate = keyframes`
     from {
       transform: rotate(0deg);
@@ -24,9 +24,12 @@ export const useStyle = createStyles(({ css }) => {
       height: 26px;
       vertical-align: middle; /* 让图标和文字基线对齐 */
       animation: ${rotate} 5s linear infinite;
-      color: #777;
       cursor: pointer;
       flex-shrink: 0;
+      color: ${token.myDarkColor};
+    `,
+    transverseSettingIcon: css`
+      color: ${token.myLightColor};
     `,
   };
 });

@@ -39,6 +39,9 @@ export const useStyle = createStyles(({ token, css }) => {
       align-items: center;
       padding: 0 ${token.paddingSM}px;
     `,
+    transverseSideHeader: css`
+      padding: 0;
+    `,
     siderLogo: css`
       width: 45px;
       height: 45px;
@@ -48,7 +51,8 @@ export const useStyle = createStyles(({ token, css }) => {
       padding-left: ${token.paddingXS}px;
       color: ${token.colorPrimary};
       font-size: ${token.myFontSize18}px;
-      padding-top: 5px;
+      height: ${siderTopHeight}px;
+      line-height: ${siderTopHeight}px;
       font-weight: 700;
       opacity: 0;
       animation: ${fadeIn} 1s forwards;
@@ -112,6 +116,7 @@ export const useStyle = createStyles(({ token, css }) => {
       align-items: center;
       justify-content: space-between;
       padding: 0 ${token.paddingSM}px;
+      background-color: ${token.myLightColor};
     `,
     headerInfo: css`
       display: flex;
@@ -137,10 +142,12 @@ export const useStyle = createStyles(({ token, css }) => {
     username: css`
       font-size: ${token.fontSizeLG}px;
       cursor: default;
+      color: ${token.myDarkColor};
     `,
     github: css`
       font-size: 22px;
       cursor: pointer;
+      color: ${token.myDarkColor};
     `,
     mainContent: css`
       padding: 0 ${token.paddingSM}px;
@@ -172,12 +179,19 @@ export const useStyle = createStyles(({ token, css }) => {
 
     // 横向布局
     transverseHeader: css`
+      background-color: ${token.myDarkColor};
+    `,
+    transverseMenu: css`
       flex: 1;
       margin-right: 20px;
       height: ${siderTopHeight}px;
+      line-height: ${siderTopHeight}px!important;
     `,
-    transverseMenu: css`
-      height: ${siderTopHeight}px;
+    transverseUsername: css`
+      color: ${token.myLightColor};
+    `,
+    transverseGithub: css`
+      color: ${token.myLightColor};
     `,
   };
 });

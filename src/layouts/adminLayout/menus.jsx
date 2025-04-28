@@ -40,7 +40,8 @@ const Menus = () => {
 
   // 处理菜单展开逻辑
   const onOpenChange = (keys) => {
-    if (menuAccordionMode) {
+    // 左侧菜单和手风琴模式保持父级只展开一个
+    if (menuAccordionMode && layoutStatus) {
       const latestOpenKey = keys.find((key) => !openKeys.includes(key));
       const allParents = latestOpenKey ? findAllParentKeys(latestOpenKey) : [];
       const validKeys = [...allParents, latestOpenKey].filter(Boolean);
@@ -110,10 +111,8 @@ const Menus = () => {
   const onClick = ({ key }) => {
     if (key) {
       navigate(key);
-      if (!layoutStatus) return; // 横向布局不处理展开逻辑
-
-      // 手风琴模式保持父级展开
-      if (menuAccordionMode) {
+      // 左侧菜单和手风琴模式保持父级只展开一个
+      if (menuAccordionMode && layoutStatus) {
         const parentKeys = findAllParentKeys(key);
         setOpenKeys((prev) => [...new Set([...prev, ...parentKeys])]);
       }
@@ -127,7 +126,7 @@ const Menus = () => {
           : styles.transverseMenu
       )}
       mode={layoutStatus ? 'inline' : 'horizontal'}
-      theme={layoutStatus ? overallStyle : 'light'}
+      theme={overallStyle}
       forceSubMenuRender
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}

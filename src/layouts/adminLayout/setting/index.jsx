@@ -8,8 +8,8 @@ import useClearSysConfig from '@hooks/useClearSysConfig';
 import useSetSysTheme from '@hooks/useSetSysTheme';
 
 const Setting = () => {
-  const { systemStyle } = useSelector((state) => state.theme);
-  const { styles } = useStyle();
+  const { systemStyle, themeLayout, overallStyle } = useSelector((state) => state.theme);
+  const { styles, cx } = useStyle();
   const { setThemeSkin } = useSetSysTheme();
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -73,7 +73,13 @@ const Setting = () => {
         trigger={['click']}
         overlayClassName={styles.settingDropdown}
       >
-        <SettingSvg onClick={() => setDropdownOpen(true)} className={styles.settingIcon} />
+        <SettingSvg
+          className={cx(
+            styles.settingIcon,
+            themeLayout === 'transverse' && overallStyle === 'dark' && styles.transverseSettingIcon
+          )}
+          onClick={() => setDropdownOpen(true)}
+        />
       </Dropdown>
       <Modal
         title="退出登录"

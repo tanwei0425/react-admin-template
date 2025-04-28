@@ -9,11 +9,14 @@ import Helmet from '@components/helmet';
 import userAvatar from '@assets/images/userAvatar.svg';
 import Breadcrumb from '@layouts/adminLayout/breadcrumb';
 import Menus from '@layouts/adminLayout/menus';
+import { MenuSvg } from '@assets/icons';
 const Headers = () => {
   const dispatch = useDispatch();
   const { collapsed } = useSelector((state) => state.common);
-  const { themeLayout, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector((state) => state.theme);
-  const { styles } = useStyle();
+  const { themeLayout, overallStyle, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector(
+    (state) => state.theme
+  );
+  const { styles, cx } = useStyle();
   const onCollapse = () => {
     dispatch(setCommon({ collapsed: !collapsed }));
   };
@@ -23,7 +26,12 @@ const Headers = () => {
   return (
     <>
       <Helmet />
-      <div className={styles.headerContainer}>
+      <div
+        className={cx(
+          styles.headerContainer,
+          themeLayout === 'transverse' && overallStyle === 'dark' && styles.transverseHeader
+        )}
+      >
         {themeLayout === 'vertical' ? (
           <div className={styles.headerInfo}>
             {menuTrigger && (
@@ -34,14 +42,31 @@ const Headers = () => {
             {!aloneBreadcrumb && <Breadcrumb />}
           </div>
         ) : (
-          <div className={styles.transverseHeader}>
+          <>
+            <div className={cx(styles.siderHeader, styles.transverseSideHeader)}>
+              <MenuSvg className={styles.siderLogo} />
+              <div className={styles.siderTitle}>{globalConfig.menuTitle}</div>
+            </div>
             <Menus />
-          </div>
+          </>
         )}
         <div className={styles.headerInfo}>
           <img src={userAvatar} className={styles.headerInfoUser} alt="头像错误" />
-          <div className={styles.username}>{globalConfig.username}</div>
-          <div className={styles.github} onClick={jumpGitHub}>
+          <div
+            className={cx(
+              styles.username,
+              themeLayout === 'transverse' && overallStyle === 'dark' && styles.transverseUsername
+            )}
+          >
+            {globalConfig.username}
+          </div>
+          <div
+            className={cx(
+              styles.github,
+              themeLayout === 'transverse' && overallStyle === 'dark' && styles.transverseGithub
+            )}
+            onClick={jumpGitHub}
+          >
             <GithubOutlined />
           </div>
           <Setting />

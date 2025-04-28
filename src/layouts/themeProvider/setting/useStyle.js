@@ -56,6 +56,17 @@ export const useStyle = createStyles(({ token, css }) => {
         content: '';
       }
     `,
+    transverseOverallStyleItem: css`
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 35%;
+        background-color: #fff;
+        content: '';
+      }
+    `,
     overallStyleItemDark: css`
       &::before {
         background-color: #242424;

@@ -3,6 +3,8 @@ const myTheme = {
   token: {
     myFontSize18: 18,
     myPadding14: 14,
+    myDarkColor: '#001529',
+    myLightColor: '#ffffff',
   },
 };
 /** antd 默认的主题修改 */

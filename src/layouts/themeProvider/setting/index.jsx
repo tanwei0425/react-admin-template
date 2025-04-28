@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Space, Divider } from 'antd';
 import { useStyle } from './useStyle';
 import { ThemeSvg } from '@assets/icons';
@@ -13,7 +12,6 @@ import NavigationMode from '@layouts/themeProvider/setting/navigationMode';
 const Setting = () => {
   const [open, setOpen] = useState(false);
   const { styles, cx } = useStyle();
-  const { themeLayout } = useSelector((state) => state.theme);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -39,15 +37,11 @@ const Setting = () => {
               <span className="tw:px-2">布局样式</span>
             </Divider>
             <ThemeLayout />
-            {themeLayout === 'vertical' && (
-              <>
-                <Divider className={styles.themeSpaceDivider}>
-                  <ProductOutlined />
-                  <span className="tw:px-2">主题风格</span>
-                </Divider>
-                <OverallStyle />
-              </>
-            )}
+            <Divider className={styles.themeSpaceDivider}>
+              <ProductOutlined />
+              <span className="tw:px-2">主题风格</span>
+            </Divider>
+            <OverallStyle />
             <Divider className={styles.themeSpaceDivider}>
               <FireOutlined />
               <span className="tw:px-2">全局主题</span>
