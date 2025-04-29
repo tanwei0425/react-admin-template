@@ -19,7 +19,7 @@ export const useStyle = createStyles(({ token, css }) => {
       display: flex;
       background: ${token.colorBgContainer};
       font-family: AlibabaPuHuiTi, ${token.fontFamily}, sans-serif;
-      '.ant-prompts': {
+      .ant-prompts {
         color: ${token.colorText};
       }
     `,
@@ -40,7 +40,7 @@ export const useStyle = createStyles(({ token, css }) => {
       padding: 0 ${token.paddingSM}px;
     `,
     transverseSideHeader: css`
-      padding: 0;
+      padding-left: 0;
     `,
     siderLogo: css`
       width: 45px;
@@ -186,6 +186,14 @@ export const useStyle = createStyles(({ token, css }) => {
       margin-right: 20px;
       height: ${siderTopHeight}px;
       line-height: ${siderTopHeight}px!important;
+      align-items: center;
+      .ant-menu-overflow-item {
+        display: flex;
+        align-items: center;
+        height: 36px;
+        line-height: 36px;
+        border-radius: ${token.borderRadius}px!important;
+      }
     `,
     transverseUsername: css`
       color: ${token.myLightColor};

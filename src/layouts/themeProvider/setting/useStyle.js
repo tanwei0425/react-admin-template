@@ -152,5 +152,10 @@ export const useStyle = createStyles(({ token, css }) => {
       flex-direction: column;
       justify-content: space-between;
     `,
+    themeListItem: css`
+      .ant-list-item-action > li {
+        padding-right: 0 !important;
+      }
+    `,
   };
 });

@@ -62,12 +62,15 @@ const Menus = () => {
   const renderMenuItems = (menus = []) => {
     return menus.map((menu) => {
       const validChildren = lodash.filter(menu?.children, { isShow: '1' });
-      return {
+      let data = {
         key: menu.path,
         label: <span>{menu.name}</span>,
         icon: menu.icon && renderIcon(menu.icon),
         children: validChildren.length > 0 ? renderMenuItems(validChildren) : null,
       };
+      // 横向菜单并且第一层级增加向下偏移
+      themeLayout === 'transverse' && (data.popupOffset = [0, 8]);
+      return data;
     });
   };
 
@@ -131,7 +134,7 @@ const Menus = () => {
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}
       onClick={onClick}
-      openKeys={!collapsed && openKeys}
+      {...(collapsed ? {} : { openKeys })}
       items={renderMenuItems(menusTree)}
     />
   );

@@ -1,16 +1,15 @@
 import { List, Switch } from 'antd';
 import { useSelector } from 'react-redux';
 import useSetSysTheme from '@hooks/useSetSysTheme';
-
+import { useStyle } from './useStyle';
 const NavigationMode = () => {
+  const { styles } = useStyle();
   const {
     themeLayout,
     menuTrigger,
     breadcrumb,
     showFooter,
     watermark,
-    grayMode,
-    weakMode,
     aloneBreadcrumb,
     menuAccordionMode,
     fixedHeader,
@@ -36,24 +35,12 @@ const NavigationMode = () => {
     { key: 'fixedHeader', title: '固定Header', value: fixedHeader, show: true },
     { key: 'watermark', title: '水印', value: watermark, show: true },
     { key: 'showFooter', title: '页脚', value: showFooter, show: true },
-    { key: 'weakMode', title: '色弱模式', value: weakMode, show: true },
-    { key: 'grayMode', title: '灰色模式', value: grayMode, show: true },
   ];
-  const onChange = (e, key) => {
-    let data = { [key]: e };
-    // 色弱和灰色模式互斥
-    if (key === 'weakMode' && e) {
-      data['grayMode'] = false;
-    }
-    // 色弱和灰色模式互斥
-    if (key === 'grayMode' && e) {
-      data['weakMode'] = false;
-    }
-    setThemeSkin(data);
-  };
+  const onChange = (e, key) => setThemeSkin({ [key]: e });
 
   return (
     <List
+      className={styles.themeListItem}
       dataSource={dataSource}
       split={false}
       //   loading={loading}
@@ -61,7 +48,7 @@ const NavigationMode = () => {
         return (
           item.show && (
             <List.Item
-              className={`tw:w-full tw:border-none ${index !== 0 ? 'tw:!pt-2' : 'tw:!pt-0'}`}
+              className={`tw:w-full tw:border-none ${index !== 0 ? 'tw:!pt-1' : 'tw:!pt-0'}`}
               actions={[
                 <Switch
                   key={item.key}
