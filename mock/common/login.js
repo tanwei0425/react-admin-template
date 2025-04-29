@@ -56,6 +56,7 @@ const loginAnalysisData = [
             name: 'tanwei',
             role: [],
           },
+          authButton: ['test-a', 'test-b', 'test-c'],
           routesData: [
             {
               id: '1',

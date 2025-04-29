@@ -5,11 +5,13 @@ const token = getLocalStorageItem('token');
 export const initialState = {
   // 全局loading动画
   fullScreenLoading: !!token,
-  /** 数据字典 */
+  // 按钮权限
+  authButton: [],
+  // 数据字典
   dictData: {},
-  /** 路由 */
+  // 路由
   routesData: [],
-  /** 用户信息 */
+  // 用户信息
   user: {
     id: '',
     username: '',

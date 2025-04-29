@@ -28,21 +28,19 @@
   - ✅ ant Design 动态主题
   - ✅ tailwindcss 动态主题
   - ✅ Ant Design、Tailwindcss 双主题同步
-  - ❌ modal 封装
+  - ✅ modal 封装
   - ❌ form表单 封装
   - ❌ table 封装
-  - ❌ 按钮权限封装
+  - ✅ 按钮权限封装
   - ❌ 数据驱动
   - ❌ 富文本、取色器等集成表单
   - ❌ 传输加密
   - ❌ 等等等
-
 - 接口请求
 
   - ✅ ahooks useRequest 与 axios 封装
   - ✅ axios 拦截器、节流、防抖、依赖刷新、错误重试等
   - ✅ mock 封装
-
 - 基础功能
 
   - ✅ 登录页

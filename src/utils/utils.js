@@ -104,4 +104,33 @@ function renderIcon(title) {
   return Icon[title] && createElement(Icon[title]);
 }
 
-export { arrayToTree, treeToArray, findParent, tableColumnToDict, exportFile, exportStreamFile, renderIcon };
+/**
+ *
+ * @param {*} dataSource  arr  数据源
+ * @param {*} authKey  arr or string 匹配目标
+ * @returns 传入值为arr,返回类似{authA:ture,authB:false}的对象，传入值为string直接返回true/false
+ */
+const authority = ({ dataSource = [], authKey }) => {
+  if (Array.isArray(authKey)) {
+    const authorityRes = {};
+    authKey.forEach((item) => {
+      authorityRes[item] = dataSource.includes(item);
+    });
+    return authorityRes;
+  }
+  if (typeof authKey === 'string') {
+    return dataSource.includes(authKey);
+  }
+  return false;
+};
+
+export {
+  arrayToTree,
+  treeToArray,
+  findParent,
+  tableColumnToDict,
+  exportFile,
+  exportStreamFile,
+  renderIcon,
+  authority,
+};

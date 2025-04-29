@@ -12,8 +12,8 @@ const Index = () => {
     dispatch(setUserInfo({ fullScreenLoading: true }));
     const res = await runAsync();
     if (res.code === 200) {
-      const { user = {}, routesData = [], dictData = {} } = res?.data || {};
-      dispatch(setUserInfo({ user, routesData, dictData, fullScreenLoading: false }));
+      const { user = {}, authButton = [], routesData = [], dictData = {} } = res?.data || {};
+      dispatch(setUserInfo({ user, authButton, routesData, dictData, fullScreenLoading: false }));
     }
   };
   return { systemConfig };
