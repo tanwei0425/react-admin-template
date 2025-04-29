@@ -4,7 +4,7 @@ const CustomDrawer = ({
   children,
   onClose /** 取消按钮的回调 */,
   onConfirm /** 确认按钮点击回调 */,
-  confirmText = '确定' /** 自定义确认按钮文案 */,
+  confirmText = '确定并保存' /** 自定义确认按钮文案 */,
   cancelText = '取消' /** 自定义取消按钮文案 */,
   confirmButtonProps /** 确认按钮额外属性 */,
   cancelButtonProps /** 取消按钮额外属性 */,
@@ -42,7 +42,7 @@ const CustomDrawer = ({
       closable={false}
       destroyOnClose={true}
       footer={defaultFooter}
-      onClose={onClose}
+      onClose={handleCancel}
       {...rest}
     >
       {children}

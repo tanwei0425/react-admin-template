@@ -50,6 +50,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      react-draggable:
+        specifier: ^4.4.6
+        version: 4.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-helmet-async:
         specifier: ^2.0.5
         version: 2.0.5(react@19.1.0)
@@ -1208,6 +1211,10 @@ packages:
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
+
+  clsx@1.2.1:
+    resolution: {integrity: sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==}
+    engines: {node: '>=6'}
 
   color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
@@ -2535,6 +2542,12 @@ packages:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
       react: ^19.1.0
+
+  react-draggable@4.4.6:
+    resolution: {integrity: sha512-LtY5Xw1zTPqHkVmtM3X8MUOxNDOUhv/khTgBgrUvwaS064bwVvxT+q5El0uUFNx5IEPKXuRejr7UqLwBIg5pdw==}
+    peerDependencies:
+      react: '>= 16.3.0'
+      react-dom: '>= 16.3.0'
 
   react-fast-compare@3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
@@ -4207,6 +4220,8 @@ snapshots:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
 
+  clsx@1.2.1: {}
+
   color-convert@2.0.1:
     dependencies:
       color-name: 1.1.4
@@ -5625,6 +5640,13 @@ snapshots:
     dependencies:
       react: 19.1.0
       scheduler: 0.26.0
+
+  react-draggable@4.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      clsx: 1.2.1
+      prop-types: 15.8.1
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   react-fast-compare@3.2.2: {}
 

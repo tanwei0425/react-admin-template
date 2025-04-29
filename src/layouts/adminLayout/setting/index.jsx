@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Dropdown, Modal, Checkbox } from 'antd';
+import { Dropdown, Checkbox } from 'antd';
 import { useStyle } from './useStyle';
 import { useLogoutApi } from '@api/login';
 import { SettingSvg } from '@assets/icons';
+import CustomModal from '@components/customModal';
 import useClearSysConfig from '@hooks/useClearSysConfig';
 import useSetSysTheme from '@hooks/useSetSysTheme';
 
@@ -81,15 +82,18 @@ const Setting = () => {
           onClick={() => setDropdownOpen(true)}
         />
       </Dropdown>
-      <Modal
+      <CustomModal
         title="退出登录"
+        okText="退出登录"
         open={open}
+        // draggable
         onOk={handleOk}
         confirmLoading={loading}
+        showContentLoading={false}
         onCancel={() => setOpen(false)}
       >
         <div>是否确定退出登录？</div>
-      </Modal>
+      </CustomModal>
     </>
   );
 };
