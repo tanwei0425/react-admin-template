@@ -1,10 +1,9 @@
-import { useState, createElement, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import { useSelector } from 'react-redux';
 import lodash from 'lodash';
-import * as Icon from '@ant-design/icons';
-import { arrayToTree } from '@utils';
+import { arrayToTree, renderIcon } from '@utils';
 import { useStyle } from './useStyle';
 
 const Menus = () => {
@@ -18,9 +17,6 @@ const Menus = () => {
   const [openKeys, setOpenKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
   const layoutStatus = themeLayout === 'vertical';
-  // 渲染图标
-  const renderIcon = (title) => Icon[title] && createElement(Icon[title]);
-
   // 递归查找所有父级路径
   const findAllParentKeys = (currentPath) => {
     let keys = [];

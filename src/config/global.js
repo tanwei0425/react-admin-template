@@ -22,6 +22,8 @@ export const initTheme = {
   breadcrumb: true,
   // 独立面包屑
   aloneBreadcrumb: true,
+  // 面包屑图标
+  breadcrumbIcon: true,
   // 触发器固定顶部
   menuTrigger: true,
   // 菜单手风琴

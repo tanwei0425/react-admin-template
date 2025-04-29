@@ -14,6 +14,7 @@ const NavigationMode = () => {
     menuAccordionMode,
     fixedHeader,
     dynamicTitle,
+    breadcrumbIcon,
   } = useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const dataSource = [
@@ -24,6 +25,7 @@ const NavigationMode = () => {
       value: aloneBreadcrumb,
       show: themeLayout === 'vertical',
     },
+    { key: 'breadcrumbIcon', title: '面包屑图标', value: breadcrumbIcon, show: true },
     { key: 'menuTrigger', title: '触发器固定顶部', value: menuTrigger, show: themeLayout === 'vertical' },
     {
       key: 'menuAccordionMode',

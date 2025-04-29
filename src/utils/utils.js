@@ -1,3 +1,5 @@
+import { createElement } from 'react';
+import * as Icon from '@ant-design/icons';
 /**
  * 数组转树结构
  * @param {*} list
@@ -97,5 +99,9 @@ function exportStreamFile(
     navigator.msSaveBlob(blob, filename || '');
   }
 }
+// 渲染antd图标
+function renderIcon(title) {
+  return Icon[title] && createElement(Icon[title]);
+}
 
-export { arrayToTree, treeToArray, findParent, tableColumnToDict, exportFile, exportStreamFile };
+export { arrayToTree, treeToArray, findParent, tableColumnToDict, exportFile, exportStreamFile, renderIcon };
