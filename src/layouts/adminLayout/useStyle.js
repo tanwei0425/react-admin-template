@@ -39,18 +39,15 @@ export const useStyle = createStyles(({ token, css }) => {
       align-items: center;
       padding: 0 ${token.paddingSM}px;
     `,
-    transverseSideHeader: css`
-      padding-left: 0;
-    `,
     siderLogo: css`
       width: 45px;
       height: 45px;
       color: ${token.colorPrimary};
     `,
     siderTitle: css`
-      padding-left: ${token.paddingXS}px;
+      padding-left: ${token.paddingXXS}px;
       color: ${token.colorPrimary};
-      font-size: ${token.myFontSize18}px;
+      font-size: ${token.fontSizeLG}px;
       height: ${siderTopHeight}px;
       line-height: ${siderTopHeight}px;
       font-weight: 700;
@@ -123,6 +120,7 @@ export const useStyle = createStyles(({ token, css }) => {
       height: ${siderTopHeight}px;
       align-items: center;
       gap: 9px;
+      flex-shrink: 0;
       vertical-align: middle;
     `,
     headerTriggerIcon: css`
@@ -178,15 +176,21 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
 
     // 横向布局
+    transverseSideHeader: css`
+      padding-left: 0;
+      padding-right: 0;
+      flex-shrink: 0;
+    `,
     transverseHeader: css`
       background-color: ${token.myDarkColor};
     `,
     transverseMenu: css`
       flex: 1;
-      margin-right: 20px;
+      margin: 0 15px;
       height: ${siderTopHeight}px;
       line-height: ${siderTopHeight}px!important;
       align-items: center;
+      overflow: hidden;
       .ant-menu-overflow-item {
         display: flex;
         align-items: center;
@@ -194,6 +198,9 @@ export const useStyle = createStyles(({ token, css }) => {
         line-height: 36px;
         border-radius: ${token.borderRadius}px!important;
       }
+    `,
+    transverseHeaderInfo: css`
+      flex-shrink: 0;
     `,
     transverseUsername: css`
       color: ${token.myLightColor};
