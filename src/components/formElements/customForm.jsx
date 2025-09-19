@@ -4,8 +4,8 @@ import { Form } from 'antd';
 
 // 默认布局配置
 const defaultFormItemLayout = {
-  labelCol: { span: 5 },
-  wrapperCol: { span: 18 },
+  labelCol: { span: 3 },
+  wrapperCol: { span: 19 },
 };
 
 // 使用React.forwardRef以支持ref转发

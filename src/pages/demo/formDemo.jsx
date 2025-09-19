@@ -1,14 +1,12 @@
 import CustomForm, { FormItem, FormList, FormRenderComponent } from '@/components/formElements';
 import { Button, Space } from 'antd';
-import { useRef } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const mockData = Array.from({ length: 20 }).map((_, i) => ({
   key: i.toString(),
   title: `content${i + 1}`,
   description: `description of content${i + 1}`,
 }));
-const Operate = () => {
-  const formRef = useRef();
+const Operate = ({ formRef, name }) => {
   const formSchema = [
     {
       name: 'name',
@@ -67,7 +65,7 @@ const Operate = () => {
       label: '穿梭框',
       // 因为Transfer组件默认不是表单字段，我们需要将其与Form.Item配合，并使用Form.Item的valuePropName和getValueProps等属性来适配，
       // Form就会将Transfer组件的targetKeys属性作为表单项的值，并且在Transfer的onChange事件触发时，用新的targetKeys更新表单的值
-      valuePropName: 'targetKeys', 
+      valuePropName: 'targetKeys',
       fieldProps: {
         componentType: 'transfer',
         titles: [
@@ -119,18 +117,9 @@ const Operate = () => {
       ],
     },
   ];
-  const submit = () => {
-    formRef.current.validateFields().then(async (values) => {
-      console.log(values, 'values');
-    });
-  };
-  const fieldsValue = () => {
-    const data = formRef.current.getFieldsValue();
-    console.log(data, 'data');
-  };
   return (
     <>
-      <CustomForm ref={formRef}>
+      <CustomForm name={name} ref={formRef}>
         {formSchema?.map((val) => {
           const { fieldProps, title, formList, ...restFiled } = val;
           if (formList && Array.isArray(formList)) {
@@ -192,8 +181,6 @@ const Operate = () => {
           }
         })}
       </CustomForm>
-      <Button onClick={submit}>提交</Button>
-      <Button onClick={fieldsValue}>获取值</Button>
     </>
   );
 };
