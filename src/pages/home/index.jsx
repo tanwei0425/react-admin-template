@@ -13,7 +13,7 @@ const Index = () => {
             setfirst(first + 1);
           }}
         >
-          按钮权限a
+          有按钮权限
         </AuthButton>
         <AuthButton
           authKey="test-d"
@@ -22,7 +22,7 @@ const Index = () => {
             setfirst(first + 1);
           }}
         >
-          按钮权限d
+          没有按钮权限
         </AuthButton>
         {first}
         <span className="tw:text-red-200">tailwind primary</span>

@@ -66,6 +66,7 @@ const Operate = ({ formRef, name }) => {
       // 因为Transfer组件默认不是表单字段，我们需要将其与Form.Item配合，并使用Form.Item的valuePropName和getValueProps等属性来适配，
       // Form就会将Transfer组件的targetKeys属性作为表单项的值，并且在Transfer的onChange事件触发时，用新的targetKeys更新表单的值
       valuePropName: 'targetKeys',
+      rules: [{ required: true, message: '穿梭框不能为空' }],
       fieldProps: {
         componentType: 'transfer',
         titles: [
@@ -117,6 +118,7 @@ const Operate = ({ formRef, name }) => {
       ],
     },
   ];
+
   return (
     <>
       <CustomForm name={name} ref={formRef}>

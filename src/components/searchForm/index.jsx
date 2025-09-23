@@ -1,15 +1,21 @@
-import { useState } from 'react';
+/**
+ * searchForm
+ */
+import { useState, useRef } from 'react';
 import { Space } from 'antd';
-import classnames from 'classnames';
-import CustomForm, { FormItem, FormRenderComponent } from '@/components/FormElements';
-import AuthButton from '@/components/authButton';
+import CustomForm, { FormItem, FormRenderComponent } from '@components/FormElements';
+import AuthButton from '@components/authButton';
+import { useStyle } from './useStyle';
 const formItemLayout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
 };
 const SearchForm = ({ formSchema = [], collapseNum = 2, moreActionDom, formConfig, loading, reset }) => {
+  const { styles, cx } = useStyle();
   const [expand, setExpand] = useState(true);
-  const { className, form, ...restProps } = formConfig;
+  const { className, ref, ...restProps } = formConfig;
+  const initSearchFormRef = useRef();
+  const searchFormRef = ref || initSearchFormRef;
   const trigger = collapseNum && Array.isArray(formSchema) && formSchema.length > collapseNum;
   if (trigger) {
     formSchema?.forEach((val, index) => {
@@ -19,32 +25,32 @@ const SearchForm = ({ formSchema = [], collapseNum = 2, moreActionDom, formConfi
       }
     });
   }
-  const searchFormClassNames = classnames('t-search-form-class', className);
 
   const handleReset = () => {
-    form.resetFields();
+    searchFormRef.current.resetFields();
     reset && reset();
   };
+  
   return (
     <CustomForm
-      name="searchFormClass"
+      name="searchFormName"
       layout={'inline'}
-      form={form}
+      ref={searchFormRef}
       {...formItemLayout}
       {...restProps}
-      className={searchFormClassNames}
+      className={cx(styles.searchForm, className)}
     >
       {formSchema?.map((val) => {
-        const { fieldProps, isHide, ...restFiled } = val;
+        const { fieldProps, hideField, className: classNameItem, ...restFiled } = val;
         return (
-          !isHide && (
-            <FormItem key={val?.name} {...restFiled}>
+          !hideField && (
+            <FormItem key={val?.name} className={cx(styles.serachFormItem, classNameItem)} {...restFiled}>
               <FormRenderComponent {...fieldProps} />
             </FormItem>
           )
         );
       })}
-      <FormItem className={'searchFormBut'}>
+      <FormItem className={styles.searchFormBut}>
         <Space>
           <AuthButton loading={loading} type="primary" htmlType="submit">
             查询

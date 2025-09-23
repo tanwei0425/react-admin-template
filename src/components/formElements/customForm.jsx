@@ -3,14 +3,14 @@ import React from 'react';
 import { Form } from 'antd';
 
 // 默认布局配置
-const defaultFormItemLayout = {
+const defaultConfig = {
   labelCol: { span: 3 },
   wrapperCol: { span: 19 },
 };
 
 // 使用React.forwardRef以支持ref转发
 const Index = React.forwardRef(
-  ({ children, layout = defaultFormItemLayout, name = 'CustomFormName', ...restProps }, ref) => {
+  ({ children, name = 'CustomFormName', ...restProps }, ref) => {
     const [form] = Form.useForm();
     // 暴露有限的方法给ref
     // useImperativeHandle(ref, () => ({
@@ -19,9 +19,8 @@ const Index = React.forwardRef(
     //   resetFields: () => form.resetFields(),
     //   getFieldsValue: () => form.getFieldsValue(),
     // }));
-
     return (
-      <Form form={form} ref={ref} name={name} {...layout} {...restProps}>
+      <Form form={form} ref={ref} name={name} {...defaultConfig} {...restProps}>
         {children}
       </Form>
     );

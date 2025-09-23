@@ -1,19 +1,20 @@
 import { useRef, useState } from 'react';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 import styles from './index.module.scss';
-import CustomModal from '@/components/customModal';
-import CustomDrawer from '@/components/customDrawer';
+import CustomModal from '@components/customModal';
+import CustomDrawer from '@components/customDrawer';
 import FormDemo from './formDemo';
+import TableDemo from './tableDemo';
 const Index = () => {
   const formRefModal = useRef();
   const formRefDrawer = useRef();
   const iniModalConifg = {
     title: '操作',
     open: false,
-    width: 1100,
+    width: 1000,
   };
   const [modalConfig, setModalConfig] = useState(iniModalConifg);
-  const [visible, setVisible] = useState(false);
+  const [open, setOpen] = useState(false);
   const modalChange = async (title) => {
     setModalConfig({ ...modalConfig, title, open: true });
   };
@@ -27,10 +28,10 @@ const Index = () => {
     });
   };
 
-  const drawerChange = () => setVisible(!visible);
+  const drawerChange = () => setOpen(!open);
   const onDrawerClose = () => {
     formRefDrawer.current?.resetFields();
-    setVisible(false);
+    setOpen(false);
   };
 
   const OnDrawerOk = async () => {
@@ -41,23 +42,25 @@ const Index = () => {
 
   return (
     <div className={styles.scssModuleDemo}>
+      <Divider orientation="left">{'modal表单'}</Divider>
       <Button onClick={() => modalChange('formModal')}>formModal</Button>
-      <Button onClick={() => drawerChange('formDrawer')}>formDrawer</Button>
       <CustomModal {...modalConfig} draggable={true} onOk={onModalOk} onCancel={onModalClose}>
         <FormDemo name="formModal" formRef={formRefModal} />
       </CustomModal>
+      <Divider orientation="left">{'drawer表单'}</Divider>
+      <Button onClick={() => drawerChange('formDrawer')}>formDrawer</Button>
       <CustomDrawer
         title="formDrawer"
         width={1000}
         onClose={onDrawerClose}
-        onClick={OnDrawerOk}
+        onOk={OnDrawerOk}
         placement="right"
-        destroyOnClose={true}
         closable={false}
-        visible={visible}
+        open={open}
       >
         <FormDemo name="formDrawer" formRef={formRefDrawer} />
       </CustomDrawer>
+      <TableDemo />
     </div>
   );
 };

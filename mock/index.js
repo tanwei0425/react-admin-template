@@ -1,4 +1,4 @@
-import dataAnalysisMock from './common/mockData';
+import tableAnalysisMock from './common/table';
 import loginAnalysisMock from './common/login';
 
-export const worker = [...dataAnalysisMock, ...loginAnalysisMock];
+export const worker = [...tableAnalysisMock, ...loginAnalysisMock];
