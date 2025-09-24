@@ -1,7 +1,7 @@
 /**
  * table
  */
-import CustomTabel from '@/components/customTable/customTable';
-import OperateRender from '@/components/customTable/operateRender';
+import CustomTabel from '@components/customTable/customTable';
+import EnhancedOperateRender from '@components/customTable/enhancedOperateRender';
 
-export { CustomTabel as default, OperateRender };
+export { CustomTabel as default, EnhancedOperateRender };

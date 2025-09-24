@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Divider } from 'antd';
 import CustomModal from '@components/customModal';
-import CustomTable, { OperateRender } from '@components/customTable';
+import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
 import { useTableListApi } from '@api/table';
@@ -105,7 +105,7 @@ const Index = () => {
             // authKey: 'delete-element',
           },
         ];
-        return <OperateRender data={data} record={record} />;
+        return <EnhancedOperateRender data={data} record={record} />;
       },
     },
   ];

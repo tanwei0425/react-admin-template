@@ -1,4 +1,4 @@
-import CustomForm, { FormItem, FormList, FormRenderComponent } from '@/components/formElements';
+import CustomForm, { FormItem, FormList, FormRenderComponent } from '@components/formElements';
 import { Button, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const mockData = Array.from({ length: 20 }).map((_, i) => ({

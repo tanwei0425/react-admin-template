@@ -6,7 +6,7 @@ import FullScreenLoading from '@layouts/fullScreenLoading';
 import { AxiosInterceptor } from '@utils/requestInstance';
 import { getLocalStorageItem } from '@utils';
 import { antAppConfig } from '@config';
-import useGetAllConfig from '@/hooks/useGetAllConfig';
+import useGetAllConfig from '@hooks/useGetAllConfig';
 import ThemeProvider from '@layouts/themeProvider';
 
 function App() {

@@ -2,7 +2,7 @@
  * drawer
  */
 import { Drawer } from 'antd';
-import AuthButton from '@/components/authButton';
+import AuthButton from '@components/authButton';
 const CustomDrawer = ({
   children,
   loading = false, // 确定按钮是否loading

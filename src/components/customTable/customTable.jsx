@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import enhancedTitle from './enhancedTitle';
 import enhancedColumns, { tooltipEnhancer } from './enhancedColumns';
-import OperateRender from './operateRender';
+import EnhancedOperateRender from './enhancedOperateRender';
 const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 'small', ...restProps }) => {
   // title增强器
   const finalTitle = enhancedTitle({
@@ -36,4 +36,4 @@ const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 's
   );
 };
 
-export { CustomTable as default, OperateRender };
+export { CustomTable as default, EnhancedOperateRender };

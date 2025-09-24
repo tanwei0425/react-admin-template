@@ -1,4 +1,4 @@
-import AuthButton from '@/components/authButton';
+import AuthButton from '@components/authButton';
 import { Space, Tooltip } from 'antd';
 const Index = ({ data = [], record }) => {
   return (

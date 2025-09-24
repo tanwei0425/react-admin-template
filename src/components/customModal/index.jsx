@@ -4,7 +4,7 @@
 import { useState, useRef } from 'react';
 import { Modal, Spin } from 'antd';
 import Draggable from 'react-draggable';
-import AuthButton from '@/components/authButton';
+import AuthButton from '@components/authButton';
 import { useStyle } from './useStyle';
 /**
  *
