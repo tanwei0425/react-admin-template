@@ -41,3 +41,9 @@ export const initTheme = {
   // 灰色模式
   grayMode: false,
 };
+
+/**
+ * 密码正则校验
+ */
+export const G_PASSWORD_PATTERN = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[~!@#$%^&*])[\da-zA-Z~!@#$%^&*]{8,16}$/;
+export const G_PASSWORD_PATTERN_MESSAGE = '请输入8-16位数字、大小字母和特殊字符的组合（特殊字符仅限~!@#$%^&*）';

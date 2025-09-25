@@ -35,3 +35,15 @@ export const useLogoutApi = () => {
     method: 'GET',
   });
 };
+/**
+ * 退出登录
+ * @param {*} data
+ * @returns
+ */
+export const useEditPwdApi = (data) => {
+  return useApiRequest({
+    url: '/mock/auth/editPwd',
+    method: 'POST',
+    data,
+  });
+};

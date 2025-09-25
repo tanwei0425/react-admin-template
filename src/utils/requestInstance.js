@@ -2,10 +2,10 @@ import axios from 'axios';
 import { App } from 'antd';
 import NProgress from '@utils/progress';
 import { getLocalStorageItem, setLocalStorageItem, clearAllLocalStorage } from '@utils';
-let notificationApi; // 全局存储 notification API
+let messageApi; // 全局存储 message API
 const AxiosInterceptor = () => {
-  const { notification } = App.useApp(); // 获取 notification 实例
-  notificationApi = notification; // 赋值给全局变量
+  const { message } = App.useApp(); // 获取 message 实例
+  messageApi = message; // 赋值给全局变量
   return null; // 这个组件不渲染任何内容
 };
 
@@ -37,10 +37,7 @@ requestInstance.interceptors.response.use(
     }
     const { code, message } = data || {};
     if (code !== 200) {
-      notificationApi.error({
-        message: '请求错误',
-        description: message || '请求失败，请重试',
-      });
+      messageApi.error(message || '请求失败，请重试');
       if (code === 901 || code === 902 || code === 903 || code === 904) {
         clearAllLocalStorage();
         window.location.href = '/login';
@@ -53,10 +50,7 @@ requestInstance.interceptors.response.use(
   (error) => {
     NProgress.done();
     // 网络错误或服务器未响应的情况
-    notificationApi.error({
-      message: '网络错误或服务端异常',
-      description: error.message,
-    });
+    messageApi.error('网络错误或服务端异常');
     return Promise.reject(error);
   }
 );

@@ -10,13 +10,10 @@ import Helmet from '@components/helmet';
 const Index = () => {
   const { styles } = useStyle();
   const token = getLocalStorageItem('token');
-  const { notification } = App.useApp(); // 获取 notification 实例
+  const { message } = App.useApp(); // 获取 notification 实例
   useEffect(() => {
     if (token) {
-      notification.warning({
-        message: '友情提示',
-        description: '帐号已登录，请先退出',
-      });
+      message.warning('帐号已登录，请先退出');
     }
   }, [token]);
   if (token) {

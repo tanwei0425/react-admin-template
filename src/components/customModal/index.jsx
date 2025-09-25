@@ -100,7 +100,13 @@ const CustomModal = ({
       )}
       {extraFooter}
       {showOkButton && (
-        <AuthButton type="primary" className="tw:mx-1.5" {...okButtonProps} loading={confirmLoading} onClick={handleOnOk}>
+        <AuthButton
+          type="primary"
+          className="tw:mx-1.5"
+          {...okButtonProps}
+          loading={confirmLoading}
+          onClick={handleOnOk}
+        >
           {okText}
         </AuthButton>
       )}
@@ -123,7 +129,9 @@ const CustomModal = ({
       footer={defaultFooter}
       {...restProps}
     >
-      <Spin spinning={confirmLoading && showContentLoading}>{children}</Spin>
+      <Spin spinning={confirmLoading && showContentLoading}>
+        <div className={styles.customModalContent}>{children}</div>
+      </Spin>
     </Modal>
   );
 };

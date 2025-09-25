@@ -13,5 +13,8 @@ export const useStyle = createStyles(({ css }) => {
         }
       }
     `,
+    customModalContent: css`
+      padding-top: 20px;
+    `,
   };
 });

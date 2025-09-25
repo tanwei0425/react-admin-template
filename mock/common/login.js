@@ -1,8 +1,8 @@
 // 定义模拟的请求处理程序
 const loginAnalysisData = [
   {
-    url: '/dev-api/mock/captcha', // 接口地址
-    method: 'get', // 请求方式
+    url: '/dev-api/mock/captcha',
+    method: 'get',
     timeout: 1000,
     response: () => {
       // 模拟数据
@@ -16,8 +16,8 @@ const loginAnalysisData = [
     },
   },
   {
-    url: '/dev-api/mock/auth/signIn', // 接口地址
-    method: 'post', // 请求方式
+    url: '/dev-api/mock/auth/signIn',
+    method: 'post',
     timeout: 2000,
     response: () => {
       return {
@@ -31,8 +31,8 @@ const loginAnalysisData = [
     },
   },
   {
-    url: '/dev-api/mock/auth/signOut', // 接口地址
-    method: 'get', // 请求方式
+    url: '/dev-api/mock/auth/signOut',
+    method: 'get',
     timeout: 2000,
     response: () => {
       return {
@@ -43,8 +43,20 @@ const loginAnalysisData = [
     },
   },
   {
-    url: '/dev-api/mock/auth/userInfo', // 接口地址
-    method: 'get', // 请求方式
+    url: '/dev-api/mock/auth/editPwd',
+    method: 'post',
+    timeout: 2000,
+    response: () => {
+      return {
+        code: 200,
+        message: '操作成功',
+        data: {},
+      };
+    },
+  },
+  {
+    url: '/dev-api/mock/auth/userInfo',
+    method: 'get',
     timeout: 500,
     response: () => {
       return {
@@ -69,7 +81,7 @@ const loginAnalysisData = [
               isRouter: '1',
               sort: 1,
             },
-             {
+            {
               id: '998',
               pid: 0,
               name: 'demo',

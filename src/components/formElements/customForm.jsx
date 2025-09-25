@@ -4,8 +4,8 @@ import { Form } from 'antd';
 
 // 默认布局配置
 const defaultConfig = {
-  labelCol: { span: 3 },
-  wrapperCol: { span: 19 },
+  labelCol: { span: 4 },
+  wrapperCol: { span: 18 },
 };
 
 // 使用React.forwardRef以支持ref转发
