@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import Layouts from '@layouts/adminLayout';
 import lazyLoad from '@router/lazyLoad';
 import AuthRouter from '@router/authRouter';
-import Login from '@pages/login';
+import AuthLayouts from '@layouts/authLayout';
+import LoginForm from '@pages/auth/loginForm';
 const RouteList = () => {
   const { routesData } = useSelector((state) => state.userInfo);
   const dynamicRoutes = routesData
@@ -17,12 +18,23 @@ const RouteList = () => {
     }));
   const router = createBrowserRouter(
     [
-      {
-        path: '/login',
+     {
+        path: '/auth',
         handle: {
           title: '登录',
         },
-        element: <Login />,
+        element: (
+          <AuthLayouts />
+        ),
+        children: [
+          {
+            path: 'login',
+            handle: {
+              title: '登录',
+            },
+            element: <LoginForm />,
+          },
+        ],
       },
       {
         path: '/',

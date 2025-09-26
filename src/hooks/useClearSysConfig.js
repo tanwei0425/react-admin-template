@@ -11,7 +11,7 @@ const useClearSysConfig = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { message } = App.useApp();
-  const clearSysConfig = ({ text = '退出登录成功', type = 'success', path = '/login' } = {}) => {
+  const clearSysConfig = ({ text = '退出登录成功', type = 'success', path = '/auth/login' } = {}) => {
     path && navigate(path);
     localStorage && removeLocalStorage('token');
     dispatch(setUserInfo({ ...initialState, fullScreenLoading: false }));

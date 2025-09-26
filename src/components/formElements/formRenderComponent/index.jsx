@@ -14,6 +14,7 @@ import Transfer from '@components/formElements/formRenderComponent/transfer';
 import DatePicker from '@components/formElements/formRenderComponent/datePicker';
 import Cascader from '@components/formElements/formRenderComponent/cascader';
 import Upload from '@components/formElements/formRenderComponent/upload';
+import SmsCode from '@components/formElements/formRenderComponent/smsCode';
 const FormRenderComponent = ({ componentType, ...fieldProps }) => {
   switch (componentType) {
     case 'input':
@@ -28,6 +29,8 @@ const FormRenderComponent = ({ componentType, ...fieldProps }) => {
       return <Input.Group {...fieldProps} />;
     case 'inputNumber':
       return <InputNumber {...fieldProps} />;
+    case 'smsCode':
+      return <SmsCode {...fieldProps} />;
     case 'select':
       return <Select {...fieldProps} />;
     case 'treeSelect':

@@ -149,7 +149,7 @@ export const useStyle = createStyles(({ token, css }) => {
     `,
     mainContent: css`
       padding: 0 ${token.paddingSM}px;
-      overflow-x: hidden;
+      ${'' /* overflow-x: hidden; */}
     `,
     breadcrumb: css`
       padding: ${token.paddingSM}px;

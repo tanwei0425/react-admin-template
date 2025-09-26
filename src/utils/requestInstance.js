@@ -40,7 +40,7 @@ requestInstance.interceptors.response.use(
       messageApi.error(message || '请求失败，请重试');
       if (code === 901 || code === 902 || code === 903 || code === 904) {
         clearAllLocalStorage();
-        window.location.href = '/login';
+        window.location.href = '/auth/login';
       }
       return Promise.reject(message);
     } else {
