@@ -12,10 +12,12 @@ import Radio from '@components/formElements/formRenderComponent/radio';
 import TreeSelect from '@components/formElements/formRenderComponent/treeSelect';
 import Transfer from '@components/formElements/formRenderComponent/transfer';
 import DatePicker from '@components/formElements/formRenderComponent/datePicker';
+import TimePicker from '@components/formElements/formRenderComponent/timePicker';
 import Cascader from '@components/formElements/formRenderComponent/cascader';
 import Upload from '@components/formElements/formRenderComponent/upload';
 import SmsCode from '@components/formElements/formRenderComponent/smsCode';
-const FormRenderComponent = ({ componentType, ...fieldProps }) => {
+import CustomDom from '@components/formElements/formRenderComponent/customDom';
+const FormRenderComponent = ({ componentType, renderContent, ...fieldProps }) => {
   switch (componentType) {
     case 'input':
       return <Input {...fieldProps} />;
@@ -41,14 +43,14 @@ const FormRenderComponent = ({ componentType, ...fieldProps }) => {
       return <Radio {...fieldProps} />;
     case 'datePicker':
       return <DatePicker {...fieldProps} />;
-    case 'rangePicker':
-      return <DatePicker.RangePicker {...fieldProps} />;
+    case 'timePicker':
+      return <TimePicker {...fieldProps} />;
     case 'cascader':
       return <Cascader {...fieldProps} />;
     case 'upload':
       return <Upload {...fieldProps} />;
     case 'dom':
-      return fieldProps;
+      return <CustomDom renderContent={renderContent} {...fieldProps} />;
     default:
       return <span className="componentError">组件类型错误</span>;
   }

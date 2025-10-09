@@ -7,7 +7,7 @@ import { Input, Button, Space } from 'antd';
 const SmsCodeInput = ({
   waitTime = 60,
   onClick, // 点击获取验证码的回调：onGetCode(startCountDown, setLoading)
-  ...filedProps
+  ...fieldProps
 }) => {
   const [count, setCount] = useState(waitTime);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ const SmsCodeInput = ({
 
   return (
     <Space.Compact style={{ width: '100%' }}>
-      <Input {...filedProps} />
+      <Input {...fieldProps} />
       {cutDown ? (
         <Button disabled type="default">
           ({count}s)后重新获取

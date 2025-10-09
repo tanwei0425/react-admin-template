@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ConfigProvider } from 'antd';
 import { ThemeProvider } from 'antd-style';
-import zhCN from 'antd/locale/zh_CN';
 import { theme, antConfigProvider } from '@config';
+import { getAppLocale } from '@utils/locale'; // ✅ 引入工具方法
 import CustomWatermark from '@layouts/customWatermark';
 
 const ThemeProviderWrapper = ({ children }) => {
   const { colorPrimary, grayMode, weakMode } = useSelector((state) => state.theme);
+  // ✅ 语言只在首次渲染时确定
+  const appLocale = useMemo(() => getAppLocale(), []);
   useEffect(() => {
     const root = document.documentElement;
     // 处理滤镜效果
@@ -32,7 +34,7 @@ const ThemeProviderWrapper = ({ children }) => {
         },
       }}
     >
-      <ConfigProvider locale={zhCN} {...antConfigProvider}>
+      <ConfigProvider locale={appLocale} {...antConfigProvider}>
         <CustomWatermark>{children}</CustomWatermark>
       </ConfigProvider>
     </ThemeProvider>

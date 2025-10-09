@@ -1,45 +1,39 @@
 import { Input } from 'antd';
 const defaultConfig = {
-    autoComplete: 'off',
-    allowClear: true,
-    placeholder: "请输入",
-    maxLength: 50,
+  autoComplete: 'off',
+  allowClear: true,
+  placeholder: '请输入',
+  maxLength: 50,
 };
-const Index = (filedProps) => {
-    return (
-        <Input {...defaultConfig} {...filedProps} />
-    );
+const Index = (fieldProps) => {
+  return <Input {...defaultConfig} {...fieldProps} />;
 };
-const Password = (filedProps) => {
-    return (
-        <Input.Password {...defaultConfig} {...filedProps} />
-    );
+const Password = (fieldProps) => {
+  return <Input.Password {...defaultConfig} {...fieldProps} />;
 };
-const TextArea = (filedProps) => {
-    return (
-        <Input.TextArea
-            showCount={true}
-            autoSize={{
-                minRows: 2,
-                maxRows: 5,
-            }}
-            {...defaultConfig}
-            maxLength={500}
-            {...filedProps}
-        />
-    );
+const TextArea = (fieldProps) => {
+  return (
+    <Input.TextArea
+      showCount={true}
+      autoSize={{
+        minRows: 2,
+        maxRows: 5,
+      }}
+      {...defaultConfig}
+      maxLength={500}
+      {...fieldProps}
+    />
+  );
 };
-const Search = (filedProps) => {
-    return (
-        <Input.Search  {...defaultConfig} {...filedProps} />
-    );
+const Search = (fieldProps) => {
+  return <Input.Search {...defaultConfig} {...fieldProps} />;
 };
-const Group = ({ children, ...restFiledProps }) => {
-    return (
-        <Input.Group {...defaultConfig} {...restFiledProps} >
-            {children}
-        </Input.Group>
-    );
+const Group = ({ children, ...restfieldProps }) => {
+  return (
+    <Input.Group {...defaultConfig} {...restfieldProps}>
+      {children}
+    </Input.Group>
+  );
 };
 
 Index.Password = Password;

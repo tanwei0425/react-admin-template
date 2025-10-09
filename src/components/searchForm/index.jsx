@@ -30,7 +30,7 @@ const SearchForm = ({ formSchema = [], collapseNum = 2, moreActionDom, formConfi
     searchFormRef.current.resetFields();
     reset && reset();
   };
-  
+
   return (
     <CustomForm
       name="searchFormName"
@@ -41,9 +41,9 @@ const SearchForm = ({ formSchema = [], collapseNum = 2, moreActionDom, formConfi
       className={cx(styles.searchForm, className)}
     >
       {formSchema?.map((val) => {
-        const { fieldProps, hideField, className: classNameItem, ...restFiled } = val;
+        const { fieldProps, visible = true, className: classNameItem, ...restFiled } = val;
         return (
-          !hideField && (
+          visible && (
             <FormItem key={val?.name} className={cx(styles.serachFormItem, classNameItem)} {...restFiled}>
               <FormRenderComponent {...fieldProps} />
             </FormItem>

@@ -12,6 +12,8 @@ const Menus = () => {
   const { pathname } = useLocation();
   const { collapsed } = useSelector((state) => state.common);
   const { routesData } = useSelector((state) => state.userInfo);
+  console.log(routesData, 'routesData');
+
   const { themeLayout, overallStyle, menuAccordionMode } = useSelector((state) => state.theme);
   const [menusTree, setMenuTree] = useState([]);
   const [openKeys, setOpenKeys] = useState([]);
@@ -23,7 +25,7 @@ const Menus = () => {
     const findParents = (path) => {
       const item = routesData.find((i) => i.path === path);
       if (item?.pid) {
-        const parent = routesData.find((i) => i.id === item.pid);
+        const parent = routesData.find((i) => String(i.id) === String(item.pid));
         if (parent) {
           keys.push(parent.path);
           findParents(parent.path);
@@ -33,7 +35,14 @@ const Menus = () => {
     findParents(currentPath);
     return keys.reverse();
   };
-
+  // 返回单个 path，用于高亮菜单
+  const findDisplayableSelectedKey = (currentPath) => {
+    let current = routesData.find((i) => i.path === currentPath);
+    while (current && current.isShow !== '1') {
+      current = routesData.find((i) => String(i.id) === String(current.pid));
+    }
+    return current ? current.path : null;
+  };
   // 处理菜单展开逻辑
   const onOpenChange = (keys) => {
     // 左侧菜单和手风琴模式保持父级只展开一个
@@ -79,10 +88,8 @@ const Menus = () => {
 
   // 处理路径和折叠状态变化
   useEffect(() => {
-    const currentRoute = routesData.find((item) => item.path === pathname);
-    // 更新选中状态
-    setSelectedKeys(currentRoute?.isShow === '1' ? [pathname] : []);
-
+    const selectedKey = findDisplayableSelectedKey(pathname);
+    setSelectedKeys(selectedKey ? [selectedKey] : []);
     if (layoutStatus) {
       // 计算需要展开的keys
       const parentKeys = findAllParentKeys(pathname);

@@ -1,15 +1,10 @@
 import { Switch } from 'antd';
 
 const defaultConfig = {
-    defaultChecked: true
+  defaultChecked: true,
 };
-const Index = (filedProps) => {
-    return (
-        <Switch
-            {...defaultConfig}
-            {...filedProps}
-        />
-    );
+const Index = (fieldProps) => {
+  return <Switch {...defaultConfig} {...fieldProps} />;
 };
 
 export default Index;

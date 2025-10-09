@@ -4,10 +4,10 @@ const defaultConfig = {
   placeholder: '请选择',
   allowClear: true,
 };
-const Index = ({ children, options, isTooltip = false, ...filedProps }) => {
+const Index = ({ children, options, isTooltip = false, ...fieldProps }) => {
   const optionsData = children || options;
   return (
-    <Select {...defaultConfig} {...filedProps}>
+    <Select {...defaultConfig} {...fieldProps}>
       {optionsData?.map((val) => {
         const { key, value, ...rest } = val || {};
         return (

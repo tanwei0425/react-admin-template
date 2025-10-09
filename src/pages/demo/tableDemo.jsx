@@ -24,7 +24,6 @@ const Index = () => {
   const { loading, runAsync } = useTableListApi();
   const searchFormSchema = [
     {
-      className: 'serachFormItem',
       name: 'name',
       label: '元素名称',
       fieldProps: {
@@ -33,7 +32,6 @@ const Index = () => {
       },
     },
     {
-      className: 'serachFormItem',
       name: 'name2',
       label: '元素名称2',
       fieldProps: {
@@ -42,7 +40,6 @@ const Index = () => {
       },
     },
     {
-      className: 'serachFormItem',
       name: 'status',
       label: '元素状态',
       fieldProps: {
@@ -85,27 +82,27 @@ const Index = () => {
         const data = [
           {
             key: 'view',
-            onClick: (props) => modalChange('view', '查看元素', props),
+            onClick: (e) => modalChange('view', '查看元素', record, e),
             text: '查看',
             // authKey: 'delete-element',
           },
           {
             key: 'update',
-            onClick: (props) => modalChange('update', '编辑元素', props),
+            onClick: (e) => modalChange('update', '编辑元素', record, e),
             text: '编辑元素',
             type: 'primary',
             // authKey: 'edit-element',
           },
           {
             key: 'delete',
-            onClick: (props) => modalChange('delete', '删除元素', props),
+            onClick: (e) => modalChange('delete', '删除元素', record, e),
             text: '删除元素',
             type: 'primary',
             danger: true,
             // authKey: 'delete-element',
           },
         ];
-        return <EnhancedOperateRender data={data} record={record} />;
+        return <EnhancedOperateRender data={data} />;
       },
     },
   ];

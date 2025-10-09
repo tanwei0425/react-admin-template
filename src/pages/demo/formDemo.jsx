@@ -61,6 +61,36 @@ const Operate = ({ formRef, name }) => {
       },
     },
     {
+      name: 'datePicker',
+      label: '日期范围',
+      fieldProps: {
+        componentType: 'datePicker',
+        range: true,
+      },
+    },
+    {
+      name: 'timePicker',
+      label: '时间范围',
+      fieldProps: {
+        componentType: 'timePicker',
+        range: true,
+      },
+    },
+    {
+      name: 'date',
+      label: '日期',
+      fieldProps: {
+        componentType: 'datePicker',
+      },
+    },
+    {
+      name: 'time',
+      label: '时间',
+      fieldProps: {
+        componentType: 'timePicker',
+      },
+    },
+    {
       name: 'associateUser',
       label: '穿梭框',
       // 因为Transfer组件默认不是表单字段，我们需要将其与Form.Item配合，并使用Form.Item的valuePropName和getValueProps等属性来适配，
@@ -124,7 +154,7 @@ const Operate = ({ formRef, name }) => {
       <CustomForm name={name} ref={formRef}>
         {formSchema?.map((val) => {
           const { fieldProps, title, formList, ...restFiled } = val;
-          if (formList && Array.isArray(formList)) {
+          if (Array.isArray(formList)) {
             return (
               <FormList key={val.name} {...restFiled}>
                 {(fields, { add, remove }) => (
