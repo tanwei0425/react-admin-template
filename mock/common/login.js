@@ -335,7 +335,30 @@ const loginAnalysisData = [
               sort: 0,
             },
           ],
-          dictData: {},
+          dictData: {
+            user_status: [
+              { key: '1', value: '启用' },
+              { key: '0', value: '禁用' },
+            ],
+            department: [
+              { key: '1', value: '技术部' },
+              { key: '2', value: '产品部' },
+              { key: '3', value: '运营部' },
+              { key: '4', value: '市场部' },
+              { key: '5', value: '人事部' },
+            ],
+            role: [
+              { key: '1', value: '超级管理员' },
+              { key: '2', value: '普通用户' },
+              { key: '3', value: '运维人员' },
+              { key: '4', value: '开发人员' },
+              { key: '5', value: '产品经理' },
+            ],
+            gender: [
+              { key: '1', value: '男' },
+              { key: '2', value: '女' },
+            ],
+          },
         },
       };
     },

@@ -6,17 +6,17 @@
 
 ## 技术栈
 
-| 类别 | 技术 | 版本 |
-|------|------|------|
-| 框架 | React | 19.x |
-| 路由 | React Router | 7.x |
-| UI | Ant Design | 6.x |
-| 样式 | Tailwind CSS / SCSS / CSS-in-JS (antd-style) | 4.x |
-| 状态管理 | @reduxjs/toolkit + react-redux | 2.x / 9.x |
-| 请求 | Axios + Ahooks (useRequest) | 1.x / 3.x |
-| 构建 | Vite | 6.x |
-| 规范 | ESLint / Prettier / Husky / Commitlint | - |
-| Mock | mockjs + vite-plugin-mock | - |
+| 类别     | 技术                                         | 版本      |
+| -------- | -------------------------------------------- | --------- |
+| 框架     | React                                        | 19.x      |
+| 路由     | React Router                                 | 7.x       |
+| UI       | Ant Design                                   | 6.x       |
+| 样式     | Tailwind CSS / SCSS / CSS-in-JS (antd-style) | 4.x       |
+| 状态管理 | @reduxjs/toolkit + react-redux               | 2.x / 9.x |
+| 请求     | Axios + Ahooks (useRequest)                  | 1.x / 3.x |
+| 构建     | Vite                                         | 6.x       |
+| 规范     | ESLint / Prettier / Husky / Commitlint       | -         |
+| Mock     | mockjs + vite-plugin-mock                    | -         |
 
 ## 项目结构
 
@@ -77,7 +77,7 @@ src/
   - ✅ Mock 封装
 - 基础功能
   - ✅ 登录页
-  - ❌ 用户管理
+  - ✅ 用户管理
   - ❌ 角色管理
   - ❌ 菜单管理
   - ❌ 字典管理

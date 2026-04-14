@@ -1,7 +1,319 @@
-// import React from 'react'
+import { useEffect, useState, useRef } from 'react';
+import { Tag, message, Modal } from 'antd';
+import { useSelector } from 'react-redux';
+import CustomModal from '@components/customModal';
+import CustomDrawer from '@components/customDrawer';
+import CustomTable, { EnhancedOperateRender } from '@components/customTable';
+import AuthButton from '@components/authButton';
+import SearchForm from '@components/searchForm';
+import { tableColumnToDict } from '@utils';
+import { useUserListApi, useUserCreateApi, useUserUpdateApi, useUserDeleteApi, useUserResetPwdApi } from '@api/user';
+import UserForm from './userForm';
+import UserDetail from './userDetail';
+
+const iniModalConfig = {
+  title: '操作',
+  open: false,
+  width: 600,
+};
+
+const initSearchFormData = {
+  status: null,
+};
+
+const statusColorMap = { '1': 'green', '0': 'red' };
 
 const Index = () => {
-  return <div>用户管理</div>;
+  const [modalConfig, setModalConfig] = useState(iniModalConfig);
+  const [dataSource, setDataSource] = useState([]);
+  const [modalType, setModalType] = useState();
+  const [tableRecord, setTableRecord] = useState({});
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
+  const formRefModal = useRef();
+  const [searchFormData, setSearchFormData] = useState(initSearchFormData);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const { dictData } = useSelector((state) => state.userInfo);
+  const { loading, runAsync: runList } = useUserListApi();
+  const { runAsync: runCreate } = useUserCreateApi();
+  const { runAsync: runUpdate } = useUserUpdateApi();
+  const { runAsync: runDelete } = useUserDeleteApi();
+  const { runAsync: runResetPwd } = useUserResetPwdApi();
+
+  const dictOptions = (dictKey) =>
+    (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
+
+  const dictLabel = (dictKey, value) => tableColumnToDict(dictData[dictKey], value) || value;
+
+  const searchFormSchema = [
+    {
+      name: 'username',
+      label: '登录账号',
+      fieldProps: {
+        componentType: 'input',
+        placeholder: '请输入登录账号',
+      },
+    },
+    {
+      name: 'nickname',
+      label: '用户名称',
+      fieldProps: {
+        componentType: 'input',
+        placeholder: '请输入用户名称',
+      },
+    },
+    {
+      name: 'status',
+      label: '状态',
+      fieldProps: {
+        componentType: 'select',
+        options: dictOptions('user_status'),
+        placeholder: '请选择状态',
+      },
+    },
+    {
+      name: 'department',
+      label: '部门',
+      fieldProps: {
+        componentType: 'select',
+        options: dictOptions('department'),
+        placeholder: '请选择部门',
+      },
+    },
+  ];
+
+  const columns = [
+    {
+      title: '登录账号',
+      dataIndex: 'username',
+      fixed: 'left',
+      ellipsis: true,
+    },
+    {
+      title: '用户名称',
+      dataIndex: 'nickname',
+      ellipsis: true,
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+      render: (text) => dictLabel('gender', text),
+    },
+    {
+      title: '手机号',
+      dataIndex: 'phone',
+      ellipsis: true,
+    },
+    {
+      title: '部门',
+      dataIndex: 'department',
+      render: (text) => dictLabel('department', text),
+    },
+    {
+      title: '角色',
+      dataIndex: 'role',
+      render: (text) => dictLabel('role', text),
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      render: (text) => (
+        <Tag color={statusColorMap[text]}>{dictLabel('user_status', text)}</Tag>
+      ),
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      ellipsis: true,
+    },
+    {
+      title: '操作',
+      dataIndex: 'action',
+      fixed: 'right',
+      width:260,
+      render: (_, record) => {
+        const data = [
+          {
+            key: 'view',
+            onClick: () => handleView(record),
+            text: '查看',
+          },
+          {
+            key: 'update',
+            onClick: () => modalChange('update', '编辑用户', record),
+            text: '编辑',
+            type: 'primary',
+          },
+          {
+            key: 'resetPwd',
+            onClick: () => handleResetPwd(record),
+            text: '重置密码',
+          },
+          {
+            key: 'delete',
+            onClick: () => handleDelete(record),
+            text: '删除',
+            type: 'primary',
+            danger: true,
+          },
+        ];
+        return <EnhancedOperateRender data={data} />;
+      },
+    },
+  ];
+
+  const getTableData = async () => {
+    const data = {
+      current: pagination.current,
+      pageSize: pagination.pageSize,
+      ...searchFormData,
+    };
+    const res = await runList(data);
+    if (res?.code === 200) {
+      setDataSource(res?.data?.list || []);
+      setPagination({ ...pagination, total: res?.data?.total });
+    }
+  };
+
+  const onChange = (paginationConfig) => {
+    setPagination({
+      current: paginationConfig?.current,
+      pageSize: paginationConfig?.pageSize,
+    });
+  };
+
+  useEffect(() => {
+    getTableData();
+  }, [pagination?.current, pagination?.pageSize, searchFormData]);
+
+  const reset = () => {
+    setPagination({ current: 1, pageSize: 10, total: 0 });
+    setSearchFormData(initSearchFormData);
+  };
+
+  const onFinish = async (values) => {
+    setPagination({ current: 1, pageSize: 10, total: 0 });
+    setSearchFormData({ ...values });
+  };
+
+  const handleView = (record) => {
+    setTableRecord(record);
+    setDrawerOpen(true);
+  };
+
+  const modalChange = (type, title, record = {}) => {
+    setModalConfig({ ...modalConfig, title, open: true });
+    setModalType(type);
+    setTableRecord(record);
+  };
+
+  const onModalClose = () => {
+    formRefModal.current?.resetFields();
+    setModalConfig(iniModalConfig);
+    setModalType();
+    setTableRecord({});
+  };
+
+  const onModalOk = async () => {
+    formRefModal.current.validateFields().then(async (values) => {
+      if (modalType === 'create') {
+        const res = await runCreate(values);
+        if (res?.code === 200) {
+          message.success('创建成功');
+          onModalClose();
+          getTableData();
+        }
+      } else if (modalType === 'update') {
+        const res = await runUpdate({ ...values, id: tableRecord.id });
+        if (res?.code === 200) {
+          message.success('更新成功');
+          onModalClose();
+          getTableData();
+        }
+      }
+    });
+  };
+
+  const handleDelete = async (record) => {
+    const res = await runDelete({ id: record.id });
+    if (res?.code === 200) {
+      message.success('删除成功');
+      getTableData();
+    }
+  };
+
+  const handleResetPwd = (record) => {
+    Modal.confirm({
+      title: '重置密码',
+      content: `确定将用户「${record.nickname}」的密码重置为默认密码（123456）吗？`,
+      okText: '确定重置',
+      cancelText: '取消',
+      okButtonProps: { danger: true },
+      onOk: async () => {
+        const res = await runResetPwd({ id: record.id });
+        if (res?.code === 200) {
+          message.success('密码已重置为默认密码');
+        }
+      },
+    });
+  };
+
+  const onDrawerClose = () => {
+    setDrawerOpen(false);
+    setTableRecord({});
+  };
+
+  return (
+    <>
+      <SearchForm
+        loading={loading}
+        reset={reset}
+        formSchema={searchFormSchema}
+        collapseNum={3}
+        formConfig={{
+          initialValues: initSearchFormData,
+          onFinish: onFinish,
+        }}
+      />
+      <CustomTable
+        dataSource={dataSource}
+        columns={columns}
+        rowKey="id"
+        loading={loading}
+        title="用户管理列表"
+        onChange={onChange}
+        toolBarRender={
+          <AuthButton type="primary" onClick={() => modalChange('create', '添加用户')}>
+            添加用户
+          </AuthButton>
+        }
+        pagination={pagination}
+      />
+      <CustomModal
+        {...modalConfig}
+        draggable={true}
+        onOk={onModalOk}
+        onCancel={onModalClose}
+      >
+        <UserForm
+          name="userForm"
+          formRef={formRefModal}
+          modalType={modalType}
+          tableRecord={tableRecord}
+        />
+      </CustomModal>
+      <CustomDrawer
+        title="用户详情"
+        size={680}
+        onClose={onDrawerClose}
+        open={drawerOpen}
+        showOkButton={false}
+        cancelText="关闭"
+      >
+        <UserDetail record={tableRecord} />
+      </CustomDrawer>
+    </>
+  );
 };
 
 export default Index;

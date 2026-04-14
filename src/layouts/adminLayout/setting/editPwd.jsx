@@ -8,6 +8,15 @@ const formItemLayout = {
 const Index = ({ formRef, name }) => {
   const formSchema = [
     {
+      name: 'oldPassword',
+      label: '旧密码',
+      rules: [{ required: true, whitespace: true, message: '旧密码不能为空' }],
+      fieldProps: {
+        componentType: 'input',
+        placeholder: '请输入旧密码',
+      },
+    },
+    {
       name: 'password',
       label: '新密码',
       rules: [
@@ -31,6 +40,14 @@ const Index = ({ formRef, name }) => {
           pattern: G_PASSWORD_PATTERN,
           message: G_PASSWORD_PATTERN_MESSAGE,
         },
+        ({ getFieldValue }) => ({
+          validator(_, value) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve();
+            }
+            return Promise.reject(new Error('两次输入的新密码不一致'));
+          },
+        }),
       ],
       fieldProps: {
         componentType: 'input',
