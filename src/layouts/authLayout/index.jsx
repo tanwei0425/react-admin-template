@@ -23,7 +23,7 @@ const Index = () => {
   return (
     <Flex className={styles.login}>
       <Helmet title="登录" />
-      <Flex className={styles.content} flex={1} vertical="vertical" justify="center" align="center">
+      <Flex className={styles.content} flex={1} vertical justify="center" align="center">
         <div className={styles.title}>{globalConfig.title}</div>
         <img className={styles.illustration} src={loginLeftBg} alt="" />
         <div className={styles.footer}>版权所有：Copyright 2025 {globalConfig.title}</div>

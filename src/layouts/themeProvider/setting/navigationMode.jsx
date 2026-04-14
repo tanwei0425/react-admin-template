@@ -1,4 +1,4 @@
-import { List, Switch } from 'antd';
+import { Switch, Flex } from 'antd';
 import { useSelector } from 'react-redux';
 import useSetSysTheme from '@hooks/useSetSysTheme';
 import { useStyle } from './useStyle';
@@ -41,31 +41,20 @@ const NavigationMode = () => {
   const onChange = (e, key) => setThemeSkin({ [key]: e });
 
   return (
-    <List
-      className={styles.themeListItem}
-      dataSource={dataSource}
-      split={false}
-      //   loading={loading}
-      renderItem={(item, index) => {
-        return (
-          item.show && (
-            <List.Item
-              className={`tw:w-full tw:border-none ${index !== 0 ? 'tw:!pt-1' : 'tw:!pt-0'}`}
-              actions={[
-                <Switch
-                  key={item.key}
-                  size={'small'}
-                  checked={item.value}
-                  onChange={(e) => onChange(e, item.key)}
-                />,
-              ]}
-            >
-              <div>{item?.title}</div>
-            </List.Item>
-          )
-        );
-      }}
-    />
+    <Flex className={styles.themeListItem} vertical gap={4}>
+      {dataSource
+        .filter((item) => item.show)
+        .map((item) => (
+          <Flex key={item.key} justify="space-between" align="center" className='tw:!py-1'>
+            <div>{item?.title}</div>
+            <Switch
+              size={'small'}
+              checked={item.value}
+              onChange={(e) => onChange(e, item.key)}
+            />
+          </Flex>
+        ))}
+    </Flex>
   );
 };
 

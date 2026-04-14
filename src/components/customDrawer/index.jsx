@@ -47,9 +47,9 @@ const CustomDrawer = ({
     <Drawer
       className="customDrawer"
       keyboard={false}
-      maskClosable={false}
+      mask={{ closable: false }}
       closable={false}
-      destroyOnClose={true}
+      destroyOnHidden={true}
       footer={defaultFooter}
       onClose={handleCancel}
       loading={loading}

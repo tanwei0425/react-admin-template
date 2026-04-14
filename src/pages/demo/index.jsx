@@ -42,16 +42,16 @@ const Index = () => {
 
   return (
     <div className={styles.scssModuleDemo}>
-      <Divider orientation="left">{'modal表单'}</Divider>
+      <Divider titlePlacement="left">{'modal表单'}</Divider>
       <Button onClick={() => modalChange('formModal')}>formModal</Button>
       <CustomModal {...modalConfig} draggable={true} onOk={onModalOk} onCancel={onModalClose}>
         <FormDemo name="formModal" formRef={formRefModal} />
       </CustomModal>
-      <Divider orientation="left">{'drawer表单'}</Divider>
+      <Divider titlePlacement="left">{'drawer表单'}</Divider>
       <Button onClick={() => drawerChange('formDrawer')}>formDrawer</Button>
       <CustomDrawer
         title="formDrawer"
-        width={1000}
+        size={1000}
         onClose={onDrawerClose}
         onOk={OnDrawerOk}
         placement="right"

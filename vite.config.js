@@ -58,6 +58,44 @@ export default ({ mode, command }) => {
     },
     build: {
       outDir: 'dist',
+      chunkSizeWarningLimit: 1500,
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return
+
+            if (id.includes('react-router')) {
+              return 'vendor-router'
+            }
+
+            if (id.includes('redux') || id.includes('@reduxjs')) {
+              return 'vendor-redux'
+            }
+
+            if (id.includes('@ant-design/icons')) {
+              return 'vendor-icons'
+            }
+
+            if (id.includes('antd') || id.includes('rc-') || id.includes('@rc-component') || id.includes('@ant-design')) {
+              return 'vendor-antd'
+            }
+
+            if (id.includes('react') || id.includes('scheduler')) {
+              return 'vendor-react'
+            }
+
+            if (id.includes('lodash')) {
+              return 'vendor-lodash'
+            }
+
+            if (id.includes('dayjs')) {
+              return 'vendor-dayjs'
+            }
+
+            return 'vendor'
+          },
+        },
+      },
     },
     resolve: {
       alias: {

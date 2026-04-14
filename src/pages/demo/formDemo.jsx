@@ -110,7 +110,7 @@ const Operate = ({ formRef, name }) => {
         dataSource: mockData,
         rowKey: (record) => record.key,
         render: (item) => item.title,
-        operations: ['关联用户', '解除关联'],
+        actions: ['关联用户', '解除关联'],
         pagination: true,
       },
     },

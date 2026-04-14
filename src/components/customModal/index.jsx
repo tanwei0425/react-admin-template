@@ -116,11 +116,11 @@ const CustomModal = ({
   return (
     <Modal
       wrapClassName={cx(styles.customModal, wrapClassName)}
-      maskClosable={false}
+      mask={{ closable: false }}
       keyboard={false}
       centered={true}
       closable={true}
-      destroyOnClose={true}
+      destroyOnHidden={true}
       cancelText={'取消'}
       okText={'确定并保存'}
       confirmLoading={confirmLoading}

@@ -24,14 +24,14 @@ const Setting = () => {
       <CustomDrawer
         title="系统风格设置"
         open={open}
-        maskClosable={true}
-        destroyOnClose={false}
-        width={280}
+        mask={{ closable: true }}
+        destroyOnHidden={false}
+        size={280}
         onClose={onClose}
         showConfirmButton={false}
       >
         {open && (
-          <Space className={styles.themeSpace} direction={'vertical'} align={'start'} size={'middle'}>
+          <Space className={styles.themeSpace} orientation={'vertical'} align={'start'} size={'middle'}>
             <Divider className={cx(styles.themeSpaceDivider, styles.themeSpaceDividerFirst)}>
               <ProductOutlined />
               <span className="tw:px-2">布局样式</span>

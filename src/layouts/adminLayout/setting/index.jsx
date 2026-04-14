@@ -125,7 +125,7 @@ const Setting = () => {
         onOpenChange={handleOpenChange}
         placement="bottomLeft"
         trigger={['click']}
-        overlayClassName={styles.settingDropdown}
+        classNames={{ root: styles.settingDropdown }}
       >
         <SettingSvg
           className={cx(

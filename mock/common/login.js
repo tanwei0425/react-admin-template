@@ -93,17 +93,6 @@ const loginAnalysisData = [
               sort: 1,
             },
             {
-              id: '997',
-              pid: 0,
-              name: 'chat',
-              path: '/chat',
-              icon: 'HomeOutlined',
-              cmpPath: 'pages/chat',
-              isShow: '1',
-              isRouter: '1',
-              sort: 1,
-            },
-            {
               id: '2',
               pid: 0,
               name: '统计分析',

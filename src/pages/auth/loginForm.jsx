@@ -1,4 +1,4 @@
-import { Button, Form, Input, Row, Col, Spin } from 'antd';
+import { Button, Form, Input, Row, Col, Spin, Space } from 'antd';
 import { UserOutlined, LockOutlined, VerifiedOutlined } from '@ant-design/icons';
 import { setLocalStorageItem } from '@utils';
 import { useStyle } from './useStyle';
@@ -52,7 +52,14 @@ const Index = () => {
             },
           ]}
         >
-          <Input placeholder="请输入账号" addonBefore={<UserOutlined />} autoComplete="off" />
+          <Space.Compact style={{ width: '100%' }}>
+            <Input
+              style={{ width: '100%' }}
+              placeholder="请输入账号"
+              prefix={<UserOutlined />}
+              autoComplete="off"
+            />
+          </Space.Compact>
         </Form.Item>
         <Form.Item
           name="password"
@@ -64,7 +71,14 @@ const Index = () => {
             },
           ]}
         >
-          <Input.Password placeholder="请输入密码" addonBefore={<LockOutlined />} autoComplete="off" />
+          <Space.Compact style={{ width: '100%' }}>
+            <Input.Password
+              style={{ width: '100%' }}
+              placeholder="请输入密码"
+              prefix={<LockOutlined />}
+              autoComplete="off"
+            />
+          </Space.Compact>
         </Form.Item>
         <Form.Item extra="点击右侧验证码可以刷新验证码">
           <Row gutter={8}>
@@ -80,7 +94,7 @@ const Index = () => {
                   },
                 ]}
               >
-                <Input placeholder="请输入验证码" addonBefore={<VerifiedOutlined />} autoComplete="off" />
+                <Input placeholder="请输入验证码" prefix={<VerifiedOutlined />} autoComplete="off" />
               </Form.Item>
             </Col>
             <Col span={8}>

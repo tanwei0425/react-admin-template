@@ -1,144 +1,49 @@
-import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu } from 'antd';
 import { useSelector } from 'react-redux';
-import lodash from 'lodash';
-import { arrayToTree, renderIcon } from '@utils';
+import { useMenuLogic } from '@hooks/useMenuLogic.jsx';
 import { useStyle } from './useStyle';
 
 const Menus = () => {
   const navigate = useNavigate();
-  const { styles, cx } = useStyle();
   const { pathname } = useLocation();
+  const { styles, cx } = useStyle();
+
   const { collapsed } = useSelector((state) => state.common);
   const { routesData } = useSelector((state) => state.userInfo);
-  console.log(routesData, 'routesData');
-
   const { themeLayout, overallStyle, menuAccordionMode } = useSelector((state) => state.theme);
-  const [menusTree, setMenuTree] = useState([]);
-  const [openKeys, setOpenKeys] = useState([]);
-  const [selectedKeys, setSelectedKeys] = useState([]);
-  const layoutStatus = themeLayout === 'vertical';
-  // 递归查找所有父级路径
-  const findAllParentKeys = (currentPath) => {
-    let keys = [];
-    const findParents = (path) => {
-      const item = routesData.find((i) => i.path === path);
-      if (item?.pid) {
-        const parent = routesData.find((i) => String(i.id) === String(item.pid));
-        if (parent) {
-          keys.push(parent.path);
-          findParents(parent.path);
-        }
-      }
-    };
-    findParents(currentPath);
-    return keys.reverse();
-  };
-  // 返回单个 path，用于高亮菜单
-  const findDisplayableSelectedKey = (currentPath) => {
-    let current = routesData.find((i) => i.path === currentPath);
-    while (current && current.isShow !== '1') {
-      current = routesData.find((i) => String(i.id) === String(current.pid));
-    }
-    return current ? current.path : null;
-  };
-  // 处理菜单展开逻辑
-  const onOpenChange = (keys) => {
-    // 左侧菜单和手风琴模式保持父级只展开一个
-    if (menuAccordionMode && layoutStatus) {
-      const latestOpenKey = keys.find((key) => !openKeys.includes(key));
-      const allParents = latestOpenKey ? findAllParentKeys(latestOpenKey) : [];
-      const validKeys = [...allParents, latestOpenKey].filter(Boolean);
 
-      // 保留每个层级的最后一个key
-      const levelMap = new Map();
-      validKeys.forEach((key) => {
-        const level = findAllParentKeys(key).length;
-        levelMap.set(level, key);
-      });
-      setOpenKeys(Array.from(levelMap.values()));
-    } else {
-      setOpenKeys(keys);
-    }
-  };
+  const isVertical = themeLayout === 'vertical';
 
-  // 生成菜单项
-  const renderMenuItems = (menus = []) => {
-    return menus.map((menu) => {
-      const validChildren = lodash.filter(menu?.children, { isShow: '1' });
-      let data = {
-        key: menu.path,
-        label: <span>{menu.name}</span>,
-        icon: menu.icon && renderIcon(menu.icon),
-        children: validChildren.length > 0 ? renderMenuItems(validChildren) : null,
-      };
-      // 横向菜单并且第一层级增加向下偏移
-      themeLayout === 'transverse' && (data.popupOffset = [0, 8]);
-      return data;
-    });
-  };
+  const { menuItems, openKeys, selectedKeys, onOpenChange, onMenuClick } = useMenuLogic(
+    routesData,
+    pathname,
+    isVertical,
+    collapsed,
+    menuAccordionMode,
+  );
 
-  // 初始化菜单树
-  useEffect(() => {
-    const routesDataTree = arrayToTree(routesData);
-    const validMenuTree = routesDataTree?.filter((val) => val.isShow === '1');
-    setMenuTree(validMenuTree);
-  }, [routesData]);
-
-  // 处理路径和折叠状态变化
-  useEffect(() => {
-    const selectedKey = findDisplayableSelectedKey(pathname);
-    setSelectedKeys(selectedKey ? [selectedKey] : []);
-    if (layoutStatus) {
-      // 计算需要展开的keys
-      const parentKeys = findAllParentKeys(pathname);
-      let newOpenKeys = [];
-
-      if (menuAccordionMode) {
-        newOpenKeys = parentKeys.reduce((item, key) => {
-          const level = findAllParentKeys(key).length;
-          if (!item.some((k) => findAllParentKeys(k).length === level)) {
-            item.push(key);
-          }
-          return item;
-        }, []);
-      } else {
-        newOpenKeys = [...new Set([...openKeys, ...parentKeys])];
-      }
-
-      if (!collapsed) {
-        setOpenKeys((prev) => (menuAccordionMode ? newOpenKeys : [...new Set([...prev, ...newOpenKeys])]));
-      }
-    }
-  }, [pathname, collapsed, menuAccordionMode, routesData, layoutStatus]);
-
-  // 处理菜单点击
   const onClick = ({ key }) => {
-    if (key) {
-      navigate(key);
-      // 左侧菜单和手风琴模式保持父级只展开一个
-      if (menuAccordionMode && layoutStatus) {
-        const parentKeys = findAllParentKeys(key);
-        setOpenKeys((prev) => [...new Set([...prev, ...parentKeys])]);
-      }
-    }
+    if (!key) return;
+    navigate(key);
+    onMenuClick(key);
   };
+
   return (
     <Menu
       className={cx(
-        layoutStatus
+        isVertical
           ? [styles.menu, overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme']
-          : styles.transverseMenu
+          : styles.transverseMenu,
       )}
-      mode={layoutStatus ? 'inline' : 'horizontal'}
+      mode={isVertical ? 'inline' : 'horizontal'}
       theme={overallStyle}
       forceSubMenuRender
       selectedKeys={selectedKeys}
       onOpenChange={onOpenChange}
       onClick={onClick}
       {...(collapsed ? {} : { openKeys })}
-      items={renderMenuItems(menusTree)}
+      items={menuItems}
     />
   );
 };

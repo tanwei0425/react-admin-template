@@ -158,7 +158,7 @@ const Index = () => {
   };
   return (
     <>
-      <Divider orientation="left">{'modal表单'}</Divider>
+      <Divider titlePlacement="left">{'modal表单'}</Divider>
       <SearchForm
         loading={loading}
         reset={reset}
