@@ -9,13 +9,17 @@ const roleKeys = ['1', '2', '3', '4', '5'];
 
 const userList = Array.from({ length: 56 }).map((_, i) => ({
   id: String(i + 1),
-  username: `user_${String(i + 1).padStart(3, '0')}`,
+  username:
+    i % 2 === 0
+      ? `user_${String(i + 1).padStart(3, '0')}`
+      : `user_${String(i + 1).padStart(3, '0')}测试超长测试超长测试超长测试超长`,
   nickname: Random.cname(),
   gender: genderKeys[i % 2],
   phone: Mock.mock(/^1[3-9]\d{9}$/),
   email: Random.email(),
   department: departmentKeys[i % departmentKeys.length],
   role: roleKeys[i % roleKeys.length],
+  roleIds: [roleKeys[i % roleKeys.length], roleKeys[(i + 1) % roleKeys.length]],
   status: statusKeys[i % 2],
   createTime: Random.datetime('yyyy-MM-dd HH:mm:ss'),
   remark: i % 3 === 0 ? Random.csentence(10, 20) : '',
@@ -95,6 +99,26 @@ const userAnalysisData = [
     response: () => ({
       code: 200,
       message: '密码已重置为默认密码',
+      data: null,
+    }),
+  },
+  {
+    url: '/dev-api/mock/user/allList',
+    method: 'get',
+    timeout: 200,
+    response: () => ({
+      code: 200,
+      message: '操作成功',
+      data: userList.map(({ id, username, nickname, status }) => ({ id, username, nickname, status })),
+    }),
+  },
+  {
+    url: '/dev-api/mock/user/assignRoles',
+    method: 'post',
+    timeout: 300,
+    response: () => ({
+      code: 200,
+      message: '分配角色成功',
       data: null,
     }),
   },

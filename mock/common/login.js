@@ -72,7 +72,7 @@ const loginAnalysisData = [
           routesData: [
             {
               id: '1',
-              pid: 0,
+              pid: '0',
               name: '首页',
               path: '/',
               icon: 'HomeOutlined',
@@ -83,7 +83,7 @@ const loginAnalysisData = [
             },
             {
               id: '998',
-              pid: 0,
+              pid: '0',
               name: 'demo',
               path: '/demo',
               icon: 'HomeOutlined',
@@ -94,7 +94,7 @@ const loginAnalysisData = [
             },
             {
               id: '2',
-              pid: 0,
+              pid: '0',
               name: '统计分析',
               path: '/statistics',
               icon: 'IdcardOutlined',
@@ -144,7 +144,7 @@ const loginAnalysisData = [
             },
             {
               id: '5',
-              pid: 0,
+              pid: '0',
               name: 'API管理',
               path: '/gatewayApi',
               icon: 'IdcardOutlined',
@@ -205,7 +205,7 @@ const loginAnalysisData = [
             },
             {
               id: '6',
-              pid: 0,
+              pid: '0',
               name: '权限管理',
               path: '/system',
               icon: 'IdcardOutlined',
@@ -255,7 +255,7 @@ const loginAnalysisData = [
             },
             {
               id: '7',
-              pid: 0,
+              pid: '0',
               name: '监控服务',
               path: '/monitor',
               icon: 'IdcardOutlined',
@@ -285,7 +285,7 @@ const loginAnalysisData = [
             },
             {
               id: '3',
-              pid: 0,
+              pid: '0',
               name: '菜单测试',
               path: '/menuDemo',
               icon: 'IdcardOutlined',
@@ -354,9 +354,39 @@ const loginAnalysisData = [
               { key: '4', value: '开发人员' },
               { key: '5', value: '产品经理' },
             ],
+            user_list: [
+              { key: '1', value: '张三' },
+              { key: '2', value: '李四' },
+              { key: '3', value: '王五' },
+              { key: '4', value: '赵六' },
+              { key: '5', value: '钱七' },
+              { key: '6', value: '孙八' },
+              { key: '7', value: '周九' },
+              { key: '8', value: '吴十' },
+              { key: '9', value: '郑十一' },
+              { key: '10', value: '冯十二' },
+            ],
             gender: [
               { key: '1', value: '男' },
               { key: '2', value: '女' },
+            ],
+            role_status: [
+              { key: '1', value: '启用' },
+              { key: '0', value: '禁用' },
+            ],
+            role_type: [
+              { key: '1', value: '系统角色' },
+              { key: '2', value: '业务角色' },
+              { key: '3', value: '自定义角色' },
+            ],
+            menu_status: [
+              { key: '1', value: '启用' },
+              { key: '0', value: '停用' },
+            ],
+            menu_type: [
+              { key: '1', value: '目录' },
+              { key: '2', value: '菜单' },
+              { key: '3', value: '按钮' },
             ],
           },
         },
