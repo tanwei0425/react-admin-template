@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, message, Modal } from 'antd';
+import { Tag, Modal, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -7,10 +7,11 @@ import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
 import { tableColumnToDict } from '@utils';
-import { useRoleListApi, useRoleCreateApi, useRoleUpdateApi, useRoleDeleteApi, useRoleAssignUsersApi } from '@api/role';
+import { useRoleListApi, useRoleCreateApi, useRoleUpdateApi, useRoleDeleteApi, useRoleAssignUsersApi, useRoleAuthorizeApi } from '@api/role';
 import RoleForm from './roleForm';
 import RoleDetail from './roleDetail';
 import AssignUsersModal from './assignUsersModal';
+import AuthorizeModal from './authorizeModal';
 
 const iniModalConfig = {
   title: '操作',
@@ -25,6 +26,7 @@ const initSearchFormData = {
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
+  const { message } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [modalType, setModalType] = useState();
@@ -35,6 +37,8 @@ const Index = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [assignUsersOpen, setAssignUsersOpen] = useState(false);
   const [assignUsersRecord, setAssignUsersRecord] = useState({});
+  const [authorizeOpen, setAuthorizeOpen] = useState(false);
+  const [authorizeRecord, setAuthorizeRecord] = useState({});
 
   const { dictData } = useSelector((state) => state.userInfo);
   const { loading, runAsync: runList } = useRoleListApi();
@@ -42,6 +46,7 @@ const Index = () => {
   const { runAsync: runUpdate } = useRoleUpdateApi();
   const { runAsync: runDelete } = useRoleDeleteApi();
   const { loading: assignUsersLoading, runAsync: runAssignUsers } = useRoleAssignUsersApi();
+  const { loading: authorizeLoading, runAsync: runAuthorize } = useRoleAuthorizeApi();
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
@@ -124,7 +129,7 @@ const Index = () => {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 220,
+      width: 270,
       render: (_, record) => {
         const data = [
           {
@@ -137,6 +142,11 @@ const Index = () => {
             onClick: () => modalChange('update', '编辑角色', record),
             text: '编辑',
             type: 'primary',
+          },
+          {
+            key: 'authorize',
+            onClick: () => handleAuthorize(record),
+            text: '授权',
           },
           {
             key: 'assignUsers',
@@ -265,6 +275,26 @@ const Index = () => {
     setAssignUsersRecord({});
   };
 
+  const handleAuthorize = (record) => {
+    setAuthorizeRecord(record);
+    setAuthorizeOpen(true);
+  };
+
+  const onAuthorizeOk = async (params) => {
+    const res = await runAuthorize(params);
+    if (res?.code === 200) {
+      message.success('授权成功');
+      setAuthorizeOpen(false);
+      setAuthorizeRecord({});
+      getTableData();
+    }
+  };
+
+  const onAuthorizeCancel = () => {
+    setAuthorizeOpen(false);
+    setAuthorizeRecord({});
+  };
+
   const onDrawerClose = () => {
     setDrawerOpen(false);
     setTableRecord({});
@@ -315,6 +345,13 @@ const Index = () => {
         onCancel={onAssignUsersCancel}
         onOk={onAssignUsersOk}
         confirmLoading={assignUsersLoading}
+      />
+      <AuthorizeModal
+        open={authorizeOpen}
+        record={authorizeRecord}
+        onCancel={onAuthorizeCancel}
+        onOk={onAuthorizeOk}
+        confirmLoading={authorizeLoading}
       />
     </>
   );
