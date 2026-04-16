@@ -12,7 +12,7 @@ const MenuDetail = ({ record, flatList }) => {
   const parentName = (() => {
     if (String(record.pid) === '0') return '顶级菜单';
     const parent = (flatList || []).find((item) => String(item.id) === String(record.pid));
-    return parent?.name || '-';
+    return parent?.name || '';
   })();
 
   const isDir = record.menuType === '1';
@@ -32,13 +32,13 @@ const MenuDetail = ({ record, flatList }) => {
           <Tag color={record.isShow === '1' ? 'green' : 'red'}>{record.isShow === '1' ? '显示' : '隐藏'}</Tag>
         </Descriptions.Item>
       )}
-      {(isDir || isMenu) && <Descriptions.Item label="路由地址">{record.path || '-'}</Descriptions.Item>}
-      {isMenu && <Descriptions.Item label="组件路径">{record.cmpPath || '-'}</Descriptions.Item>}
-      {(isMenu || isBtn) && <Descriptions.Item label="权限字符">{record.permission || '-'}</Descriptions.Item>}
+      {(isDir || isMenu) && <Descriptions.Item label="路由地址">{record.path || ''}</Descriptions.Item>}
+      {isMenu && <Descriptions.Item label="组件路径">{record.cmpPath || ''}</Descriptions.Item>}
+      {(isMenu || isBtn) && <Descriptions.Item label="权限字符">{record.permission || ''}</Descriptions.Item>}
       <Descriptions.Item label="排序">{record.sort}</Descriptions.Item>
-      {(isDir || isMenu) && <Descriptions.Item label="图标">{record.icon || '-'}</Descriptions.Item>}
+      {(isDir || isMenu) && <Descriptions.Item label="图标">{record.icon || ''}</Descriptions.Item>}
       <Descriptions.Item label="创建时间" span={2}>{record.createTime}</Descriptions.Item>
-      <Descriptions.Item label="备注" span={2}>{record.remark || '-'}</Descriptions.Item>
+      <Descriptions.Item label="备注" span={2}>{record.remark || ''}</Descriptions.Item>
     </Descriptions>
   );
 };

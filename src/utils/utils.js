@@ -5,7 +5,7 @@ import * as Icon from '@ant-design/icons';
  * @param {*} list
  * @param {*} pid
  */
-function arrayToTree(list, pid = 0) {
+function arrayToTree(list, pid = '0') {
   const tree = list
     .filter((item) => item.pid === pid)
     .map((item) => ({

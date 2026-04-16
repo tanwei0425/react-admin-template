@@ -76,10 +76,11 @@ const Index = () => {
     {
       title: '菜单名称',
       dataIndex: 'name',
-      width: 180,
+      width: 170,
       ellipsis: true,
+      fixed: 'left',
     },
-     {
+    {
       title: '菜单类型',
       dataIndex: 'menuType',
       width: 80,
@@ -96,19 +97,13 @@ const Index = () => {
       title: '路由路径',
       dataIndex: 'path',
       ellipsis: true,
-       width: 150,
+      width: 150,
     },
     {
       title: '组件路径',
       dataIndex: 'cmpPath',
       ellipsis: true,
-       width: 150,
-    },
-   
-    {
-      title: '排序',
-      dataIndex: 'sort',
-      width: 60,
+      width: 150,
     },
     {
       title: '是否显示',
@@ -121,6 +116,12 @@ const Index = () => {
       dataIndex: 'status',
       width: 60,
       render: (text) => <Tag color={statusColorMap[text]}>{dictLabel('menu_status', text)}</Tag>,
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      ellipsis: true,
+      width: 155,
     },
     {
       title: '操作',
@@ -282,7 +283,7 @@ const Index = () => {
         rowKey="id"
         loading={loading}
         title="菜单管理列表"
-        scroll={{ x: 1300 }}
+        scroll={{ x: 1380 }}
         pagination={false}
         expandable={{
           expandedRowKeys,
