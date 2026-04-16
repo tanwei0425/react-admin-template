@@ -23,3 +23,7 @@ export const useRoleAllListApi = () => {
 export const useRoleAssignUsersApi = () => {
   return useApiRequest({ url: '/mock/role/assignUsers', method: 'POST' });
 };
+
+export const useRoleAuthorizeApi = () => {
+  return useApiRequest({ url: '/mock/role/authorize', method: 'POST' });
+};

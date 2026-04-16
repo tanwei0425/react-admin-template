@@ -15,3 +15,7 @@ export const useMenuUpdateApi = () => {
 export const useMenuDeleteApi = () => {
   return useApiRequest({ url: '/mock/menu/delete', method: 'POST' });
 };
+
+export const useMenuTreeApi = () => {
+  return useApiRequest({ url: '/mock/menu/tree', manual: true });
+};
