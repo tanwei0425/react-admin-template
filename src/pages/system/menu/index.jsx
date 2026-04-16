@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, Modal, Button, Space, App } from 'antd';
+import { Tag, Button, Space, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -22,7 +22,7 @@ const initSearchFormData = {};
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
-  const { message } = App.useApp();
+  const { message, modal: modalApi } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [flatList, setFlatList] = useState([]);
@@ -223,7 +223,7 @@ const Index = () => {
   };
 
   const handleDelete = (record) => {
-    Modal.confirm({
+    modalApi.confirm({
       title: '删除确认',
       content: `确定要删除菜单「${record.name}」吗？删除后不可恢复。`,
       okText: '确定删除',

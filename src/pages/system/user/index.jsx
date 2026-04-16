@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, Modal, App } from 'antd';
+import { Tag, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -32,7 +32,7 @@ const initSearchFormData = {
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
-  const { message } = App.useApp();
+  const { message, modal: modalApi } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [modalType, setModalType] = useState();
@@ -154,7 +154,7 @@ const Index = () => {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 290,
+      width: 310,
       render: (_, record) => {
         const data = [
           {
@@ -264,7 +264,7 @@ const Index = () => {
   };
 
   const handleDelete = (record) => {
-    Modal.confirm({
+    modalApi.confirm({
       title: '删除确认',
       content: `确定要删除用户「${record.nickname}」吗？删除后不可恢复。`,
       okText: '确定删除',
@@ -281,7 +281,7 @@ const Index = () => {
   };
 
   const handleResetPwd = (record) => {
-    Modal.confirm({
+    modalApi.confirm({
       title: '重置密码',
       content: `确定将用户「${record.nickname}」的密码重置为默认密码（123456）吗？`,
       okText: '确定重置',

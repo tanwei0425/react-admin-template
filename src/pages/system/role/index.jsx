@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, Modal, App } from 'antd';
+import { Tag, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -26,7 +26,7 @@ const initSearchFormData = {
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
-  const { message } = App.useApp();
+  const { message, modal: modalApi } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [modalType, setModalType] = useState();
@@ -129,7 +129,7 @@ const Index = () => {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 270,
+      width: 340,
       render: (_, record) => {
         const data = [
           {
@@ -146,7 +146,7 @@ const Index = () => {
           {
             key: 'authorize',
             onClick: () => handleAuthorize(record),
-            text: '授权',
+            text: '数据权限',
           },
           {
             key: 'assignUsers',
@@ -239,7 +239,7 @@ const Index = () => {
   };
 
   const handleDelete = (record) => {
-    Modal.confirm({
+    modalApi.confirm({
       title: '删除确认',
       content: `确定要删除角色「${record.roleName}」吗？删除后不可恢复。`,
       okText: '确定删除',
