@@ -42,7 +42,7 @@ const RoleForm = ({ formRef, name, modalType, tableRecord }) => {
     {
       name: 'sort',
       label: '排序',
-      initialValue: 0,
+      initialValue: 1,
       rules: [{ required: true, message: '排序不能为空' }],
       fieldProps: {
         componentType: 'inputNumber',
