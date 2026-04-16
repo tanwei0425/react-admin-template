@@ -88,6 +88,30 @@ const menuAnalysisData = [
       data: null,
     }),
   },
+  {
+    url: '/dev-api/mock/menu/tree',
+    method: 'get',
+    timeout: 200,
+    response: () => {
+      const listToTree = (list, pid = '0') => {
+        return list
+          .filter((item) => item.pid === pid && item.status === '1')
+          .map((item) => {
+            const children = listToTree(list, item.id);
+            return {
+              key: item.id,
+              title: item.name,
+              children: children.length > 0 ? children : undefined,
+            };
+          });
+      };
+      return {
+        code: 200,
+        message: '操作成功',
+        data: listToTree(menuList),
+      };
+    },
+  },
 ];
 
 export default menuAnalysisData;

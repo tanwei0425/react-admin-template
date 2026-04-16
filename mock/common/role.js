@@ -13,6 +13,9 @@ const roleList = Array.from({ length: 18 }).map((_, i) => ({
   status: i === 0 ? '1' : statusKeys[i % 2],
   sort: i + 1,
   userIds: [String((i % 5) + 1), String((i % 5) + 6)],
+  menuIds: i === 0
+    ? ['1', '2', '2-1', '2-2', '5', '5-1', '6', '6-1', '6-2', '6-3']
+    : ['1', '6', '6-1'],
   remark: i % 3 === 0 ? Random.csentence(10, 20) : '',
   createTime: Random.datetime('yyyy-MM-dd HH:mm:ss'),
 }));
@@ -92,6 +95,16 @@ const roleAnalysisData = [
       code: 200,
       message: '操作成功',
       data: roleList.map(({ id, roleName, roleCode, status }) => ({ id, roleName, roleCode, status })),
+    }),
+  },
+  {
+    url: '/dev-api/mock/role/authorize',
+    method: 'post',
+    timeout: 300,
+    response: () => ({
+      code: 200,
+      message: '授权成功',
+      data: null,
     }),
   },
   {
