@@ -19,3 +19,11 @@ export const useUserDeleteApi = () => {
 export const useUserResetPwdApi = () => {
   return useApiRequest({ url: '/mock/user/resetPwd', method: 'POST' });
 };
+
+export const useUserAllListApi = () => {
+  return useApiRequest({ url: '/mock/user/allList', manual: true });
+};
+
+export const useUserAssignRolesApi = () => {
+  return useApiRequest({ url: '/mock/user/assignRoles', method: 'POST' });
+};
