@@ -72,11 +72,12 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       },
     },
     {
-      name: 'role',
+      name: 'roleIds',
       label: '角色',
       rules: [{ required: true, message: '角色不能为空' }],
       fieldProps: {
         componentType: 'select',
+        mode: 'multiple',
         options: dictOptions('role'),
         placeholder: '请选择角色',
       },

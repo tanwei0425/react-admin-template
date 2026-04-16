@@ -13,9 +13,11 @@ import {
   useUserUpdateApi,
   useUserDeleteApi,
   useUserResetPwdApi,
+  useUserAssignRolesApi,
 } from '@api/user';
 import UserForm from './userForm';
 import UserDetail from './userDetail';
+import AssignRolesModal from './assignRolesModal';
 
 const iniModalConfig = {
   title: '操作',
@@ -38,6 +40,8 @@ const Index = () => {
   const formRefModal = useRef();
   const [searchFormData, setSearchFormData] = useState(initSearchFormData);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [assignRolesOpen, setAssignRolesOpen] = useState(false);
+  const [assignRolesRecord, setAssignRolesRecord] = useState({});
 
   const { dictData } = useSelector((state) => state.userInfo);
   const { loading, runAsync: runList } = useUserListApi();
@@ -45,6 +49,7 @@ const Index = () => {
   const { runAsync: runUpdate } = useUserUpdateApi();
   const { runAsync: runDelete } = useUserDeleteApi();
   const { runAsync: runResetPwd } = useUserResetPwdApi();
+  const { loading: assignRolesLoading, runAsync: runAssignRoles } = useUserAssignRolesApi();
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
@@ -93,13 +98,13 @@ const Index = () => {
       title: '登录账号',
       dataIndex: 'username',
       fixed: 'left',
-      width: 110,
+      width: 130,
       ellipsis: true,
     },
     {
       title: '用户名称',
       dataIndex: 'nickname',
-      width: 90,
+      width: 80,
       ellipsis: true,
     },
     {
@@ -112,23 +117,25 @@ const Index = () => {
     {
       title: '手机号',
       dataIndex: 'phone',
-      width: 105,
+      width: 110,
       ellipsis: true,
+    },
+     {
+      title: '角色',
+      dataIndex: 'roleIds',
+      width: 130,
+      ellipsis: true,
+      render: (roleIds) =>
+        (roleIds || []).map((id) => dictLabel('role', id)).join('、'),
     },
     {
       title: '部门',
       dataIndex: 'department',
-      width: 100,
+      width: 90,
       ellipsis: true,
       render: (text) => dictLabel('department', text),
     },
-    {
-      title: '角色',
-      dataIndex: 'role',
-      width: 85,
-      ellipsis: true,
-      render: (text) => dictLabel('role', text),
-    },
+   
     {
       title: '状态',
       dataIndex: 'status',
@@ -139,14 +146,14 @@ const Index = () => {
     {
       title: '创建时间',
       dataIndex: 'createTime',
-      width: 150,
+      width: 160,
       ellipsis: true,
     },
     {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 235,
+      width: 290,
       render: (_, record) => {
         const data = [
           {
@@ -159,6 +166,11 @@ const Index = () => {
             onClick: () => modalChange('update', '编辑用户', record),
             text: '编辑',
             type: 'primary',
+          },
+          {
+            key: 'assignRoles',
+            onClick: () => handleAssignRoles(record),
+            text: '分配角色',
           },
           {
             key: 'resetPwd',
@@ -283,6 +295,26 @@ const Index = () => {
     });
   };
 
+  const handleAssignRoles = (record) => {
+    setAssignRolesRecord(record);
+    setAssignRolesOpen(true);
+  };
+
+  const onAssignRolesOk = async (params) => {
+    const res = await runAssignRoles(params);
+    if (res?.code === 200) {
+      message.success('分配角色成功');
+      setAssignRolesOpen(false);
+      setAssignRolesRecord({});
+      getTableData();
+    }
+  };
+
+  const onAssignRolesCancel = () => {
+    setAssignRolesOpen(false);
+    setAssignRolesRecord({});
+  };
+
   const onDrawerClose = () => {
     setDrawerOpen(false);
     setTableRecord({});
@@ -312,7 +344,7 @@ const Index = () => {
             添加用户
           </AuthButton>
         }
-        scroll={{ x: 1100 }}
+        scroll={{ x: 1250 }}
         pagination={pagination}
       />
       <CustomModal {...modalConfig} draggable={true} onOk={onModalOk} onCancel={onModalClose}>
@@ -328,6 +360,13 @@ const Index = () => {
       >
         <UserDetail record={tableRecord} />
       </CustomDrawer>
+      <AssignRolesModal
+        open={assignRolesOpen}
+        record={assignRolesRecord}
+        onCancel={onAssignRolesCancel}
+        onOk={onAssignRolesOk}
+        confirmLoading={assignRolesLoading}
+      />
     </>
   );
 };
