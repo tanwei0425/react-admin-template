@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, message, Modal } from 'antd';
+import { Tag, Modal, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -32,6 +32,7 @@ const initSearchFormData = {
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
+  const { message } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [modalType, setModalType] = useState();

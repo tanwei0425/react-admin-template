@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, message, Modal, Button, Space } from 'antd';
+import { Tag, Modal, Button, Space, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
@@ -22,6 +22,7 @@ const initSearchFormData = {};
 const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
+  const { message } = App.useApp();
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
   const [dataSource, setDataSource] = useState([]);
   const [flatList, setFlatList] = useState([]);
@@ -127,7 +128,7 @@ const Index = () => {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 270,
+      width: 245,
       render: (_, record) => {
         const data = [
           {
