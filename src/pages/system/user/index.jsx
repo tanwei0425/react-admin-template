@@ -7,7 +7,13 @@ import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
 import { tableColumnToDict } from '@utils';
-import { useUserListApi, useUserCreateApi, useUserUpdateApi, useUserDeleteApi, useUserResetPwdApi } from '@api/user';
+import {
+  useUserListApi,
+  useUserCreateApi,
+  useUserUpdateApi,
+  useUserDeleteApi,
+  useUserResetPwdApi,
+} from '@api/user';
 import UserForm from './userForm';
 import UserDetail from './userDetail';
 
@@ -21,7 +27,7 @@ const initSearchFormData = {
   status: null,
 };
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const [modalConfig, setModalConfig] = useState(iniModalConfig);
@@ -87,50 +93,60 @@ const Index = () => {
       title: '登录账号',
       dataIndex: 'username',
       fixed: 'left',
+      width: 110,
       ellipsis: true,
     },
     {
       title: '用户名称',
       dataIndex: 'nickname',
+      width: 90,
       ellipsis: true,
     },
     {
       title: '性别',
       dataIndex: 'gender',
+      width: 60,
+      align: 'center',
       render: (text) => dictLabel('gender', text),
     },
     {
       title: '手机号',
       dataIndex: 'phone',
+      width: 105,
       ellipsis: true,
     },
     {
       title: '部门',
       dataIndex: 'department',
+      width: 100,
+      ellipsis: true,
       render: (text) => dictLabel('department', text),
     },
     {
       title: '角色',
       dataIndex: 'role',
+      width: 85,
+      ellipsis: true,
       render: (text) => dictLabel('role', text),
     },
     {
       title: '状态',
       dataIndex: 'status',
-      render: (text) => (
-        <Tag color={statusColorMap[text]}>{dictLabel('user_status', text)}</Tag>
-      ),
+      width: 70,
+      align: 'center',
+      render: (text) => <Tag color={statusColorMap[text]}>{dictLabel('user_status', text)}</Tag>,
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
+      width: 150,
       ellipsis: true,
     },
     {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width:260,
+      width: 235,
       render: (_, record) => {
         const data = [
           {
@@ -234,12 +250,21 @@ const Index = () => {
     });
   };
 
-  const handleDelete = async (record) => {
-    const res = await runDelete({ id: record.id });
-    if (res?.code === 200) {
-      message.success('删除成功');
-      getTableData();
-    }
+  const handleDelete = (record) => {
+    Modal.confirm({
+      title: '删除确认',
+      content: `确定要删除用户「${record.nickname}」吗？删除后不可恢复。`,
+      okText: '确定删除',
+      cancelText: '取消',
+      okButtonProps: { danger: true },
+      onOk: async () => {
+        const res = await runDelete({ id: record.id });
+        if (res?.code === 200) {
+          message.success('删除成功');
+          getTableData();
+        }
+      },
+    });
   };
 
   const handleResetPwd = (record) => {
@@ -287,20 +312,11 @@ const Index = () => {
             添加用户
           </AuthButton>
         }
+        scroll={{ x: 1100 }}
         pagination={pagination}
       />
-      <CustomModal
-        {...modalConfig}
-        draggable={true}
-        onOk={onModalOk}
-        onCancel={onModalClose}
-      >
-        <UserForm
-          name="userForm"
-          formRef={formRefModal}
-          modalType={modalType}
-          tableRecord={tableRecord}
-        />
+      <CustomModal {...modalConfig} draggable={true} onOk={onModalOk} onCancel={onModalClose}>
+        <UserForm name="userForm" formRef={formRefModal} modalType={modalType} tableRecord={tableRecord} />
       </CustomModal>
       <CustomDrawer
         title="用户详情"

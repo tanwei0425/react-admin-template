@@ -4,7 +4,6 @@ import CustomForm, { FormItem, FormRenderComponent } from '@components/formEleme
 
 const UserForm = ({ formRef, name, modalType, tableRecord }) => {
   const { dictData } = useSelector((state) => state.userInfo);
-  const isView = modalType === 'view';
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
@@ -17,7 +16,7 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'input',
         placeholder: '请输入登录账号',
-        disabled: isView || modalType === 'update',
+        disabled: modalType === 'update',
       },
     },
     {
@@ -27,7 +26,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'input',
         placeholder: '请输入用户名称',
-        disabled: isView,
       },
     },
     {
@@ -38,7 +36,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'radio',
         options: dictOptions('gender'),
-        disabled: isView,
       },
     },
     {
@@ -51,7 +48,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'input',
         placeholder: '请输入手机号',
-        disabled: isView,
       },
     },
     {
@@ -63,7 +59,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'input',
         placeholder: '请输入邮箱',
-        disabled: isView,
       },
     },
     {
@@ -74,7 +69,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
         componentType: 'select',
         options: dictOptions('department'),
         placeholder: '请选择部门',
-        disabled: isView,
       },
     },
     {
@@ -85,7 +79,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
         componentType: 'select',
         options: dictOptions('role'),
         placeholder: '请选择角色',
-        disabled: isView,
       },
     },
     {
@@ -96,7 +89,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
       fieldProps: {
         componentType: 'radio',
         options: dictOptions('user_status'),
-        disabled: isView,
       },
     },
     {
@@ -106,7 +98,6 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
         componentType: 'textArea',
         placeholder: '请输入备注',
         maxLength: 100,
-        disabled: isView,
       },
     },
   ];
