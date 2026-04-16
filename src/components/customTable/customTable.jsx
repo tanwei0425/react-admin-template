@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import enhancedTitle from './enhancedTitle';
-import enhancedColumns, { tooltipEnhancer } from './enhancedColumns';
+import enhancedColumns, { copyableEnhancer, tooltipEnhancer } from './enhancedColumns';
 import EnhancedOperateRender from './enhancedOperateRender';
 const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 'small', ...restProps }) => {
   // title增强器
@@ -9,7 +9,7 @@ const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 's
     toolBarRender,
   });
   // columns增强器
-  const finalColumns = enhancedColumns(columns, [tooltipEnhancer]);
+  const finalColumns = enhancedColumns(columns, [copyableEnhancer, tooltipEnhancer]);
 
   return (
     <div className={'t-table'}>
