@@ -4,5 +4,6 @@ import userAnalysisMock from './common/user';
 import roleAnalysisMock from './common/role';
 import menuAnalysisMock from './common/menu';
 import dictAnalysisMock from './common/dict';
+import deptAnalysisMock from './common/dept';
 
-export const worker = [...tableAnalysisMock, ...loginAnalysisMock, ...userAnalysisMock, ...roleAnalysisMock, ...menuAnalysisMock, ...dictAnalysisMock];
+export const worker = [...tableAnalysisMock, ...loginAnalysisMock, ...userAnalysisMock, ...roleAnalysisMock, ...menuAnalysisMock, ...dictAnalysisMock, ...deptAnalysisMock];
