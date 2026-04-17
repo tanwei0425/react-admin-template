@@ -39,6 +39,7 @@ const EnhancedOperateRender = ({
     // ✅ 双保险（防止未来误改）
     const safeProps = { ...rest };
     delete safeProps.authKey; // 剥离authKey，防止重复校验
+    delete safeProps.key; // 剥离key，避免React警告
 
     // 👉 render 优先（完全自定义）
     let node = render ? (
