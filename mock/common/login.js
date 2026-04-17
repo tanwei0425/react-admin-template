@@ -264,6 +264,16 @@ const loginAnalysisData = [
               sort: 1,
             },
             {
+              id: '6-5',
+              pid: '6',
+              name: '部门管理',
+              path: '/system/dept',
+              cmpPath: 'pages/system/dept',
+              isShow: '1',
+              isRouter: '1',
+              sort: 5,
+            },
+            {
               id: '7',
               pid: '0',
               name: '监控服务',
@@ -399,6 +409,10 @@ const loginAnalysisData = [
               { key: '3', value: '按钮' },
             ],
             dict_status: [
+              { key: '1', value: '启用' },
+              { key: '0', value: '停用' },
+            ],
+            dept_status: [
               { key: '1', value: '启用' },
               { key: '0', value: '停用' },
             ],

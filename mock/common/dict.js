@@ -15,6 +15,7 @@ const dictTypeList = [
   { id: '10', dictName: '是否', dictType: 'yes_no', status: '1', sort: 10, remark: '是否列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
   { id: '11', dictName: '通知类型', dictType: 'notice_type', status: '0', sort: 11, remark: '通知类型列表（停用）', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
   { id: '12', dictName: '操作类型', dictType: 'operate_type', status: '1', sort: 12, remark: '操作类型列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
+  { id: '13', dictName: '部门状态', dictType: 'dept_status', status: '1', sort: 13, remark: '部门状态列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
 ];
 
 const dictDataList = [
@@ -49,6 +50,8 @@ const dictDataList = [
   { id: '12-1', dictType: 'operate_type', dictLabel: '新增', dictValue: '1', sort: 1, status: '1', remark: '' },
   { id: '12-2', dictType: 'operate_type', dictLabel: '修改', dictValue: '2', sort: 2, status: '1', remark: '' },
   { id: '12-3', dictType: 'operate_type', dictLabel: '删除', dictValue: '3', sort: 3, status: '1', remark: '' },
+  { id: '13-1', dictType: 'dept_status', dictLabel: '启用', dictValue: '1', sort: 1, status: '1', remark: '' },
+  { id: '13-2', dictType: 'dept_status', dictLabel: '停用', dictValue: '0', sort: 2, status: '1', remark: '' },
 ];
 
 const dictAnalysisData = [
