@@ -3,7 +3,7 @@
  */
 import { Button } from 'antd';
 import { useSelector } from 'react-redux';
-import { checkAuth } from '@utils/auth';
+import { checkAuth } from '@utils';
 
 /**
  * 按钮权限
