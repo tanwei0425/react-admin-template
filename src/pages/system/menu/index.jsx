@@ -155,7 +155,7 @@ const Index = () => {
             danger: true,
           },
         ];
-        return <EnhancedOperateRender data={data} />;
+        return <EnhancedOperateRender data={data} visibleCount={4} />;
       },
     },
   ];

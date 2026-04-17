@@ -129,7 +129,7 @@ const Index = () => {
       title: '操作',
       dataIndex: 'action',
       fixed: 'right',
-      width: 340,
+      width: 230,
       render: (_, record) => {
         const data = [
           {

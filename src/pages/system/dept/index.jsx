@@ -19,7 +19,7 @@ const iniModalConfig = {
 
 const initSearchFormData = {};
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const { message, modal: modalApi } = App.useApp();
@@ -89,7 +89,7 @@ const Index = () => {
       dataIndex: 'email',
       width: 160,
       ellipsis: true,
-    }, 
+    },
     {
       title: '状态',
       dataIndex: 'status',
@@ -133,7 +133,7 @@ const Index = () => {
             danger: true,
           },
         ];
-        return <EnhancedOperateRender data={data} />;
+        return <EnhancedOperateRender data={data} visibleCount={4} />;
       },
     },
   ];

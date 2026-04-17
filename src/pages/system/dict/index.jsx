@@ -27,7 +27,7 @@ const initSearchFormData = {
   status: null,
 };
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const { message: messageApi, modal: modalApi } = App.useApp();
@@ -145,7 +145,7 @@ const Index = () => {
             danger: true,
           },
         ];
-        return <EnhancedOperateRender data={data} />;
+        return <EnhancedOperateRender data={data} visibleCount={4} />;
       },
     },
   ];
