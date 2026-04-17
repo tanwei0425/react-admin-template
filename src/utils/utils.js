@@ -105,22 +105,25 @@ function renderIcon(title) {
 }
 
 /**
- *
- * @param {*} dataSource  arr  数据源
- * @param {*} authKey  arr or string 匹配目标
- * @returns 传入值为arr,返回类似{authA:ture,authB:false}的对象，传入值为string直接返回true/false
+ * 权限判断（唯一入口）
+ * @param {Array} dataSource 权限列表
+ * @param {string|string[]} authKey 权限key
+ * @returns {boolean}
  */
-const authority = ({ dataSource = [], authKey }) => {
+const checkAuth = ({ dataSource = [], authKey }) => {
+  // 没配置权限 = 默认放行
+  if (!authKey) return true;
+
+  // 👉 数组：满足任意一个（OR）
   if (Array.isArray(authKey)) {
-    const authorityRes = {};
-    authKey.forEach((item) => {
-      authorityRes[item] = dataSource.includes(item);
-    });
-    return authorityRes;
+    return authKey.some((key) => dataSource.includes(key));
   }
+
+  // 👉 字符串
   if (typeof authKey === 'string') {
     return dataSource.includes(authKey);
   }
+
   return false;
 };
 
@@ -132,5 +135,5 @@ export {
   exportFile,
   exportStreamFile,
   renderIcon,
-  authority,
+  checkAuth,
 };

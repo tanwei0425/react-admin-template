@@ -2,17 +2,29 @@
  * 按钮权限
  */
 import { Button } from 'antd';
-import { authority } from '@utils/utils';
 import { useSelector } from 'react-redux';
+import { checkAuth } from '@utils/auth';
+
+/**
+ * 按钮权限
+ */
 const AuthButton = ({ authKey, children, ...restProps }) => {
   const { authButton } = useSelector((state) => state.userInfo);
-  return authKey &&
-    !authority({
-      dataSource: authButton,
-      authKey: authKey,
-    }) ? null : (
-    <Button {...restProps}>{children}</Button>
-  );
+
+  // ✅ 没传 authKey → 不做权限控制
+  if (!authKey) {
+    return <Button {...restProps}>{children}</Button>;
+  }
+
+  // ✅ 有 authKey → 校验
+  const hasAuth = checkAuth({
+    dataSource: authButton,
+    authKey,
+  });
+
+  if (!hasAuth) return null;
+
+  return <Button {...restProps}>{children}</Button>;
 };
 
 export default AuthButton;
