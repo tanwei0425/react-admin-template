@@ -76,11 +76,14 @@ const EnhancedOperateRender = ({
           menu={{
             items: collapseButtons.map((item, index) => {
               const itemKey = getKey(item, index, 'collapse');
+              // 统计设置dropdown的type和danger属性
+              delete item.type;
+              delete item.danger;
               return {
                 key: itemKey,
                 label: renderButton(item, index, 'dropdown'),
                 disabled: item.disabled,
-                danger: item.danger,
+                // danger: item.danger,
               };
             }),
 
