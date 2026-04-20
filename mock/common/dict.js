@@ -16,6 +16,9 @@ const dictTypeList = [
   { id: '11', dictName: '通知类型', dictType: 'notice_type', status: '0', sort: 11, remark: '通知类型列表（停用）', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
   { id: '12', dictName: '操作类型', dictType: 'operate_type', status: '1', sort: 12, remark: '操作类型列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
   { id: '13', dictName: '部门状态', dictType: 'dept_status', status: '1', sort: 13, remark: '部门状态列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
+  { id: '14', dictName: '日志类型', dictType: 'log_type', status: '1', sort: 14, remark: '日志类型列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
+  { id: '15', dictName: '日志状态', dictType: 'log_status', status: '1', sort: 15, remark: '日志状态列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
+  { id: '16', dictName: '菜单显示', dictType: 'menu_show', status: '1', sort: 16, remark: '菜单显示列表', createTime: Random.datetime('yyyy-MM-dd HH:mm:ss') },
 ];
 
 const dictDataList = [
@@ -52,6 +55,14 @@ const dictDataList = [
   { id: '12-3', dictType: 'operate_type', dictLabel: '删除', dictValue: '3', sort: 3, status: '1', remark: '' },
   { id: '13-1', dictType: 'dept_status', dictLabel: '启用', dictValue: '1', sort: 1, status: '1', remark: '' },
   { id: '13-2', dictType: 'dept_status', dictLabel: '停用', dictValue: '0', sort: 2, status: '1', remark: '' },
+  { id: '14-1', dictType: 'log_type', dictLabel: '登录日志', dictValue: '1', sort: 1, status: '1', remark: '' },
+  { id: '14-2', dictType: 'log_type', dictLabel: '操作日志', dictValue: '2', sort: 2, status: '1', remark: '' },
+  { id: '14-3', dictType: 'log_type', dictLabel: '异常日志', dictValue: '3', sort: 3, status: '1', remark: '' },
+  { id: '14-4', dictType: 'log_type', dictLabel: '访问日志', dictValue: '4', sort: 4, status: '1', remark: '' },
+  { id: '15-1', dictType: 'log_status', dictLabel: '成功', dictValue: '1', sort: 1, status: '1', remark: '' },
+  { id: '15-2', dictType: 'log_status', dictLabel: '失败', dictValue: '0', sort: 2, status: '1', remark: '' },
+  { id: '16-1', dictType: 'menu_show', dictLabel: '显示', dictValue: '1', sort: 1, status: '1', remark: '' },
+  { id: '16-2', dictType: 'menu_show', dictLabel: '隐藏', dictValue: '0', sort: 2, status: '1', remark: '' },
 ];
 
 const dictAnalysisData = [

@@ -152,6 +152,16 @@ const loginAnalysisData = [
               sort: 5,
             },
             {
+              id: '2-6',
+              pid: '2',
+              name: '日志管理',
+              path: '/system/log',
+              cmpPath: 'pages/system/log',
+              isShow: '1',
+              isRouter: '1',
+              sort: 6,
+            },
+            {
               id: '3',
               pid: '0',
               name: '功能测试',
@@ -312,6 +322,20 @@ const loginAnalysisData = [
             dept_status: [
               { key: '1', value: '启用' },
               { key: '0', value: '停用' },
+            ],
+            log_type: [
+              { key: '1', value: '登录日志' },
+              { key: '2', value: '操作日志' },
+              { key: '3', value: '异常日志' },
+              { key: '4', value: '访问日志' },
+            ],
+            log_status: [
+              { key: '1', value: '成功' },
+              { key: '0', value: '失败' },
+            ],
+            menu_show: [
+              { key: '1', value: '显示' },
+              { key: '0', value: '隐藏' },
             ],
           },
         },
