@@ -1,15 +1,27 @@
 import { Table } from 'antd';
+import { useSelector } from 'react-redux';
 import enhancedTitle from './enhancedTitle';
-import enhancedColumns, { copyableEnhancer, tooltipEnhancer } from './enhancedColumns';
+import enhancedColumns, { copyableEnhancer, tooltipEnhancer, dictEnhancer } from './enhancedColumns';
 import EnhancedOperateRender from './enhancedOperateRender';
+
+/**
+ * 自定义表格组件 - 内置标题增强、复制、省略号提示、字典翻译功能
+ * @param {Array} props.columns - 列配置
+ * @param {Object|boolean} props.pagination - 分页配置，false 表示不分页
+ * @param {string|ReactNode} props.title - 表格标题
+ * @param {ReactNode} props.toolBarRender - 工具栏渲染
+ * @param {string} props.size - 表格尺寸，默认 small
+ */
 const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 'small', ...restProps }) => {
-  // title增强器
+  const { dictData } = useSelector((state) => state.userInfo);
+
   const finalTitle = enhancedTitle({
     title,
     toolBarRender,
   });
-  // columns增强器
-  const finalColumns = enhancedColumns(columns, [copyableEnhancer, tooltipEnhancer]);
+
+  // ⚠️ 增强器顺序很重要：dict 必须最后执行（否则 render 会被覆盖）
+  const finalColumns = enhancedColumns(columns, [copyableEnhancer, tooltipEnhancer, dictEnhancer(dictData)]);
 
   return (
     <div className={'t-table'}>
@@ -29,7 +41,7 @@ const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 's
               }
             : false
         }
-        scroll={{ x: 900 }}
+        scroll={{ x: 900 }} // 默认滚动宽度900px 防止内容超出表格宽度
         {...restProps}
       />
     </div>
