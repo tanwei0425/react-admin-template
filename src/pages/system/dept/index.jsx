@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, Button, Space, App } from 'antd';
+import { Button, Space, App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
 import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
-import { tableColumnToDict, arrayToTree } from '@utils';
 import { useDeptListApi, useDeptCreateApi, useDeptUpdateApi, useDeptDeleteApi } from '@api/dept';
+import { arrayToTree } from '@utils';
 import DeptForm from './deptForm';
 import DeptDetail from './deptDetail';
 
@@ -18,8 +18,6 @@ const iniModalConfig = {
 };
 
 const initSearchFormData = {};
-
-const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const { message, modal: modalApi } = App.useApp();
@@ -41,8 +39,6 @@ const Index = () => {
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
-
-  const dictLabel = (dictKey, value) => tableColumnToDict(dictData[dictKey], value) || value;
 
   const searchFormSchema = [
     {
@@ -94,7 +90,7 @@ const Index = () => {
       title: '状态',
       dataIndex: 'status',
       width: 70,
-      render: (text) => <Tag color={statusColorMap[text]}>{dictLabel('dept_status', text)}</Tag>,
+      dict: { key: 'dept_status', colorMap: { '1': 'green', '0': 'red' } },
     },
     {
       title: '创建时间',

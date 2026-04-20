@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, App } from 'antd';
+import { App } from 'antd';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import CustomModal from '@components/customModal';
@@ -7,7 +7,6 @@ import CustomDrawer from '@components/customDrawer';
 import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
-import { tableColumnToDict } from '@utils';
 import {
   useDictTypeListApi,
   useDictTypeCreateApi,
@@ -26,8 +25,6 @@ const iniModalConfig = {
 const initSearchFormData = {
   status: null,
 };
-
-const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const { message: messageApi, modal: modalApi } = App.useApp();
@@ -50,8 +47,6 @@ const Index = () => {
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
-
-  const dictLabel = (dictKey, value) => tableColumnToDict(dictData[dictKey], value) || value;
 
   const searchFormSchema = [
     {
@@ -105,7 +100,7 @@ const Index = () => {
       title: '状态',
       dataIndex: 'status',
       width: 70,
-      render: (text) => <Tag color={statusColorMap[text]}>{dictLabel('dict_status', text)}</Tag>,
+      dict: { key: 'dict_status', colorMap: { '1': 'green', '0': 'red' } },
     },
     {
       title: '创建时间',

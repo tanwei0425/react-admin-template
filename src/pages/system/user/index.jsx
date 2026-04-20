@@ -1,12 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
-import { Tag, App } from 'antd';
+import { App } from 'antd';
 import { useSelector } from 'react-redux';
 import CustomModal from '@components/customModal';
 import CustomDrawer from '@components/customDrawer';
 import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
-import { tableColumnToDict } from '@utils';
 import {
   useUserListApi,
   useUserCreateApi,
@@ -28,8 +27,6 @@ const iniModalConfig = {
 const initSearchFormData = {
   status: null,
 };
-
-const statusColorMap = { 1: 'green', 0: 'red' };
 
 const Index = () => {
   const { message, modal: modalApi } = App.useApp();
@@ -54,8 +51,6 @@ const Index = () => {
 
   const dictOptions = (dictKey) =>
     (dictData[dictKey] || []).map((item) => ({ key: item.key, value: item.value }));
-
-  const dictLabel = (dictKey, value) => tableColumnToDict(dictData[dictKey], value) || value;
 
   const searchFormSchema = [
     {
@@ -113,7 +108,7 @@ const Index = () => {
       dataIndex: 'gender',
       width: 60,
       align: 'center',
-      render: (text) => dictLabel('gender', text),
+      dict: 'gender',
     },
     {
       title: '手机号',
@@ -126,15 +121,14 @@ const Index = () => {
       dataIndex: 'roleIds',
       width: 130,
       ellipsis: true,
-      render: (roleIds) =>
-        (roleIds || []).map((id) => dictLabel('role', id)).join('、'),
+      dict: { key: 'role', separator: '、' },
     },
     {
       title: '部门',
       dataIndex: 'department',
       width: 90,
       ellipsis: true,
-      render: (text) => dictLabel('department', text),
+      dict: 'department',
     },
    
     {
@@ -142,7 +136,7 @@ const Index = () => {
       dataIndex: 'status',
       width: 70,
       align: 'center',
-      render: (text) => <Tag color={statusColorMap[text]}>{dictLabel('user_status', text)}</Tag>,
+      dict: { key: 'user_status', colorMap: { '1': 'green', '0': 'red' } },
     },
     {
       title: '创建时间',
