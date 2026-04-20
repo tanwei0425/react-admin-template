@@ -17,7 +17,7 @@ const AssignUsersModal = ({ open, record, onCancel, onOk, confirmLoading }) => {
             (res.data || []).map((item) => ({
               key: item.id,
               title: `${item.nickname}（${item.username}）`,
-            })),
+            }))
           );
         }
       });

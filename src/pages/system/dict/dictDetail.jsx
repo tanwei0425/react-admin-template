@@ -4,7 +4,7 @@ import { Descriptions, Tag, Table } from 'antd';
 import { tableColumnToDict } from '@utils';
 import { useDictDataListApi } from '@api/dict';
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const DictDetail = ({ record }) => {
   const { dictData } = useSelector((state) => state.userInfo);

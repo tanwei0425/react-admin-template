@@ -34,7 +34,7 @@ export const useMenuLogic = (routesData, pathname, isVertical, collapsed, menuAc
       });
       return Array.from(levelMap.values());
     },
-    [getParentKeys],
+    [getParentKeys]
   );
 
   /**
@@ -52,7 +52,7 @@ export const useMenuLogic = (routesData, pathname, isVertical, collapsed, menuAc
         return menuAccordionMode && isVertical ? dedupeByLevel(unique) : unique;
       });
     },
-    [menuAccordionMode, isVertical, dedupeByLevel],
+    [menuAccordionMode, isVertical, dedupeByLevel]
   );
 
   const isTransverse = !isVertical;
@@ -100,7 +100,7 @@ export const useMenuLogic = (routesData, pathname, isVertical, collapsed, menuAc
         applyOpenKeys(keys);
       }
     },
-    [menuAccordionMode, isVertical, getParentKeys, applyOpenKeys],
+    [menuAccordionMode, isVertical, getParentKeys, applyOpenKeys]
   );
 
   /** 路由变化时自动展开对应的父级菜单 */
@@ -116,7 +116,7 @@ export const useMenuLogic = (routesData, pathname, isVertical, collapsed, menuAc
       if (!key || !(menuAccordionMode && isVertical)) return;
       applyOpenKeys(getParentKeys(key), true);
     },
-    [menuAccordionMode, isVertical, getParentKeys, applyOpenKeys],
+    [menuAccordionMode, isVertical, getParentKeys, applyOpenKeys]
   );
 
   return { menuItems, openKeys, selectedKeys, onOpenChange, onMenuClick };

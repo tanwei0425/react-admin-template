@@ -94,10 +94,18 @@ const AuthorizeModal = ({ open, record, onCancel, onOk, confirmLoading }) => {
         {treeData.length > 0 && (
           <>
             <Space style={{ marginBottom: 15 }}>
-              <Checkbox checked={selectAllChecked} indeterminate={selectAllIndeterminate} onChange={onSelectAllChange}>
+              <Checkbox
+                checked={selectAllChecked}
+                indeterminate={selectAllIndeterminate}
+                onChange={onSelectAllChange}
+              >
                 全选/全不选
               </Checkbox>
-              <Checkbox checked={expandAllChecked} indeterminate={expandAllIndeterminate} onChange={onExpandAllChange}>
+              <Checkbox
+                checked={expandAllChecked}
+                indeterminate={expandAllIndeterminate}
+                onChange={onExpandAllChange}
+              >
                 全展开/全折叠
               </Checkbox>
             </Space>

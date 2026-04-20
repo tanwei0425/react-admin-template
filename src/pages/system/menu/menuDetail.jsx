@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Descriptions, Tag } from 'antd';
 import { tableColumnToDict } from '@utils';
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const MenuDetail = ({ record, flatList }) => {
   const { dictData } = useSelector((state) => state.userInfo);
@@ -37,8 +37,12 @@ const MenuDetail = ({ record, flatList }) => {
       {(isMenu || isBtn) && <Descriptions.Item label="权限字符">{record.permission || ''}</Descriptions.Item>}
       <Descriptions.Item label="排序">{record.sort}</Descriptions.Item>
       {(isDir || isMenu) && <Descriptions.Item label="图标">{record.icon || ''}</Descriptions.Item>}
-      <Descriptions.Item label="创建时间" span={2}>{record.createTime}</Descriptions.Item>
-      <Descriptions.Item label="备注" span={2}>{record.remark || ''}</Descriptions.Item>
+      <Descriptions.Item label="创建时间" span={2}>
+        {record.createTime}
+      </Descriptions.Item>
+      <Descriptions.Item label="备注" span={2}>
+        {record.remark || ''}
+      </Descriptions.Item>
     </Descriptions>
   );
 };

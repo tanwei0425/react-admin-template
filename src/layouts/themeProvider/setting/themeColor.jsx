@@ -76,13 +76,9 @@ const ThemeColor = () => {
         {dataSource
           .filter((item) => item.show)
           .map((item) => (
-            <Flex key={item.key} justify="space-between" align="center" className='tw:!py-1'>
+            <Flex key={item.key} justify="space-between" align="center" className="tw:!py-1">
               <div>{item?.title}</div>
-              <Switch
-                size={'small'}
-                checked={item.value}
-                onChange={(e) => onChange(e, item.key)}
-              />
+              <Switch size={'small'} checked={item.value} onChange={(e) => onChange(e, item.key)} />
             </Flex>
           ))}
       </Flex>

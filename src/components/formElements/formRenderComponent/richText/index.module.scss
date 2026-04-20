@@ -1,0 +1,48 @@
+.wrapper {
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.toolbar {
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fafafa;
+}
+
+.editor {
+  min-height: 220px;
+  padding: 12px;
+
+  &.disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+  }
+}
+
+/* 👇 Tiptap 必须 global */
+:global {
+  .ProseMirror {
+    outline: none;
+    min-height: 200px;
+  }
+
+  .ProseMirror p {
+    margin: 0;
+  }
+
+  .ProseMirror img {
+    max-width: 100%;
+    border-radius: 4px;
+  }
+
+  .ProseMirror ul,
+  .ProseMirror ol {
+    padding-left: 20px;
+  }
+
+  .ProseMirror a {
+    color: #1677ff;
+    text-decoration: underline;
+  }
+}

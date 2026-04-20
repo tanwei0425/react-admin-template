@@ -9,23 +9,21 @@ const defaultConfig = {
 };
 
 // 使用React.forwardRef以支持ref转发
-const Index = React.forwardRef(
-  ({ children, name = 'CustomFormName', ...restProps }, ref) => {
-    const [form] = Form.useForm();
-    // 暴露有限的方法给ref
-    // useImperativeHandle(ref, () => ({
-    //   submit: () => form.submit(),
-    //   validateFields: () => form.validateFields(),
-    //   resetFields: () => form.resetFields(),
-    //   getFieldsValue: () => form.getFieldsValue(),
-    // }));
-    return (
-      <Form form={form} ref={ref} name={name} {...defaultConfig} {...restProps}>
-        {children}
-      </Form>
-    );
-  }
-);
+const Index = React.forwardRef(({ children, name = 'CustomFormName', ...restProps }, ref) => {
+  const [form] = Form.useForm();
+  // 暴露有限的方法给ref
+  // useImperativeHandle(ref, () => ({
+  //   submit: () => form.submit(),
+  //   validateFields: () => form.validateFields(),
+  //   resetFields: () => form.resetFields(),
+  //   getFieldsValue: () => form.getFieldsValue(),
+  // }));
+  return (
+    <Form form={form} ref={ref} name={name} {...defaultConfig} {...restProps}>
+      {children}
+    </Form>
+  );
+});
 
 // 直接从Form导出常用组件和方法
 export const FormItem = Form.Item;

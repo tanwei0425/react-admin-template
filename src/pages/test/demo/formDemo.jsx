@@ -84,6 +84,29 @@ const Operate = ({ formRef, name }) => {
       },
     },
     {
+      name: 'color',
+      label: '颜色选择',
+      initialValue: '#1890ff',
+      fieldProps: {
+        componentType: 'colorPicker',
+      },
+    },
+    {
+      name: 'richText',
+      label: '富文本',
+      fieldProps: {
+        componentType: 'richText',
+        mode: 'json', // 或 json
+        placeholder: '请输入内容...',
+        rules: [{ required: true, message: '请输入内容' }],
+        uploadImage: async (file) => {
+          console.log(file, 'richText-file');
+          // const res = await uploadToOSS(file)
+          // return res.url
+        },
+      },
+    },
+    {
       name: 'time',
       label: '时间',
       fieldProps: {

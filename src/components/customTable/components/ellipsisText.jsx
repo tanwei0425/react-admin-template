@@ -41,7 +41,12 @@ const EllipsisText = ({ content, copyable, copyableConfig }) => {
   const strContent = String(content ?? '');
 
   const tooltipNode = (
-    <div className="scrollbar-dark-theme" style={tooltipContentStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+    <div
+      className="scrollbar-dark-theme"
+      style={tooltipContentStyle}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
       {strContent}
     </div>
   );

@@ -100,7 +100,7 @@ const Index = () => {
       title: '状态',
       dataIndex: 'status',
       width: 70,
-      dict: { key: 'dict_status', colorMap: { '1': 'green', '0': 'red' } },
+      dict: { key: 'dict_status', colorMap: { 1: 'green', 0: 'red' } },
     },
     {
       title: '创建时间',

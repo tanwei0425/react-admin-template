@@ -82,7 +82,7 @@ export const useRouteMap = (routesData) => {
       }
       return null;
     },
-    [parentChainMap],
+    [parentChainMap]
   );
 
   return { pathMap, getParentKeys, getParentChain, getDisplayKey };

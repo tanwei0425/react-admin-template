@@ -53,9 +53,7 @@ const UserForm = ({ formRef, name, modalType, tableRecord }) => {
     {
       name: 'email',
       label: '邮箱',
-      rules: [
-        { type: 'email', message: '邮箱格式不正确' },
-      ],
+      rules: [{ type: 'email', message: '邮箱格式不正确' }],
       fieldProps: {
         componentType: 'input',
         placeholder: '请输入邮箱',

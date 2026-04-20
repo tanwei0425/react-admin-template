@@ -17,7 +17,7 @@ const AssignRolesModal = ({ open, record, onCancel, onOk, confirmLoading }) => {
             (res.data || []).map((item) => ({
               key: item.id,
               title: item.roleName,
-            })),
+            }))
           );
         }
       });

@@ -6,7 +6,14 @@ import CustomDrawer from '@components/customDrawer';
 import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
-import { useRoleListApi, useRoleCreateApi, useRoleUpdateApi, useRoleDeleteApi, useRoleAssignUsersApi, useRoleAuthorizeApi } from '@api/role';
+import {
+  useRoleListApi,
+  useRoleCreateApi,
+  useRoleUpdateApi,
+  useRoleDeleteApi,
+  useRoleAssignUsersApi,
+  useRoleAuthorizeApi,
+} from '@api/role';
 import RoleForm from './roleForm';
 import RoleDetail from './roleDetail';
 import AssignUsersModal from './assignUsersModal';
@@ -112,7 +119,7 @@ const Index = () => {
       title: '状态',
       dataIndex: 'status',
       width: 70,
-      dict: { key: 'role_status', colorMap: { '1': 'green', '0': 'red' } },
+      dict: { key: 'role_status', colorMap: { 1: 'green', 0: 'red' } },
     },
     {
       title: '创建时间',

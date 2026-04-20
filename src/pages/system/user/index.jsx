@@ -116,7 +116,7 @@ const Index = () => {
       width: 110,
       ellipsis: true,
     },
-     {
+    {
       title: '角色',
       dataIndex: 'roleIds',
       width: 130,
@@ -130,13 +130,13 @@ const Index = () => {
       ellipsis: true,
       dict: 'department',
     },
-   
+
     {
       title: '状态',
       dataIndex: 'status',
       width: 70,
       align: 'center',
-      dict: { key: 'user_status', colorMap: { '1': 'green', '0': 'red' } },
+      dict: { key: 'user_status', colorMap: { 1: 'green', 0: 'red' } },
     },
     {
       title: '创建时间',

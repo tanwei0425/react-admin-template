@@ -36,7 +36,13 @@ const CustomDrawer = ({
       )}
       {extraFooter}
       {showOkButton && (
-        <AuthButton type="primary" className="tw:mx-1.5" {...okButtonProps} loading={loading} onClick={handleOnOk}>
+        <AuthButton
+          type="primary"
+          className="tw:mx-1.5"
+          {...okButtonProps}
+          loading={loading}
+          onClick={handleOnOk}
+        >
           {okText}
         </AuthButton>
       )}

@@ -182,9 +182,7 @@ const MenuForm = ({ formRef, name, modalType, tableRecord, flatList }) => {
     },
   ];
 
-  const visibleFields = allFields.filter(
-    (field) => FIELD_VISIBILITY[field.name]?.includes(currentMenuType)
-  );
+  const visibleFields = allFields.filter((field) => FIELD_VISIBILITY[field.name]?.includes(currentMenuType));
 
   useEffect(() => {
     if (formRef?.current && tableRecord && Object.keys(tableRecord).length > 0) {

@@ -20,7 +20,7 @@ const Menus = () => {
     pathname,
     isVertical,
     collapsed,
-    menuAccordionMode,
+    menuAccordionMode
   );
 
   const onClick = ({ key }) => {
@@ -34,7 +34,7 @@ const Menus = () => {
       className={cx(
         isVertical
           ? [styles.menu, overallStyle === 'dark' ? 'scrollbar-dark-theme' : 'scrollbar-light-theme']
-          : styles.transverseMenu,
+          : styles.transverseMenu
       )}
       mode={isVertical ? 'inline' : 'horizontal'}
       theme={overallStyle}

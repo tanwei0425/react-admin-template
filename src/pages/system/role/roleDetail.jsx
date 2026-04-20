@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Descriptions, Tag } from 'antd';
 import { tableColumnToDict } from '@utils';
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const RoleDetail = ({ record }) => {
   const { dictData } = useSelector((state) => state.userInfo);
@@ -19,7 +19,9 @@ const RoleDetail = ({ record }) => {
         <Tag color={statusColorMap[record.status]}>{dictLabel('role_status', record.status)}</Tag>
       </Descriptions.Item>
       <Descriptions.Item label="创建时间">{record.createTime}</Descriptions.Item>
-      <Descriptions.Item label="备注" span={2}>{record.remark || ''}</Descriptions.Item>
+      <Descriptions.Item label="备注" span={2}>
+        {record.remark || ''}
+      </Descriptions.Item>
     </Descriptions>
   );
 };

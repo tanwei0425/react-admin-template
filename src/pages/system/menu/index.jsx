@@ -106,13 +106,13 @@ const Index = () => {
       title: '是否显示',
       dataIndex: 'isShow',
       width: 70,
-      dict: { key: 'menu_show', colorMap: { '1': 'green', '0': 'red' } },
+      dict: { key: 'menu_show', colorMap: { 1: 'green', 0: 'red' } },
     },
     {
       title: '状态',
       dataIndex: 'status',
       width: 60,
-      dict: { key: 'menu_status', colorMap: { '1': 'green', '0': 'red' } },
+      dict: { key: 'menu_status', colorMap: { 1: 'green', 0: 'red' } },
     },
     {
       title: '创建时间',

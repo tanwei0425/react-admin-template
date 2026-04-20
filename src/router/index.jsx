@@ -18,14 +18,12 @@ const RouteList = () => {
     }));
   const router = createBrowserRouter(
     [
-     {
+      {
         path: '/auth',
         handle: {
           title: '登录',
         },
-        element: (
-          <AuthLayouts />
-        ),
+        element: <AuthLayouts />,
         children: [
           {
             path: 'login',

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Descriptions, Tag } from 'antd';
 import { tableColumnToDict } from '@utils';
 
-const statusColorMap = { '1': 'green', '0': 'red' };
+const statusColorMap = { 1: 'green', 0: 'red' };
 
 const DeptDetail = ({ record, flatList }) => {
   const { dictData } = useSelector((state) => state.userInfo);
@@ -27,7 +27,9 @@ const DeptDetail = ({ record, flatList }) => {
       <Descriptions.Item label="联系电话">{record.phone || ''}</Descriptions.Item>
       <Descriptions.Item label="邮箱">{record.email || ''}</Descriptions.Item>
       <Descriptions.Item label="创建时间">{record.createTime}</Descriptions.Item>
-      <Descriptions.Item label="备注" span={2}>{record.remark || ''}</Descriptions.Item>
+      <Descriptions.Item label="备注" span={2}>
+        {record.remark || ''}
+      </Descriptions.Item>
     </Descriptions>
   );
 };

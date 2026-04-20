@@ -17,6 +17,8 @@ import Cascader from '@components/formElements/formRenderComponent/cascader';
 import Upload from '@components/formElements/formRenderComponent/upload';
 import SmsCode from '@components/formElements/formRenderComponent/smsCode';
 import CustomDom from '@components/formElements/formRenderComponent/customDom';
+import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
+import RichText from '@components/formElements/formRenderComponent/richText';
 const FormRenderComponent = ({ componentType, renderContent, ...fieldProps }) => {
   switch (componentType) {
     case 'input':
@@ -51,6 +53,10 @@ const FormRenderComponent = ({ componentType, renderContent, ...fieldProps }) =>
       return <Upload {...fieldProps} />;
     case 'dom':
       return <CustomDom renderContent={renderContent} {...fieldProps} />;
+    case 'colorPicker':
+      return <ColorPicker {...fieldProps} />;
+    case 'richText':
+      return <RichText {...fieldProps} />;
     default:
       return <span className="componentError">组件类型错误</span>;
   }
