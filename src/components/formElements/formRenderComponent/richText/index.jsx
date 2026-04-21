@@ -1,24 +1,63 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
-import { message } from 'antd';
+import Underline from '@tiptap/extension-underline';
+import TextAlign from '@tiptap/extension-text-align';
+import Highlight from '@tiptap/extension-highlight';
+import { TextStyle } from '@tiptap/extension-text-style';
+import Color from '@tiptap/extension-color';
+import { Table } from '@tiptap/extension-table';
+import { TableRow } from '@tiptap/extension-table-row';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import CodeBlock from '@tiptap/extension-code-block';
 import Toolbar from './components/toolbar';
 import styles from './index.module.scss';
 
 const RichText = ({
   value,
   onChange,
-  mode = 'json', // html | json
+  mode = 'html',
   placeholder = '请输入内容...',
   disabled = false,
+  maxLength,
   uploadImage,
+  showWordCount = true,
+  minHeight = 200,
 }) => {
-  const extensions = useMemo(() => {
-    return [StarterKit, Image, Link, Placeholder.configure({ placeholder })];
-  }, [placeholder]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const extensions = useMemo(
+    () => [
+      StarterKit.configure({
+        codeBlock: false,
+        link: false,
+        underline: false,
+      }),
+      Placeholder.configure({ placeholder }),
+      Image.configure({ inline: true, allowBase64: true }),
+      Link.configure({
+        openOnClick: false,
+        HTMLAttributes: { rel: 'noopener noreferrer', target: '_blank' },
+      }),
+      Underline,
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+      Highlight.configure({ multicolor: true }),
+      TextStyle,
+      Color,
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableCell,
+      TableHeader,
+      CodeBlock,
+    ],
+    [placeholder]
+  );
 
   const editor = useEditor({
     editable: !disabled,
@@ -30,43 +69,100 @@ const RichText = ({
     },
   });
 
-  // 外部 value 同步
   useEffect(() => {
     if (!editor) return;
-
     const current = mode === 'json' ? editor.getJSON() : editor.getHTML();
-
     if (JSON.stringify(current) !== JSON.stringify(value)) {
-      editor.commands.setContent(value || '');
+      editor.commands.setContent(value || '', false);
     }
   }, [value, editor, mode]);
 
-  // 图片上传
-  const handleUpload = async (file) => {
-    try {
-      let url = '';
-
-      if (uploadImage) {
-        url = await uploadImage(file);
-      } else {
-        url = URL.createObjectURL(file);
-      }
-
-      editor.chain().focus().setImage({ src: url }).run();
-    } catch (e) {
-      message.error(e, '图片上传失败');
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(!disabled);
     }
-  };
+  }, [disabled, editor]);
+
+  const handleUpload = useCallback(
+    async (file) => {
+      setIsUploading(true);
+      try {
+        let url = '';
+        if (uploadImage) {
+          url = await uploadImage(file);
+        } else {
+          url = URL.createObjectURL(file);
+        }
+        editor?.chain().focus().setImage({ src: url }).run();
+      } catch (e) {
+        console.error('图片上传失败:', e);
+      } finally {
+        setIsUploading(false);
+      }
+    },
+    [editor, uploadImage]
+  );
+
+  const characterCount = editor?.storage.characterCount?.characters?.() ?? editor?.getText().length ?? 0;
 
   if (!editor) return null;
 
-  return (
-    <div className={styles.wrapper}>
-      {!disabled && <Toolbar editor={editor} onUpload={handleUpload} />}
+  const isOverLimit = maxLength && characterCount > maxLength;
 
-      <div className={`${styles.editor} ${disabled ? styles.disabled : ''}`}>
+  if (isFullscreen) {
+    return createPortal(
+      <div className={styles.fullscreenWrapper}>
+        <Toolbar
+          editor={editor}
+          onUpload={handleUpload}
+          isUploading={isUploading}
+          isFullscreen={isFullscreen}
+          onToggleFullscreen={() => setIsFullscreen(false)}
+        />
+        <div className={styles.fullscreenEditor}>
+          <div className={styles.editorContent}>
+            <EditorContent editor={editor} />
+          </div>
+        </div>
+        {showWordCount && (
+          <div className={styles.fullscreenFooter}>
+            <span className={isOverLimit ? styles.overLimit : ''}>
+              字数: {characterCount}{maxLength && ` / ${maxLength}`}
+            </span>
+          </div>
+        )}
+      </div>,
+      document.body
+    );
+  }
+
+  return (
+    <div className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
+      {!disabled && (
+        <Toolbar
+          editor={editor}
+          onUpload={handleUpload}
+          isUploading={isUploading}
+          isFullscreen={false}
+          onToggleFullscreen={() => setIsFullscreen(true)}
+        />
+      )}
+
+      <div
+        className={styles.editor}
+        style={{ minHeight }}
+      >
         <EditorContent editor={editor} />
       </div>
+
+      {showWordCount && (
+        <div className={styles.footer}>
+          <span className={isOverLimit ? styles.overLimit : ''}>
+            字数: {characterCount}
+            {maxLength && ` / ${maxLength}`}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
