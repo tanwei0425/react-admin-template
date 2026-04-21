@@ -10,15 +10,19 @@ export const HEADINGS = [
 
 export const FONTS = [
   { label: '默认', value: '' },
-  { label: '宋体', value: 'SimSun, serif' },
-  { label: '黑体', value: 'SimHei, sans-serif' },
-  { label: '微软雅黑', value: '"Microsoft YaHei", sans-serif' },
-  { label: '楷体', value: 'KaiTi, serif' },
-  { label: '仿宋', value: 'FangSong, serif' },
-  { label: 'Arial', value: 'Arial, sans-serif' },
-  { label: 'Times New Roman', value: '"Times New Roman", serif' },
-  { label: 'Georgia', value: 'Georgia, serif' },
-  { label: 'Courier New', value: '"Courier New", monospace' },
+  { label: '苹方', value: '"PingFang SC", "Microsoft YaHei", sans-serif' },
+  { label: '黑体-简', value: '"Heiti SC", "SimHei", sans-serif' },
+  { label: '宋体-简', value: '"Songti SC", "SimSun", serif' },
+  { label: '楷体-简', value: '"Kaiti SC", "KaiTi", serif' },
+  { label: '华文黑体', value: '"STHeiti", "SimHei", sans-serif' },
+  { label: '微软雅黑', value: '"Microsoft YaHei", "PingFang SC", sans-serif' },
+  { label: 'Helvetica Neue', value: '"Helvetica Neue", Arial, sans-serif' },
+  { label: 'Arial', value: 'Arial, "Helvetica Neue", sans-serif' },
+  { label: 'Times New Roman', value: '"Times New Roman", "Songti SC", serif' },
+  { label: 'Georgia', value: 'Georgia, "Times New Roman", serif' },
+  { label: 'Monaco', value: 'Monaco, "Courier New", monospace' },
+  { label: 'Menlo', value: 'Menlo, Monaco, monospace' },
+  { label: 'Courier New', value: '"Courier New", Monaco, monospace' },
 ];
 
 export const FONT_COLORS = [

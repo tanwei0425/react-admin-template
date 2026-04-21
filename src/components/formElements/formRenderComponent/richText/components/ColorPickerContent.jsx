@@ -1,4 +1,5 @@
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
+import { Divider } from 'antd';
 
 const ColorPickerContent = ({ colors, onSelect }) => {
   const presets = [
@@ -25,23 +26,27 @@ const ColorPickerContent = ({ colors, onSelect }) => {
         presets={presets}
         onChange={handleChange}
         showText={false}
+        styles={{ popupOverlayInner: { width: 560 } }}
         disabledAlpha={false}
         showPresets={true}
       />
       {colors.includes('transparent') && (
-        <div
-          style={{
-            padding: '4px 8px',
-            cursor: 'pointer',
-            border: '1px dashed #d9d9d9',
-            borderRadius: 4,
-            textAlign: 'center',
-            fontSize: 12,
-          }}
-          onClick={handleClear}
-        >
-          清除颜色
-        </div>
+        <>
+          <Divider style={{ margin: '4px 0' }} />
+          <div
+            style={{
+              padding: '4px 8px',
+              cursor: 'pointer',
+              border: '1px dashed #d9d9d9',
+              borderRadius: 4,
+              textAlign: 'center',
+              fontSize: 12,
+            }}
+            onClick={handleClear}
+          >
+            清除颜色
+          </div>
+        </>
       )}
     </div>
   );
