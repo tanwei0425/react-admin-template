@@ -37,6 +37,18 @@ export const ListItem = Node.create({
           };
         },
       },
+      fontSize: {
+        default: null,
+        parseHTML: (element) => element.style.fontSize || null,
+        renderHTML: (attributes) => {
+          if (!attributes.fontSize) {
+            return {};
+          }
+          return {
+            style: `font-size: ${attributes.fontSize}`,
+          };
+        },
+      },
     };
   },
 });

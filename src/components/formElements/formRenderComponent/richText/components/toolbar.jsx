@@ -28,7 +28,7 @@ import {
   FormatPainterOutlined,
   EyeOutlined,
 } from '@ant-design/icons';
-import { HEADINGS, FONT_COLORS, BG_COLORS, FONTS } from '../constants';
+import { HEADINGS, FONT_COLORS, BG_COLORS, FONTS, FONT_SIZES } from '../constants';
 import useFormatPainter from '../hooks/useFormatPainter';
 import MenuButton from './MenuButton';
 import ColorPickerContent from './ColorPickerContent';
@@ -112,6 +112,44 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     return found?.label || '字体';
   }, [editor]);
 
+  const fontSizeItems = useMemo(
+    () =>
+      FONT_SIZES.map((item) => ({
+        key: item.value,
+        label: <span style={{ fontSize: item.value || 'inherit' }}>{item.label}</span>,
+        onClick: () => {
+          const chain = editor.chain().focus();
+          if (item.value) {
+            chain.setMark('textStyle', { fontSize: item.value });
+          } else {
+            chain.unsetMark('textStyle').removeEmptyTextStyle();
+          }
+          const { from, to } = editor.state.selection;
+          if (from !== to) {
+            editor.state.doc.nodesBetween(from, to, (node) => {
+              if (node.type.name === 'listItem') {
+                if (item.value) {
+                  chain.updateAttributes('listItem', { fontSize: item.value });
+                } else {
+                  chain.resetAttributes('listItem', 'fontSize');
+                }
+              }
+            });
+          }
+          chain.run();
+        },
+      })),
+    [editor]
+  );
+
+  const currentFontSize = useMemo(() => {
+    const textStyleAttrs = editor.getAttributes('textStyle');
+    const listItemAttrs = editor.getAttributes('listItem');
+    const fontSize = textStyleAttrs.fontSize || listItemAttrs.fontSize;
+    const found = FONT_SIZES.find((f) => fontSize === f.value);
+    return found?.label || '字号';
+  }, [editor]);
+
   const handleLink = useCallback(() => {
     setLinkUrl(editor.getAttributes('link').href || '');
     setLinkModalOpen(true);
@@ -177,6 +215,10 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Dropdown menu={{ items: fontItems }} trigger={['click']}>
           <Button size="small" style={{ minWidth: 80 }}>{currentFont}</Button>
+        </Dropdown>
+
+        <Dropdown menu={{ items: fontSizeItems }} trigger={['click']}>
+          <Button size="small" style={{ minWidth: 60 }}>{currentFontSize}</Button>
         </Dropdown>
 
         <Divider vertical />

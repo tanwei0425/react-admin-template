@@ -25,6 +25,22 @@ export const FONTS = [
   { label: 'Courier New', value: '"Courier New", Monaco, monospace' },
 ];
 
+export const FONT_SIZES = [
+  { label: '默认', value: '' },
+  { label: '12px', value: '12px' },
+  { label: '14px', value: '14px' },
+  { label: '16px', value: '16px' },
+  { label: '18px', value: '18px' },
+  { label: '20px', value: '20px' },
+  { label: '24px', value: '24px' },
+  { label: '28px', value: '28px' },
+  { label: '32px', value: '32px' },
+  { label: '36px', value: '36px' },
+  { label: '48px', value: '48px' },
+  { label: '56px', value: '56px' },
+  { label: '72px', value: '72px' },
+];
+
 export const FONT_COLORS = [
   '#000000', '#434343', '#666666', '#999999',
   '#b7b7b7', '#cccccc', '#d9d9d9', '#efefef',
