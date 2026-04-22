@@ -94,16 +94,55 @@ const Operate = ({ formRef, name }) => {
     {
       name: 'richText',
       label: '富文本',
+      rules: [
+        {
+          validator: (_, value) => {
+            if (!value) {
+              return Promise.resolve();
+            }
+            const content = value.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+            
+            if (content.length > 500) {
+              return Promise.reject(new Error('内容不能超过500个字符'));
+            }
+            return Promise.resolve();
+          },
+        },
+      ],
       fieldProps: {
         componentType: 'richText',
-        mode: 'json', // 或 json
+        mode: 'html',
         placeholder: '请输入内容...',
-        rules: [{ required: true, message: '请输入内容' }],
-        uploadImage: async (file) => {
-          console.log(file, 'richText-file');
-          // const res = await uploadToOSS(file)
-          // return res.url
+        maxLength: 500,
+        showWordCount: true,
+        minHeight: 250,
+      },
+    },
+    {
+      name: 'richTextRequired',
+      label: '富文本(必填)',
+      rules: [
+        {
+          required: true,
+          validator: (_, value) => {
+            const content = value?.replace(/<[^>]*>/g, '').trim();
+            if (!content) {
+              return Promise.reject(new Error('请输入富文本内容'));
+            }
+            if (content.length > 1000) {
+              return Promise.reject(new Error('内容不能超过1000个字符'));
+            }
+            return Promise.resolve();
+          },
         },
+      ],
+      fieldProps: {
+        componentType: 'richText',
+        mode: 'html',
+        placeholder: '请输入内容(必填)...',
+        maxLength: 1000,
+        showWordCount: true,
+        minHeight: 200,
       },
     },
     {

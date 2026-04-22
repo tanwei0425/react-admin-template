@@ -23,9 +23,12 @@ const Index = () => {
     setModalConfig(iniModalConifg);
   };
   const onModalOk = async () => {
-    formRefModal.current.validateFields().then(async (values) => {
+    try {
+      const values = await formRefModal.current.validateFields();
       console.log(values, 'values');
-    });
+    } catch (errorInfo) {
+      console.log('验证失败:', errorInfo);
+    }
   };
 
   const drawerChange = () => setOpen(!open);
@@ -35,9 +38,12 @@ const Index = () => {
   };
 
   const OnDrawerOk = async () => {
-    formRefDrawer.current.validateFields().then(async (values) => {
+    try {
+      const values = await formRefDrawer.current.validateFields();
       console.log(values, 'values');
-    });
+    } catch (errorInfo) {
+      console.log('验证失败:', errorInfo);
+    }
   };
 
   return (
