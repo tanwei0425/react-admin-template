@@ -128,6 +128,12 @@
     list-style-type: decimal;
   }
 
+  li {
+    &::marker {
+      font-family: inherit;
+    }
+  }
+
   blockquote {
     border-left: 3px solid #d9d9d9;
     padding-left: 1em;
@@ -280,6 +286,12 @@
     li {
       p {
         margin: 0;
+      }
+    }
+
+    ol li, ul li {
+      &::marker {
+        font-family: inherit;
       }
     }
 

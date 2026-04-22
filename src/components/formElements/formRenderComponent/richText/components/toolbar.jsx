@@ -80,19 +80,29 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         key: item.value,
         label: <span style={{ fontFamily: item.value || 'inherit' }}>{item.label}</span>,
         onClick: () => {
+          const chain = editor.chain().focus();
           if (item.value) {
-            editor.chain().focus().setMark('textStyle', { fontFamily: item.value }).run();
+            chain.setMark('textStyle', { fontFamily: item.value });
+            if (editor.isActive('listItem')) {
+              chain.updateAttributes('listItem', { fontFamily: item.value });
+            }
           } else {
-            editor.chain().focus().unsetMark('textStyle').removeEmptyTextStyle().run();
+            chain.unsetMark('textStyle').removeEmptyTextStyle();
+            if (editor.isActive('listItem')) {
+              chain.resetAttributes('listItem', 'fontFamily');
+            }
           }
+          chain.run();
         },
       })),
     [editor]
   );
 
   const currentFont = useMemo(() => {
-    const attrs = editor.getAttributes('textStyle');
-    const found = FONTS.find((f) => attrs.fontFamily === f.value);
+    const textStyleAttrs = editor.getAttributes('textStyle');
+    const listItemAttrs = editor.getAttributes('listItem');
+    const fontFamily = textStyleAttrs.fontFamily || listItemAttrs.fontFamily;
+    const found = FONTS.find((f) => fontFamily === f.value);
     return found?.label || '字体';
   }, [editor]);
 

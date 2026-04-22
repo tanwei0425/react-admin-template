@@ -15,6 +15,7 @@ import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import CodeBlock from '@tiptap/extension-code-block';
 import { TextStyle } from './extensions/textStyle';
+import { ListItem } from './extensions/listItem';
 import Toolbar from './components/toolbar';
 import styles from './index.module.scss';
 
@@ -54,7 +55,9 @@ const RichText = ({
         codeBlock: false,
         link: false,
         underline: false,
+        listItem: false,
       }),
+      ListItem,
       Placeholder.configure({ placeholder }),
       Image.configure({ inline: true, allowBase64: true }),
       Link.configure({
