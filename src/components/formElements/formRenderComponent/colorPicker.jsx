@@ -23,19 +23,9 @@ const DEFAULT_PRESETS = [
   { label: '火山', colors: volcano, key: 'volcano' },
 ];
 
-const defaultPanelRender = (_panel, { components: { Picker, Presets } }) => (
-  <Row justify="space-between" wrap={false}>
-    <Col span={14}>
-      <Presets />
-    </Col>
-    <Col flex="auto">
-      <Picker />
-    </Col>
-  </Row>
-);
+
 
 const Index = ({
-  value,
   onChange,
   presets,
   disabledAlpha = true,
@@ -45,19 +35,33 @@ const Index = ({
   placement,
   styles: customStyles,
   panelRender,
+  defaultPanelLayout = {},
   ...fieldProps
 }) => {
+  const {
+    row = {},
+    leftCol = {},
+    rightCol = {},
+  } = defaultPanelLayout;
   const handleChange = (color) => {
     const hex = color.toHexString();
     onChange?.(hex);
   };
-
+  const defaultPanelRender = (_panel, { components: { Picker, Presets } }) => (
+    <Row justify="space-between" wrap={false} {...row}>
+      <Col span={14} {...leftCol}>
+        <Presets />
+      </Col>
+      <Col flex="auto" {...rightCol}>
+        <Picker />
+      </Col>
+    </Row>
+  );
   const finalPresets = showPresets ? (presets || DEFAULT_PRESETS) : undefined;
   const finalPanelRender = showPresets ? (panelRender || defaultPanelRender) : panelRender;
 
   return (
     <ColorPicker
-      value={value}
       onChange={handleChange}
       presets={finalPresets}
       defaultFormat={format}
