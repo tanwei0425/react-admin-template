@@ -1,9 +1,30 @@
-import { ListItem as ListItemOriginal } from '@tiptap/extension-list-item';
+import { Node, mergeAttributes } from '@tiptap/core';
 
-export const ListItem = ListItemOriginal.extend({
+export const ListItem = Node.create({
+  name: 'listItem',
+
+  addOptions() {
+    return {
+      HTMLAttributes: {},
+    };
+  },
+
+  content: 'paragraph+',
+
+  parseHTML() {
+    return [
+      {
+        tag: 'li',
+      },
+    ];
+  },
+
+  renderHTML({ HTMLAttributes }) {
+    return ['li', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  },
+
   addAttributes() {
     return {
-      ...this.parent?.(),
       fontFamily: {
         default: null,
         parseHTML: (element) => element.style.fontFamily?.replace(/['"]+/g, ''),

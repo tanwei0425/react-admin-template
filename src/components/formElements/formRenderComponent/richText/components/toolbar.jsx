@@ -83,14 +83,20 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           const chain = editor.chain().focus();
           if (item.value) {
             chain.setMark('textStyle', { fontFamily: item.value });
-            if (editor.isActive('listItem')) {
-              chain.updateAttributes('listItem', { fontFamily: item.value });
-            }
           } else {
             chain.unsetMark('textStyle').removeEmptyTextStyle();
-            if (editor.isActive('listItem')) {
-              chain.resetAttributes('listItem', 'fontFamily');
-            }
+          }
+          const { from, to } = editor.state.selection;
+          if (from !== to) {
+            editor.state.doc.nodesBetween(from, to, (node) => {
+              if (node.type.name === 'listItem') {
+                if (item.value) {
+                  chain.updateAttributes('listItem', { fontFamily: item.value });
+                } else {
+                  chain.resetAttributes('listItem', 'fontFamily');
+                }
+              }
+            });
           }
           chain.run();
         },
