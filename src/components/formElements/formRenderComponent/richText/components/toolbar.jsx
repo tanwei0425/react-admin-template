@@ -1,3 +1,15 @@
+/**
+ * 富文本编辑器工具栏组件
+ * 提供完整的富文本编辑功能：
+ * - 标题、字体、字号选择
+ * - 粗体、斜体、下划线、删除线
+ * - 字体颜色、背景色
+ * - 对齐方式
+ * - 有序/无序列表、引用、代码块
+ * - 表格、分割线、链接、图片
+ * - 撤销/重做、格式刷、清除格式
+ * - 复制HTML、预览、全屏
+ */
 import { useState, useCallback, useMemo } from 'react';
 import { Button, Space, Divider, Upload, Dropdown, Modal, Input, InputNumber, Popover } from 'antd';
 import {
@@ -35,6 +47,7 @@ import ColorPickerContent from './ColorPickerContent';
 import styles from '../index.module.scss';
 
 const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscreen }) => {
+  // 弹窗状态
   const [linkModalOpen, setLinkModalOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [copied, setCopied] = useState(false);
@@ -45,11 +58,14 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
   const [tableCols, setTableCols] = useState(3);
   const [previewOpen, setPreviewOpen] = useState(false);
 
+  // 格式刷
   const { formatPainterActive, toggleFormatPainter } = useFormatPainter(editor);
 
+  // 当前颜色状态
   const currentFontColor = editor.getAttributes('textStyle').color || null;
   const currentBgColor = editor.getAttributes('highlight').color || null;
 
+  // 标题下拉菜单
   const headingItems = useMemo(
     () =>
       HEADINGS.map((item) => ({
@@ -74,6 +90,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     return found?.label || '正文';
   }, [editor]);
 
+  // 字体下拉菜单
   const fontItems = useMemo(
     () =>
       FONTS.map((item) => ({
@@ -86,6 +103,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           } else {
             chain.unsetMark('textStyle').removeEmptyTextStyle();
           }
+          // 同步更新列表项字体
           const { from, to } = editor.state.selection;
           if (from !== to) {
             editor.state.doc.nodesBetween(from, to, (node) => {
@@ -112,6 +130,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     return found?.label || '字体';
   }, [editor]);
 
+  // 字号下拉菜单
   const fontSizeItems = useMemo(
     () =>
       FONT_SIZES.map((item) => ({
@@ -124,6 +143,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           } else {
             chain.unsetMark('textStyle').removeEmptyTextStyle();
           }
+          // 同步更新列表项字号
           const { from, to } = editor.state.selection;
           if (from !== to) {
             editor.state.doc.nodesBetween(from, to, (node) => {
@@ -150,6 +170,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     return found?.label || '字号';
   }, [editor]);
 
+  // 链接处理
   const handleLink = useCallback(() => {
     setLinkUrl(editor.getAttributes('link').href || '');
     setLinkModalOpen(true);
@@ -169,6 +190,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     setLinkUrl('');
   }, [editor]);
 
+  // 颜色处理
   const setFontColor = useCallback(
     (color) => {
       editor.chain().focus().setColor(color).run();
@@ -187,6 +209,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     [editor]
   );
 
+  // 表格插入
   const confirmInsertTable = useCallback(() => {
     editor.chain().focus().insertTable({ rows: tableRows, cols: tableCols, withHeaderRow: true }).run();
     setTableModalOpen(false);
@@ -194,12 +217,14 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     setTableCols(3);
   }, [editor, tableRows, tableCols]);
 
+  // 复制HTML
   const copyHtml = useCallback(() => {
     navigator.clipboard.writeText(editor.getHTML());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }, [editor]);
 
+  // 清除格式
   const clearFormat = useCallback(() => {
     editor.chain().focus().clearNodes().unsetAllMarks().run();
   }, [editor]);
@@ -209,20 +234,24 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
   return (
     <div className={`${styles.toolbar} ${isFullscreen ? styles.fullscreenToolbar : ''}`}>
       <Space wrap size={2}>
+        {/* 标题选择 */}
         <Dropdown menu={{ items: headingItems }} trigger={['click']}>
           <Button size="small" style={{ minWidth: 70 }}>{currentHeading}</Button>
         </Dropdown>
 
+        {/* 字体选择 */}
         <Dropdown menu={{ items: fontItems }} trigger={['click']}>
           <Button size="small" style={{ minWidth: 80 }}>{currentFont}</Button>
         </Dropdown>
 
+        {/* 字号选择 */}
         <Dropdown menu={{ items: fontSizeItems }} trigger={['click']}>
           <Button size="small" style={{ minWidth: 60 }}>{currentFontSize}</Button>
         </Dropdown>
 
         <Divider vertical />
 
+        {/* 文本格式 */}
         <MenuButton icon={<BoldOutlined />} title="粗体 (Ctrl+B)" active={editor.isActive('bold')} onClick={() => editor.chain().focus().toggleBold().run()} />
         <MenuButton icon={<ItalicOutlined />} title="斜体 (Ctrl+I)" active={editor.isActive('italic')} onClick={() => editor.chain().focus().toggleItalic().run()} />
         <MenuButton icon={<UnderlineOutlined />} title="下划线 (Ctrl+U)" active={editor.isActive('underline')} onClick={() => editor.chain().focus().toggleUnderline().run()} />
@@ -230,6 +259,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Divider vertical />
 
+        {/* 颜色选择 */}
         <Popover open={fontColorOpen} onOpenChange={setFontColorOpen} content={<ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} value={currentFontColor} />} trigger="click" placement="bottom" styles={{ root: { zIndex: 1050 } }}>
           <span><MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} /></span>
         </Popover>
@@ -240,12 +270,14 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Divider vertical />
 
+        {/* 对齐方式 */}
         <MenuButton icon={<AlignLeftOutlined />} title="左对齐" active={editor.isActive({ textAlign: 'left' })} onClick={() => editor.chain().focus().setTextAlign('left').run()} />
         <MenuButton icon={<AlignCenterOutlined />} title="居中" active={editor.isActive({ textAlign: 'center' })} onClick={() => editor.chain().focus().setTextAlign('center').run()} />
         <MenuButton icon={<AlignRightOutlined />} title="右对齐" active={editor.isActive({ textAlign: 'right' })} onClick={() => editor.chain().focus().setTextAlign('right').run()} />
 
         <Divider vertical />
 
+        {/* 列表和引用 */}
         <MenuButton icon={<UnorderedListOutlined />} title="无序列表" active={editor.isActive('bulletList')} onClick={() => editor.chain().focus().toggleBulletList().run()} />
         <MenuButton icon={<OrderedListOutlined />} title="有序列表" active={editor.isActive('orderedList')} onClick={() => editor.chain().focus().toggleOrderedList().run()} />
         <MenuButton icon={<MenuOutlined />} title="引用" active={editor.isActive('blockquote')} onClick={() => editor.chain().focus().toggleBlockquote().run()} />
@@ -253,11 +285,13 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Divider vertical />
 
+        {/* 表格和分割线 */}
         <MenuButton icon={<TableOutlined />} title="插入表格" onClick={() => setTableModalOpen(true)} />
         <MenuButton icon={<LineOutlined />} title="分割线" onClick={() => editor.chain().focus().setHorizontalRule().run()} />
 
         <Divider vertical />
 
+        {/* 链接和图片 */}
         <MenuButton icon={<LinkOutlined />} title="链接" active={editor.isActive('link')} onClick={handleLink} />
         <Upload showUploadList={false} accept="image/*" customRequest={({ file }) => onUpload(file)}>
           <MenuButton icon={<PictureOutlined />} title="上传图片" loading={isUploading} />
@@ -265,11 +299,13 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Divider vertical />
 
+        {/* 撤销重做 */}
         <MenuButton icon={<UndoOutlined />} title="撤销 (Ctrl+Z)" onClick={() => editor.chain().focus().undo().run()} disabled={!editor.can().undo()} />
         <MenuButton icon={<RedoOutlined />} title="重做 (Ctrl+Y)" onClick={() => editor.chain().focus().redo().run()} disabled={!editor.can().redo()} />
 
         <Divider vertical />
 
+        {/* 工具按钮 */}
         <MenuButton icon={<FormatPainterOutlined />} title={formatPainterActive ? '格式刷已激活(选中文本应用格式)' : '格式刷(先选中带格式文本再点击)'} active={formatPainterActive} onClick={toggleFormatPainter} />
         <MenuButton icon={<ClearOutlined />} title="清除格式" onClick={clearFormat} />
         <MenuButton icon={copied ? <CheckOutlined /> : <CopyOutlined />} title={copied ? '已复制' : '复制 HTML'} onClick={copyHtml} />
@@ -277,10 +313,12 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         <MenuButton icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />} title={isFullscreen ? '退出全屏' : '全屏编辑'} onClick={onToggleFullscreen} />
       </Space>
 
+      {/* 链接弹窗 */}
       <Modal title="插入链接" open={linkModalOpen} onOk={confirmLink} onCancel={() => setLinkModalOpen(false)} footer={[<Button key="remove" danger onClick={removeLink}>移除链接</Button>, <Button key="cancel" onClick={() => setLinkModalOpen(false)}>取消</Button>, <Button key="submit" type="primary" onClick={confirmLink}>确定</Button>]}>
         <Input placeholder="请输入链接地址" value={linkUrl} onChange={(e) => setLinkUrl(e.target.value)} onPressEnter={confirmLink} />
       </Modal>
 
+      {/* 表格弹窗 */}
       <Modal title="插入表格" open={tableModalOpen} onOk={confirmInsertTable} onCancel={() => setTableModalOpen(false)} okText="确定" cancelText="取消">
         <Space>
           <span>行数:</span>
@@ -290,6 +328,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         </Space>
       </Modal>
 
+      {/* 预览弹窗 */}
       <Modal title="内容预览" open={previewOpen} onCancel={() => setPreviewOpen(false)} footer={null} width={800}>
         <div className={styles.previewContent} dangerouslySetInnerHTML={{ __html: editor.getHTML() }} />
       </Modal>

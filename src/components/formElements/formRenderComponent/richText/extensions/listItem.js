@@ -1,3 +1,8 @@
+/**
+ * ListItem 扩展
+ * 自定义列表项节点，支持 fontFamily 和 fontSize 属性
+ * 解决有序/无序列表的数字/圆点不跟随字体和字号变化的问题
+ */
 import { Node, mergeAttributes } from '@tiptap/react';
 
 export const ListItem = Node.create({
@@ -25,6 +30,7 @@ export const ListItem = Node.create({
 
   addAttributes() {
     return {
+      // 字体属性
       fontFamily: {
         default: null,
         parseHTML: (element) => element.style.fontFamily?.replace(/['"]+/g, ''),
@@ -37,6 +43,7 @@ export const ListItem = Node.create({
           };
         },
       },
+      // 字号属性
       fontSize: {
         default: null,
         parseHTML: (element) => element.style.fontSize || null,

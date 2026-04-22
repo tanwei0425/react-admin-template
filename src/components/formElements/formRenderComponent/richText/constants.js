@@ -1,3 +1,8 @@
+/**
+ * 富文本编辑器常量配置
+ */
+
+// 标题级别配置
 export const HEADINGS = [
   { label: '正文', value: 'paragraph' },
   { label: '标题 1', value: 1 },
@@ -8,6 +13,7 @@ export const HEADINGS = [
   { label: '标题 6', value: 6 },
 ];
 
+// 字体配置（包含Mac和Windows常用字体及回退方案）
 export const FONTS = [
   { label: '默认', value: '' },
   { label: '苹方', value: '"PingFang SC", "Microsoft YaHei", sans-serif' },
@@ -25,6 +31,7 @@ export const FONTS = [
   { label: 'Courier New', value: '"Courier New", Monaco, monospace' },
 ];
 
+// 字号配置
 export const FONT_SIZES = [
   { label: '默认', value: '' },
   { label: '12px', value: '12px' },
@@ -38,9 +45,9 @@ export const FONT_SIZES = [
   { label: '36px', value: '36px' },
   { label: '48px', value: '48px' },
   { label: '56px', value: '56px' },
-  { label: '72px', value: '72px' },
 ];
 
+// 字体颜色预设
 export const FONT_COLORS = [
   '#000000', '#434343', '#666666', '#999999',
   '#b7b7b7', '#cccccc', '#d9d9d9', '#efefef',
@@ -52,6 +59,7 @@ export const FONT_COLORS = [
   '#d9ead3', '#d0e0e3', '#c9daf8', '#d9d2e9',
 ];
 
+// 背景颜色预设（包含透明色用于清除）
 export const BG_COLORS = [
   'transparent', '#ffffff', '#f3f3f3', '#efefef',
   '#d9d9d9', '#cccccc', '#b7b7b7', '#999999',
@@ -63,4 +71,5 @@ export const BG_COLORS = [
   '#fff2cc', '#d9ead3', '#d0e0e3', '#c9daf8',
 ];
 
+// 格式类型列表（用于格式刷）
 export const MARK_TYPES = ['bold', 'italic', 'underline', 'strike', 'link', 'textStyle', 'highlight'];

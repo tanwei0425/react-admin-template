@@ -1,7 +1,13 @@
+/**
+ * 颜色选择器内容组件
+ * 用于字体颜色和背景色选择
+ * 支持预设颜色和清除颜色功能
+ */
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
 import { Divider } from 'antd';
 
 const ColorPickerContent = ({ colors, onSelect, value }) => {
+  // 预设颜色配置
   const presets = [
     {
       label: '常用颜色',
@@ -10,6 +16,7 @@ const ColorPickerContent = ({ colors, onSelect, value }) => {
     },
   ];
 
+  // 是否显示清除按钮（背景色支持透明色）
   const showClear = colors.includes('transparent');
 
   return (
