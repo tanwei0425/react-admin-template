@@ -11,7 +11,7 @@
  * - 复制HTML、预览、全屏
  */
 import { useState, useCallback, useMemo } from 'react';
-import { Button, Space, Divider, Upload, Dropdown, Modal, Input, InputNumber, Popover } from 'antd';
+import { Button, Space, Divider, Upload, Dropdown, Modal, Input, InputNumber } from 'antd';
 import {
   BoldOutlined,
   ItalicOutlined,
@@ -51,8 +51,6 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
   const [linkModalOpen, setLinkModalOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [copied, setCopied] = useState(false);
-  const [fontColorOpen, setFontColorOpen] = useState(false);
-  const [bgColorOpen, setBgColorOpen] = useState(false);
   const [tableModalOpen, setTableModalOpen] = useState(false);
   const [tableRows, setTableRows] = useState(3);
   const [tableCols, setTableCols] = useState(3);
@@ -194,7 +192,6 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
   const setFontColor = useCallback(
     (color) => {
       editor.chain().focus().setColor(color).run();
-      setFontColorOpen(false);
     },
     [editor]
   );
@@ -204,7 +201,6 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
       const chain = editor.chain().focus();
       color === 'transparent' ? chain.unsetHighlight() : chain.toggleHighlight({ color });
       chain.run();
-      setBgColorOpen(false);
     },
     [editor]
   );
@@ -260,13 +256,13 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         <Divider vertical />
 
         {/* 颜色选择 */}
-        <Popover open={fontColorOpen} onOpenChange={setFontColorOpen} content={<ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} value={currentFontColor} />} trigger="click" placement="bottom" styles={{ root: { zIndex: 1050 } }}>
+        <ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} value={currentFontColor}>
           <span><MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} /></span>
-        </Popover>
+        </ColorPickerContent>
 
-        <Popover open={bgColorOpen} onOpenChange={setBgColorOpen} content={<ColorPickerContent colors={BG_COLORS} onSelect={setHighlight} value={currentBgColor} />} trigger="click" placement="bottom" styles={{ root: { zIndex: 1050 } }}>
+        <ColorPickerContent colors={BG_COLORS} onSelect={setHighlight} value={currentBgColor}>
           <span><MenuButton icon={<BgColorsOutlined />} title="背景色" active={!!currentBgColor} /></span>
-        </Popover>
+        </ColorPickerContent>
 
         <Divider vertical />
 

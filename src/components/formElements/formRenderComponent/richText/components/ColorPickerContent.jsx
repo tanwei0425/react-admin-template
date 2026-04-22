@@ -1,12 +1,11 @@
 /**
  * 颜色选择器内容组件
  * 用于字体颜色和背景色选择
- * 支持预设颜色和清除颜色功能
+ * 直接点击触发器显示颜色面板，无需二次点击
  */
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
-import { Divider } from 'antd';
 
-const ColorPickerContent = ({ colors, onSelect, value }) => {
+const ColorPickerContent = ({ colors, onSelect, value, showClear = false, children }) => {
   // 预设颜色配置
   const presets = [
     {
@@ -17,39 +16,20 @@ const ColorPickerContent = ({ colors, onSelect, value }) => {
   ];
 
   // 是否显示清除按钮（背景色支持透明色）
-  const showClear = colors.includes('transparent');
+  const shouldShowClear = showClear || colors.includes('transparent');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      <ColorPicker
-        value={value}
-        presets={presets}
-        onChange={onSelect}
-        showText={false}
-        styles={{ popupOverlayInner: { width: 400 } }}
-        disabledAlpha={false}
-        defaultPanelLayout={{ leftCol: { span: 8 } }}
-        showPresets={true}
-      />
-      {showClear && (
-        <>
-          <Divider style={{ margin: '4px 0' }} />
-          <div
-            style={{
-              padding: '4px 8px',
-              cursor: 'pointer',
-              border: '1px dashed #d9d9d9',
-              borderRadius: 4,
-              textAlign: 'center',
-              fontSize: 12,
-            }}
-            onClick={() => onSelect('transparent')}
-          >
-            清除颜色
-          </div>
-        </>
-      )}
-    </div>
+    <ColorPicker
+      value={value}
+      presets={presets}
+      onChange={onSelect}
+      showText={false}
+      disabledAlpha={false}
+      showClearBtn={shouldShowClear}
+      onClear={() => onSelect('transparent')}
+    >
+      {children}
+    </ColorPicker>
   );
 };
 
