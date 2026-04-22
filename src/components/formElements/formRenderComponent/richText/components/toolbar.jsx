@@ -130,6 +130,9 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     return attrs.fontFamily === f.value;
   })?.label || '字体';
 
+  const currentFontColor = editor.getAttributes('textStyle').color || null;
+  const currentBgColor = editor.getAttributes('highlight').color || null;
+
   if (!editor) return null;
 
   const htmlContent = editor.getHTML();
@@ -181,26 +184,26 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         <Popover
           open={fontColorOpen}
           onOpenChange={setFontColorOpen}
-          content={<ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} />}
+          content={<ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} value={currentFontColor} />}
           trigger="click"
           placement="bottom"
           styles={{ root: { zIndex: 1050 } }}
         >
           <span>
-            <MenuButton icon={<FontColorsOutlined />} title="字体颜色" />
+            <MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} />
           </span>
         </Popover>
 
         <Popover
           open={bgColorOpen}
           onOpenChange={setBgColorOpen}
-          content={<ColorPickerContent colors={BG_COLORS} onSelect={setHighlight} />}
+          content={<ColorPickerContent colors={BG_COLORS} onSelect={setHighlight} value={currentBgColor} />}
           trigger="click"
           placement="bottom"
           styles={{ root: { zIndex: 1050 } }}
         >
           <span>
-            <MenuButton icon={<BgColorsOutlined />} title="背景色" />
+            <MenuButton icon={<BgColorsOutlined />} title="背景色" active={!!currentBgColor} />
           </span>
         </Popover>
 
@@ -368,7 +371,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
         footer={null}
         width={800}
       >
-        <div 
+        <div
           className={styles.previewContent}
           dangerouslySetInnerHTML={{ __html: htmlContent }}
         />

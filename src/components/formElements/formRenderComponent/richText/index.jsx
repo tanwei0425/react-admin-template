@@ -8,15 +8,29 @@ import Link from '@tiptap/extension-link';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
-import { TextStyle } from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { TableHeader } from '@tiptap/extension-table-header';
 import CodeBlock from '@tiptap/extension-code-block';
+import { TextStyle } from './extensions/textStyle';
 import Toolbar from './components/toolbar';
 import styles from './index.module.scss';
+
+const getCharacterCount = (html) => {
+  if (!html) return 0;
+  const text = html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+  return text.length;
+};
 
 const RichText = ({
   value,
@@ -103,7 +117,8 @@ const RichText = ({
     [editor, uploadImage]
   );
 
-  const characterCount = editor?.storage.characterCount?.characters?.() ?? editor?.getText().length ?? 0;
+  const htmlContent = editor?.getHTML() || '';
+  const characterCount = getCharacterCount(htmlContent);
 
   if (!editor) return null;
 

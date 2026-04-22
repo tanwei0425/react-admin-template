@@ -1,7 +1,7 @@
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
 import { Divider } from 'antd';
 
-const ColorPickerContent = ({ colors, onSelect }) => {
+const ColorPickerContent = ({ colors, onSelect, value }) => {
   const presets = [
     {
       label: '常用颜色',
@@ -23,11 +23,15 @@ const ColorPickerContent = ({ colors, onSelect }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <ColorPicker
+        value={value}
         presets={presets}
         onChange={handleChange}
         showText={false}
-        styles={{ popupOverlayInner: { width: 560 } }}
+        styles={{ popupOverlayInner: { width: 400 } }}
         disabledAlpha={false}
+        defaultPanelLayout={{
+          leftCol: { span: 8 },
+        }}
         showPresets={true}
       />
       {colors.includes('transparent') && (
