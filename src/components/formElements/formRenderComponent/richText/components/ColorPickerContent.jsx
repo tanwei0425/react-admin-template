@@ -10,31 +10,21 @@ const ColorPickerContent = ({ colors, onSelect, value }) => {
     },
   ];
 
-  const handleChange = (hex) => {
-    onSelect(hex);
-  };
-
-  const handleClear = () => {
-    if (colors.includes('transparent')) {
-      onSelect('transparent');
-    }
-  };
+  const showClear = colors.includes('transparent');
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
       <ColorPicker
         value={value}
         presets={presets}
-        onChange={handleChange}
+        onChange={onSelect}
         showText={false}
         styles={{ popupOverlayInner: { width: 400 } }}
         disabledAlpha={false}
-        defaultPanelLayout={{
-          leftCol: { span: 8 },
-        }}
+        defaultPanelLayout={{ leftCol: { span: 8 } }}
         showPresets={true}
       />
-      {colors.includes('transparent') && (
+      {showClear && (
         <>
           <Divider style={{ margin: '4px 0' }} />
           <div
@@ -46,7 +36,7 @@ const ColorPickerContent = ({ colors, onSelect, value }) => {
               textAlign: 'center',
               fontSize: 12,
             }}
-            onClick={handleClear}
+            onClick={() => onSelect('transparent')}
           >
             清除颜色
           </div>

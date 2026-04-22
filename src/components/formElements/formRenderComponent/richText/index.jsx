@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useEffect, useMemo, useState, useCallback, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -45,6 +45,8 @@ const RichText = ({
 }) => {
   const [isUploading, setIsUploading] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [editorStateKey, setEditorStateKey] = useState(0);
+  const editorRef = useRef(null);
 
   const extensions = useMemo(
     () => [
@@ -82,6 +84,18 @@ const RichText = ({
       onChange?.(val);
     },
   });
+
+  useEffect(() => {
+    if (!editor) return;
+    editorRef.current = editor;
+    const handleSelectionUpdate = () => {
+      setEditorStateKey((k) => k + 1);
+    };
+    editor.on('selectionUpdate', handleSelectionUpdate);
+    return () => {
+      editor.off('selectionUpdate', handleSelectionUpdate);
+    };
+  }, [editor]);
 
   useEffect(() => {
     if (!editor) return;
@@ -128,6 +142,7 @@ const RichText = ({
     return createPortal(
       <div className={styles.fullscreenWrapper}>
         <Toolbar
+          key={editorStateKey}
           editor={editor}
           onUpload={handleUpload}
           isUploading={isUploading}
@@ -155,6 +170,7 @@ const RichText = ({
     <div className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
       {!disabled && (
         <Toolbar
+          key={editorStateKey}
           editor={editor}
           onUpload={handleUpload}
           isUploading={isUploading}
