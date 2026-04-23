@@ -41,7 +41,7 @@ const DEFAULT_PRESETS = [
 const createDefaultPanelRender = (extraNode, layout = {}) => {
   const { row = {}, leftCol = {}, rightCol = {} } = layout;
   const PanelRender = (_panel, { components: { Picker, Presets } }) => (
-    <div style={{ minWidth: 320 }}>
+    <>
       <Row justify="space-between" wrap={false} {...row}>
         <Col span={14} {...leftCol}>
           <Presets />
@@ -56,7 +56,7 @@ const createDefaultPanelRender = (extraNode, layout = {}) => {
           {extraNode}
         </>
       )}
-    </div>
+      </>
   );
   PanelRender.displayName = 'PanelRender';
   return PanelRender;
@@ -101,7 +101,7 @@ const Index = ({
       disabledAlpha={disabledAlpha}
       showText={showText}
       placement={placement}
-      styles={customStyles}
+      styles={{ popupOverlayInner: { width: 400 }, ...customStyles }}
       panelRender={finalPanelRender}
       {...fieldProps}
     >
