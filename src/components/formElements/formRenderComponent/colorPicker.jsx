@@ -7,7 +7,7 @@
  * - 追加/覆盖默认预设
  * - 自定义左右布局
  */
-import { ColorPicker, Divider } from 'antd';
+import { ColorPicker, Row, Col, Divider } from 'antd';
 import { cyan, blue, volcano } from '@ant-design/colors';
 
 // 默认预设颜色
@@ -42,14 +42,14 @@ const createDefaultPanelRender = (extraNode, layout = {}) => {
   const { row = {}, leftCol = {}, rightCol = {} } = layout;
   const PanelRender = (_panel, { components: { Picker, Presets } }) => (
     <div style={{ minWidth: 320 }}>
-      <div style={{ display: 'flex', gap: 12, ...row }}>
-        <div style={{ flex: '0 0 auto', ...leftCol }}>
+      <Row justify="space-between" wrap={false} {...row}>
+        <Col span={14} {...leftCol}>
           <Presets />
-        </div>
-        <div style={{ flex: 1, ...rightCol }}>
+        </Col>
+        <Col flex="auto" {...rightCol}>
           <Picker />
-        </div>
-      </div>
+        </Col>
+      </Row>
       {extraNode && (
         <>
           <Divider style={{ margin: '8px 0' }} />
