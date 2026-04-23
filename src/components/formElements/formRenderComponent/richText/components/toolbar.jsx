@@ -271,7 +271,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           onSelect={handleFontColorChange}
           onClear={clearFontColor}
         >
-          <span><MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} /></span>
+          <MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} />
         </ColorPickerContent>
 
         {/* 背景色 */}
@@ -281,7 +281,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           onSelect={handleBgColorChange}
           onClear={clearBgColor}
         >
-          <span><MenuButton icon={<BgColorsOutlined />} title="背景色" active={!!currentBgColor} /></span>
+          <MenuButton icon={<BgColorsOutlined />} title="背景色" active={!!currentBgColor} />
         </ColorPickerContent>
 
         <Divider vertical />

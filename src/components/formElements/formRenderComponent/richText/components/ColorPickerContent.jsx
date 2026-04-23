@@ -26,9 +26,8 @@ const ColorPickerContent = ({ colors, onSelect, value, onClear, showClear = true
 
   return (
     <ColorPicker
-      value={value}
+      value={value || undefined}
       presets={presets}
-      styles={{ popupOverlayInner: { width: 450 } }}
       defaultPanelLayout={{
         leftCol: { span: 9 },
       }}

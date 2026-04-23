@@ -8,7 +8,10 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 // 格式类型列表
-const MARK_TYPES = ['bold', 'italic', 'underline', 'strike', 'link', 'textStyle', 'highlight'];
+const MARK_TYPES = ['bold', 'italic', 'underline', 'strike', 'highlight'];
+
+// 需要属性的 mark 类型
+const ATTR_MARK_TYPES = ['textStyle', 'link'];
 
 const useFormatPainter = (editor) => {
   const [formatPainterActive, setFormatPainterActive] = useState(false);
@@ -41,35 +44,44 @@ const useFormatPainter = (editor) => {
   const applyFormat = useCallback(() => {
     if (!editor || !capturedMarks.current) return;
 
-    const { from, to } = editor.state.selection;
-    if (from === to) return;
-
     const marks = capturedMarks.current;
-    const chain = editor.chain().focus();
 
-    // 先清除所有格式
-    chain.unsetAllMarks();
+    // 使用 setTimeout 确保选区已更新
+    setTimeout(() => {
+      const { from, to } = editor.state.selection;
+      if (from === to) return;
 
-    // 应用捕获的 marks
-    MARK_TYPES.forEach((markType) => {
-      if (marks[markType] !== undefined) {
-        if (marks[markType] === true) {
-          // 简单开关类型
-          chain.setMark(markType);
-        } else if (typeof marks[markType] === 'object') {
-          // 带属性的 mark
+      const chain = editor.chain().focus();
+
+      // 先清除所有格式
+      chain.unsetAllMarks();
+
+      // 应用简单的开关类型 marks
+      MARK_TYPES.forEach((markType) => {
+        if (marks[markType]) {
+          if (typeof marks[markType] === 'object') {
+            chain.setMark(markType, marks[markType]);
+          } else {
+            chain.setMark(markType);
+          }
+        }
+      });
+
+      // 应用带属性的 marks
+      ATTR_MARK_TYPES.forEach((markType) => {
+        if (marks[markType] && typeof marks[markType] === 'object') {
           chain.setMark(markType, marks[markType]);
         }
+      });
+
+      // 应用标题级别
+      if (marks._heading) {
+        chain.toggleHeading({ level: marks._heading });
       }
-    });
 
-    // 应用标题级别
-    if (marks._heading) {
-      chain.toggleHeading({ level: marks._heading });
-    }
-
-    chain.run();
-    cleanup();
+      chain.run();
+      cleanup();
+    }, 10);
   }, [editor, cleanup]);
 
   // 切换格式刷状态
@@ -88,13 +100,11 @@ const useFormatPainter = (editor) => {
     // 捕获当前选中文本的格式
     const captured = {};
 
-    // 捕获 marks
+    // 捕获简单开关类型 marks
     MARK_TYPES.forEach((markType) => {
       if (editor.isActive(markType)) {
         const attrs = editor.getAttributes(markType);
-        // 检查是否有有效属性
-        const hasAttrs = attrs && Object.keys(attrs).length > 0;
-        if (hasAttrs) {
+        if (attrs && Object.keys(attrs).length > 0) {
           captured[markType] = { ...attrs };
         } else {
           captured[markType] = true;
@@ -102,9 +112,22 @@ const useFormatPainter = (editor) => {
       }
     });
 
+    // 捕获带属性的 marks
+    ATTR_MARK_TYPES.forEach((markType) => {
+      if (editor.isActive(markType)) {
+        const attrs = editor.getAttributes(markType);
+        if (attrs && Object.keys(attrs).length > 0) {
+          captured[markType] = { ...attrs };
+        }
+      }
+    });
+
     // 捕获标题级别
     if (editor.isActive('heading')) {
-      captured._heading = editor.getAttributes('heading').level;
+      const headingAttrs = editor.getAttributes('heading');
+      if (headingAttrs?.level) {
+        captured._heading = headingAttrs.level;
+      }
     }
 
     // 如果没有捕获到任何格式，不激活
@@ -115,9 +138,7 @@ const useFormatPainter = (editor) => {
 
     // 监听鼠标抬起事件，应用格式
     const handleMouseUp = () => {
-      setTimeout(() => {
-        applyFormat();
-      }, 50);
+      applyFormat();
     };
 
     mouseupHandlerRef.current = handleMouseUp;
