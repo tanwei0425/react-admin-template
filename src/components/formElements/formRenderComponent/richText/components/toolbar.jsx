@@ -59,7 +59,7 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
   // 格式刷
   const { formatPainterActive, toggleFormatPainter } = useFormatPainter(editor);
 
-  // 当前颜色状态
+  // 当前颜色状态 - 从 editor 获取
   const currentFontColor = editor.getAttributes('textStyle').color || null;
   const currentBgColor = editor.getAttributes('highlight').color || null;
 
@@ -101,7 +101,6 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           } else {
             chain.unsetMark('textStyle').removeEmptyTextStyle();
           }
-          // 同步更新列表项字体
           const { from, to } = editor.state.selection;
           if (from !== to) {
             editor.state.doc.nodesBetween(from, to, (node) => {
@@ -141,7 +140,6 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
           } else {
             chain.unsetMark('textStyle').removeEmptyTextStyle();
           }
-          // 同步更新列表项字号
           const { from, to } = editor.state.selection;
           if (from !== to) {
             editor.state.doc.nodesBetween(from, to, (node) => {
@@ -188,22 +186,33 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
     setLinkUrl('');
   }, [editor]);
 
-  // 颜色处理
-  const setFontColor = useCallback(
+  // 字体颜色处理
+  const handleFontColorChange = useCallback(
     (color) => {
       editor.chain().focus().setColor(color).run();
     },
     [editor]
   );
 
-  const setHighlight = useCallback(
+  const clearFontColor = useCallback(() => {
+    editor.chain().focus().unsetColor().run();
+  }, [editor]);
+
+  // 背景色处理
+  const handleBgColorChange = useCallback(
     (color) => {
-      const chain = editor.chain().focus();
-      color === 'transparent' ? chain.unsetHighlight() : chain.toggleHighlight({ color });
-      chain.run();
+      if (color === 'transparent') {
+        editor.chain().focus().unsetHighlight().run();
+      } else {
+        editor.chain().focus().toggleHighlight({ color }).run();
+      }
     },
     [editor]
   );
+
+  const clearBgColor = useCallback(() => {
+    editor.chain().focus().unsetHighlight().run();
+  }, [editor]);
 
   // 表格插入
   const confirmInsertTable = useCallback(() => {
@@ -255,12 +264,23 @@ const Toolbar = ({ editor, onUpload, isUploading, isFullscreen, onToggleFullscre
 
         <Divider vertical />
 
-        {/* 颜色选择 */}
-        <ColorPickerContent colors={FONT_COLORS} onSelect={setFontColor} value={currentFontColor}>
+        {/* 字体颜色 */}
+        <ColorPickerContent
+          colors={FONT_COLORS}
+          value={currentFontColor}
+          onSelect={handleFontColorChange}
+          onClear={clearFontColor}
+        >
           <span><MenuButton icon={<FontColorsOutlined />} title="字体颜色" active={!!currentFontColor} /></span>
         </ColorPickerContent>
 
-        <ColorPickerContent colors={BG_COLORS} onSelect={setHighlight} value={currentBgColor}>
+        {/* 背景色 */}
+        <ColorPickerContent
+          colors={BG_COLORS}
+          value={currentBgColor}
+          onSelect={handleBgColorChange}
+          onClear={clearBgColor}
+        >
           <span><MenuButton icon={<BgColorsOutlined />} title="背景色" active={!!currentBgColor} /></span>
         </ColorPickerContent>
 

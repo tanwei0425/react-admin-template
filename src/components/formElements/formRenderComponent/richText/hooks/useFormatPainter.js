@@ -6,7 +6,9 @@
  * 3. 选中其他文本应用格式
  */
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { MARK_TYPES } from '../constants';
+
+// 格式类型列表
+const MARK_TYPES = ['bold', 'italic', 'underline', 'strike', 'link', 'textStyle', 'highlight'];
 
 const useFormatPainter = (editor) => {
   const [formatPainterActive, setFormatPainterActive] = useState(false);
@@ -45,14 +47,23 @@ const useFormatPainter = (editor) => {
     const marks = capturedMarks.current;
     const chain = editor.chain().focus();
 
+    // 先清除所有格式
     chain.unsetAllMarks();
 
+    // 应用捕获的 marks
     MARK_TYPES.forEach((markType) => {
       if (marks[markType] !== undefined) {
-        chain.setMark(markType, marks[markType]);
+        if (marks[markType] === true) {
+          // 简单开关类型
+          chain.setMark(markType);
+        } else if (typeof marks[markType] === 'object') {
+          // 带属性的 mark
+          chain.setMark(markType, marks[markType]);
+        }
       }
     });
 
+    // 应用标题级别
     if (marks._heading) {
       chain.toggleHeading({ level: marks._heading });
     }
@@ -75,16 +86,18 @@ const useFormatPainter = (editor) => {
     if (from === to) return;
 
     // 捕获当前选中文本的格式
-    const $from = editor.state.doc.resolve(from);
-    const $to = editor.state.doc.resolve(to);
-    const marksInSelection = $from.marksAcross($to) || $from.marks() || [];
     const captured = {};
 
+    // 捕获 marks
     MARK_TYPES.forEach((markType) => {
       if (editor.isActive(markType)) {
-        const mark = marksInSelection.find((m) => m.type.name === markType);
-        if (mark) {
-          captured[markType] = { ...mark.attrs };
+        const attrs = editor.getAttributes(markType);
+        // 检查是否有有效属性
+        const hasAttrs = attrs && Object.keys(attrs).length > 0;
+        if (hasAttrs) {
+          captured[markType] = { ...attrs };
+        } else {
+          captured[markType] = true;
         }
       }
     });
@@ -94,6 +107,9 @@ const useFormatPainter = (editor) => {
       captured._heading = editor.getAttributes('heading').level;
     }
 
+    // 如果没有捕获到任何格式，不激活
+    if (Object.keys(captured).length === 0) return;
+
     capturedMarks.current = captured;
     setFormatPainterActive(true);
 
@@ -101,7 +117,7 @@ const useFormatPainter = (editor) => {
     const handleMouseUp = () => {
       setTimeout(() => {
         applyFormat();
-      }, 0);
+      }, 50);
     };
 
     mouseupHandlerRef.current = handleMouseUp;

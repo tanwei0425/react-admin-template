@@ -7,7 +7,7 @@ import { Button } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
 
-const ColorPickerContent = ({ colors, onSelect, value, showClear = false, children }) => {
+const ColorPickerContent = ({ colors, onSelect, value, onClear, showClear = true, children }) => {
   // 预设颜色配置
   const presets = [
     {
@@ -17,12 +17,9 @@ const ColorPickerContent = ({ colors, onSelect, value, showClear = false, childr
     },
   ];
 
-  // 是否显示清除按钮（背景色支持透明色）
-  const shouldShowClear = showClear || colors.includes('transparent');
-
   // 清除颜色节点
-  const extraNode = shouldShowClear ? (
-    <Button type="text" icon={<DeleteOutlined />} onClick={() => onSelect('transparent')} block>
+  const extraNode = showClear ? (
+    <Button type="text" icon={<DeleteOutlined />} onClick={onClear} block>
       清除颜色
     </Button>
   ) : null;
@@ -31,6 +28,10 @@ const ColorPickerContent = ({ colors, onSelect, value, showClear = false, childr
     <ColorPicker
       value={value}
       presets={presets}
+      styles={{ popupOverlayInner: { width: 450 } }}
+      defaultPanelLayout={{
+        leftCol: { span: 9 },
+      }}
       onChange={onSelect}
       showText={false}
       disabledAlpha={false}

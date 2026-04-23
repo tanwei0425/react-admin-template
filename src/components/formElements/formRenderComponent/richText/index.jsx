@@ -108,16 +108,19 @@ const RichText = ({
     },
   });
 
-  // 监听选区变化，更新工具栏状态
+  // 监听编辑器状态变化，更新工具栏
   useEffect(() => {
     if (!editor) return;
     editorRef.current = editor;
-    const handleSelectionUpdate = () => {
+    const handleUpdate = () => {
       setEditorStateKey((k) => k + 1);
     };
-    editor.on('selectionUpdate', handleSelectionUpdate);
+    // 监听选区变化和事务更新
+    editor.on('selectionUpdate', handleUpdate);
+    editor.on('transaction', handleUpdate);
     return () => {
-      editor.off('selectionUpdate', handleSelectionUpdate);
+      editor.off('selectionUpdate', handleUpdate);
+      editor.off('transaction', handleUpdate);
     };
   }, [editor]);
 
