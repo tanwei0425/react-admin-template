@@ -5,6 +5,7 @@
  * - 自定义触发器
  * - 自定义面板渲染
  * - 追加/覆盖默认预设
+ * - 自定义左右布局
  */
 import { ColorPicker, Divider } from 'antd';
 import { cyan, blue, volcano } from '@ant-design/colors';
@@ -35,15 +36,17 @@ const DEFAULT_PRESETS = [
 /**
  * 创建默认面板渲染函数
  * 左侧预设颜色 + 右侧自定义选色器 + 底部扩展节点
+ * 支持自定义布局参数
  */
-const createDefaultPanelRender = (extraNode) => {
+const createDefaultPanelRender = (extraNode, layout = {}) => {
+  const { row = {}, leftCol = {}, rightCol = {} } = layout;
   const PanelRender = (_panel, { components: { Picker, Presets } }) => (
     <div style={{ minWidth: 320 }}>
-      <div style={{ display: 'flex', gap: 12 }}>
-        <div style={{ flex: '0 0 auto' }}>
+      <div style={{ display: 'flex', gap: 12, ...row }}>
+        <div style={{ flex: '0 0 auto', ...leftCol }}>
           <Presets />
         </div>
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, ...rightCol }}>
           <Picker />
         </div>
       </div>
@@ -71,6 +74,7 @@ const Index = ({
   panelRender,
   appendPresets = [],
   extraNode,
+  defaultPanelLayout = {},
   children,
   ...fieldProps
 }) => {
@@ -86,7 +90,7 @@ const Index = ({
 
   // 面板渲染：自定义 > 带扩展节点的默认 > undefined
   const finalPanelRender = showPresets
-    ? (panelRender || createDefaultPanelRender(extraNode))
+    ? (panelRender || createDefaultPanelRender(extraNode, defaultPanelLayout))
     : panelRender;
 
   return (
