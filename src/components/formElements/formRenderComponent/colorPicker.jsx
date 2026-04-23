@@ -6,8 +6,7 @@
  * - 自定义面板渲染
  * - 追加/覆盖默认预设
  */
-import { ColorPicker, Row, Col, Divider, Button } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { ColorPicker, Divider } from 'antd';
 import { cyan, blue, volcano } from '@ant-design/colors';
 
 // 默认预设颜色
@@ -34,22 +33,31 @@ const DEFAULT_PRESETS = [
 ];
 
 /**
- * 默认面板渲染
- * 支持追加预设和清空按钮
+ * 创建默认面板渲染函数
+ * 左侧预设颜色 + 右侧自定义选色器 + 底部扩展节点
  */
-const defaultPanelRender = (onClear, showClearBtn) => (_panel, { components: { Picker, Presets } }) => (
-  <div style={{ minWidth: 280 }}>
-    <Presets />
-    {showClearBtn && (
-      <>
-        <Divider style={{ margin: '8px 0' }} />
-        <Button type="text" icon={<DeleteOutlined />} onClick={onClear} block>
-          清除颜色
-        </Button>
-      </>
-    )}
-  </div>
-);
+const createDefaultPanelRender = (extraNode) => {
+  const PanelRender = (_panel, { components: { Picker, Presets } }) => (
+    <div style={{ minWidth: 320 }}>
+      <div style={{ display: 'flex', gap: 12 }}>
+        <div style={{ flex: '0 0 auto' }}>
+          <Presets />
+        </div>
+        <div style={{ flex: 1 }}>
+          <Picker />
+        </div>
+      </div>
+      {extraNode && (
+        <>
+          <Divider style={{ margin: '8px 0' }} />
+          {extraNode}
+        </>
+      )}
+    </div>
+  );
+  PanelRender.displayName = 'PanelRender';
+  return PanelRender;
+};
 
 const Index = ({
   onChange,
@@ -61,19 +69,11 @@ const Index = ({
   placement,
   styles: customStyles,
   panelRender,
-  defaultPanelLayout = {},
-  onClear,
-  showClearBtn = false,
   appendPresets = [],
+  extraNode,
   children,
   ...fieldProps
 }) => {
-  const {
-    row = {},
-    leftCol = {},
-    rightCol = {},
-  } = defaultPanelLayout;
-
   const handleChange = (color) => {
     const hex = color.toHexString();
     onChange?.(hex);
@@ -84,9 +84,9 @@ const Index = ({
     ? [...(presets || DEFAULT_PRESETS), ...appendPresets]
     : undefined;
 
-  // 面板渲染：自定义 > 带清空按钮的默认 > undefined
+  // 面板渲染：自定义 > 带扩展节点的默认 > undefined
   const finalPanelRender = showPresets
-    ? (panelRender || defaultPanelRender(onClear, showClearBtn))
+    ? (panelRender || createDefaultPanelRender(extraNode))
     : panelRender;
 
   return (

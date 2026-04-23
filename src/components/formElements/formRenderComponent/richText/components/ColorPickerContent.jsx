@@ -3,6 +3,8 @@
  * 用于字体颜色和背景色选择
  * 直接点击触发器显示颜色面板，无需二次点击
  */
+import { Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import ColorPicker from '@components/formElements/formRenderComponent/colorPicker';
 
 const ColorPickerContent = ({ colors, onSelect, value, showClear = false, children }) => {
@@ -18,6 +20,13 @@ const ColorPickerContent = ({ colors, onSelect, value, showClear = false, childr
   // 是否显示清除按钮（背景色支持透明色）
   const shouldShowClear = showClear || colors.includes('transparent');
 
+  // 清除颜色节点
+  const extraNode = shouldShowClear ? (
+    <Button type="text" icon={<DeleteOutlined />} onClick={() => onSelect('transparent')} block>
+      清除颜色
+    </Button>
+  ) : null;
+
   return (
     <ColorPicker
       value={value}
@@ -25,8 +34,7 @@ const ColorPickerContent = ({ colors, onSelect, value, showClear = false, childr
       onChange={onSelect}
       showText={false}
       disabledAlpha={false}
-      showClearBtn={shouldShowClear}
-      onClear={() => onSelect('transparent')}
+      extraNode={extraNode}
     >
       {children}
     </ColorPicker>
