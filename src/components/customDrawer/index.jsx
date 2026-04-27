@@ -51,7 +51,7 @@ const CustomDrawer = ({
 
   return (
     <Drawer
-      className="customDrawer"
+      classNames={{ wrapper: 'customDrawer' }}
       keyboard={false}
       mask={{ closable: false }}
       closable={false}

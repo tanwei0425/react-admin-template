@@ -37,7 +37,6 @@ const ThemeColor = () => {
           <ColorPicker
             value={colorPrimary}
             placement="left"
-            styles={{ popupOverlayInner: { width: 560 } }}
             onChange={handleChange}
             showText={false}
           />

@@ -5,7 +5,7 @@ export const useStyle = createStyles(({ css }) => {
     customModal: css`
       width: 100vw;
       height: 100vh;
-      .ant-modal-content {
+      .ant-modal-container {
         .ant-modal-body {
           overflow-y: auto;
           max-height: 65vh;

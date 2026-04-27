@@ -115,7 +115,7 @@ const CustomModal = ({
 
   return (
     <Modal
-      wrapClassName={cx(styles.customModal, wrapClassName)}
+      classNames={{ wrapper: cx(styles.customModal, wrapClassName) }}
       mask={{ closable: false }}
       keyboard={false}
       centered={true}

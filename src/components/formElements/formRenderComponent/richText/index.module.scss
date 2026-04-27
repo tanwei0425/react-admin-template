@@ -62,35 +62,6 @@
   }
 }
 
-.colorPicker {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  padding: 8px;
-  width: 224px;
-}
-
-.colorItem {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-
-  &:hover {
-    transform: scale(1.15);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  }
-}
-
-.colorPopover {
-  :global {
-    .ant-popover-inner {
-      padding: 4px;
-    }
-  }
-}
-
 .previewContent {
   padding: 16px;
   min-height: 200px;

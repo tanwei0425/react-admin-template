@@ -14,7 +14,6 @@ const OverallStyle = () => {
   const onClick = (type) => {
     setThemeSkin({ overallStyle: type });
   };
-  console.log(themeLayout, 'themeLayout');
   return (
     <div className="tw:flex">
       {data.map((val) => {

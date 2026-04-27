@@ -51,12 +51,12 @@ const createDefaultPanelRender = (extraNode, layout = {}) => {
         </Col>
       </Row>
       {extraNode && (
-        <>
-          <Divider style={{ margin: '8px 0' }} />
+        <div style={{ textAlign: 'center' }}>
+          <Divider style={{ margin: '8px 0 8px 0' }} />
           {extraNode}
-        </>
+        </div>
       )}
-      </>
+    </>
   );
   PanelRender.displayName = 'PanelRender';
   return PanelRender;
@@ -65,7 +65,7 @@ const createDefaultPanelRender = (extraNode, layout = {}) => {
 const Index = ({
   onChange,
   presets,
-  disabledAlpha = true,
+  disabledAlpha,
   format = 'hex',
   showText = true,
   showPresets = true,
@@ -101,7 +101,7 @@ const Index = ({
       disabledAlpha={disabledAlpha}
       showText={showText}
       placement={placement}
-      styles={{ popupOverlayInner: { width: 400 }, ...customStyles }}
+      styles={{ popupOverlayInner: { width: 560 }, ...customStyles }}
       panelRender={finalPanelRender}
       {...fieldProps}
     >

@@ -59,17 +59,14 @@ export const FONT_COLORS = [
   '#d9ead3', '#d0e0e3', '#c9daf8', '#d9d2e9',
 ];
 
-// 背景颜色预设（包含透明色用于清除）
+// 背景颜色预设
 export const BG_COLORS = [
-  'transparent', '#ffffff', '#f3f3f3', '#efefef',
+  '#ffffff', '#f3f3f3', '#efefef',
   '#d9d9d9', '#cccccc', '#b7b7b7', '#999999',
-  '#666666', '#434343',
-  '#000000', '#980000', '#ff0000', '#ff9900',
-  '#ffff00', '#00ff00', '#00ffff', '#4a86e8',
-  '#0000ff', '#9900ff',
-  '#ff00ff', '#e6b8af', '#f4cccc', '#fce5cd',
-  '#fff2cc', '#d9ead3', '#d0e0e3', '#c9daf8',
+  '#666666', '#434343', '#000000',
+  '#980000', '#ff0000', '#ff9900', '#ffff00',
+  '#00ff00', '#00ffff', '#4a86e8', '#0000ff',
+  '#9900ff', '#ff00ff',
+  '#e6b8af', '#f4cccc', '#fce5cd', '#fff2cc',
+  '#d9ead3', '#d0e0e3', '#c9daf8', '#d9d2e9',
 ];
-
-// 格式类型列表（用于格式刷）
-export const MARK_TYPES = ['bold', 'italic', 'underline', 'strike', 'link', 'textStyle', 'highlight'];

@@ -11,10 +11,14 @@ export const ListItem = Node.create({
   addOptions() {
     return {
       HTMLAttributes: {},
+      bulletListTypeName: 'bulletList',
+      orderedListTypeName: 'orderedList',
     };
   },
 
-  content: 'paragraph+',
+  content: 'paragraph block*',
+
+  defining: true,
 
   parseHTML() {
     return [
@@ -30,7 +34,6 @@ export const ListItem = Node.create({
 
   addAttributes() {
     return {
-      // 字体属性
       fontFamily: {
         default: null,
         parseHTML: (element) => element.style.fontFamily?.replace(/['"]+/g, ''),
@@ -43,7 +46,6 @@ export const ListItem = Node.create({
           };
         },
       },
-      // 字号属性
       fontSize: {
         default: null,
         parseHTML: (element) => element.style.fontSize || null,
@@ -56,6 +58,14 @@ export const ListItem = Node.create({
           };
         },
       },
+    };
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      Enter: () => this.editor.commands.splitListItem(this.name),
+      Tab: () => this.editor.commands.sinkListItem(this.name),
+      'Shift-Tab': () => this.editor.commands.liftListItem(this.name),
     };
   },
 });

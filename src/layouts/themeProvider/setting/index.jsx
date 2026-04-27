@@ -28,7 +28,7 @@ const Setting = () => {
         destroyOnHidden={false}
         size={280}
         onClose={onClose}
-        showConfirmButton={false}
+        showOkButton={false}
       >
         {open && (
           <Space className={styles.themeSpace} orientation={'vertical'} align={'start'} size={'middle'}>
