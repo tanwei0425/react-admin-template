@@ -84,10 +84,6 @@ export default ({ mode, command }) => {
               return 'vendor-react'
             }
 
-            if (id.includes('lodash')) {
-              return 'vendor-lodash'
-            }
-
             if (id.includes('dayjs')) {
               return 'vendor-dayjs'
             }
