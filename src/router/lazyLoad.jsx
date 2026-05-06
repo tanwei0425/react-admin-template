@@ -1,16 +1,26 @@
 import { Suspense, lazy } from 'react';
 import { Spin } from 'antd';
-import AuthRouter from '@router/authRouter';
+
+const lazyCache = new Map();
+
 const lazyLoad = (cmpPath, fallback = <Spin />) => {
+  if (lazyCache.has(cmpPath)) {
+    return lazyCache.get(cmpPath);
+  }
+
   const LazyComponent = lazy(() => import(/* @vite-ignore */ '../' + cmpPath));
-  return async () => ({
-    Component: (props) => (
+
+  const routeModule = async () => {
+    const Component = (props) => (
       <Suspense fallback={fallback}>
-        <AuthRouter>
-          <LazyComponent {...props} />
-        </AuthRouter>
+        <LazyComponent {...props} />
       </Suspense>
-    ),
-  });
+    );
+    return { Component };
+  };
+
+  lazyCache.set(cmpPath, routeModule);
+  return routeModule;
 };
+
 export default lazyLoad;
