@@ -1,6 +1,13 @@
 import { useMemo, useEffect } from 'react';
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+  useNavigation,
+  Outlet,
+} from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import Layouts from '@layouts/adminLayout';
 import lazyLoad from '@router/lazyLoad';
 import AuthRouter from '@router/authRouter';
@@ -8,74 +15,86 @@ import AuthLayouts from '@layouts/authLayout';
 import LoginForm from '@pages/auth/loginForm';
 import NProgress from '@utils/progress';
 
-const staticRoutes = [
+// ==========================
+// Root Layout（控制全局 loading）
+const RootLayout = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (navigation.state === 'loading') {
+      NProgress.start();
+    } else {
+      NProgress.done();
+    }
+  }, [navigation.state]);
+
+  return <Outlet />;
+};
+
+// ==========================
+// 路由工厂（🔥关键：替代 structuredClone）
+const createRoutes = (dynamicRoutes) => [
   {
-    path: '/auth',
-    handle: { title: '登录' },
-    element: <AuthLayouts />,
+    path: '/',
+    element: <RootLayout />,
+    HydrateFallback: () => null,
     children: [
       {
-        path: 'login',
-        handle: { title: '登录' },
-        element: <LoginForm />,
+        path: 'auth',
+        element: <AuthLayouts />,
+        children: [
+          {
+            path: 'login',
+            element: <LoginForm />,
+          },
+        ],
+      },
+
+      {
+        path: '/',
+        element: (
+          <AuthRouter>
+            <Layouts />
+          </AuthRouter>
+        ),
+        children: [
+          ...dynamicRoutes,
+        ],
+      },
+
+      {
+        path: '*',
+        element: <Navigate to="/" replace />,
       },
     ],
   },
-  {
-    path: '/',
-    HydrateFallback: () => null,
-    element: (
-      <AuthRouter>
-        <Layouts />
-      </AuthRouter>
-    ),
-    children: [],
-  },
-  {
-    path: '*',
-    element: <Navigate to="/" replace />,
-  },
 ];
 
+// ==========================
 const RouteList = () => {
   const { routesData } = useSelector((state) => state.userInfo);
 
-  const dynamicRoutes = useMemo(
-    () =>
+  // 动态路由
+  const dynamicRoutes = useMemo(() => {
+    return (
       routesData
         ?.filter((item) => item.cmpPath && item.path && item.isRouter === '1')
         ?.map((item) => ({
+          id: item.path,
           path: item.path,
           handle: { title: item.name },
           lazy: lazyLoad(item.cmpPath),
-        })) || [],
-    [routesData]
-  );
+        })) || []
+    );
+  }, [routesData]);
 
+  // 创建 router
   const router = useMemo(() => {
-    const routes = staticRoutes.map((route) => {
-      if (route.path === '/') {
-        return { ...route, children: dynamicRoutes };
-      }
-      return route;
-    });
-    return createBrowserRouter(routes, {
+    return createBrowserRouter(createRoutes(dynamicRoutes), {
       basename: import.meta.env.VITE_BASE_URL,
+      HydrateFallback: () => null,
     });
   }, [dynamicRoutes]);
-
-  useEffect(() => {
-    if (!router) return;
-    const unsub = router.subscribe(({ navigationType }) => {
-      if (navigationType !== 'POP') {
-        NProgress.start();
-        requestAnimationFrame(() => {
-          NProgress.done();
-        });
-      }
-    });
-    return unsub;
-  }, [router]);
 
   return <RouterProvider router={router} />;
 };
