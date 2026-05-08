@@ -43,12 +43,12 @@ const LogDetail = ({ record }) => {
             overflow: 'auto',
           }}
         >
-          {record.requestParams || ''}
+          {record.requestParams}
         </pre>
       </Descriptions.Item>
       {record.status === '0' && (
         <Descriptions.Item label="错误信息" span={2}>
-          <span style={{ color: '#ff4d4f' }}>{record.errorMsg || ''}</span>
+          <span style={{ color: '#ff4d4f' }}>{record.errorMsg}</span>
         </Descriptions.Item>
       )}
     </Descriptions>

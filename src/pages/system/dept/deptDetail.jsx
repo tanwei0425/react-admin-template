@@ -23,12 +23,12 @@ const DeptDetail = ({ record, flatList }) => {
         <Tag color={statusColorMap[record.status]}>{dictLabel('dept_status', record.status)}</Tag>
       </Descriptions.Item>
       <Descriptions.Item label="排序">{record.sort}</Descriptions.Item>
-      <Descriptions.Item label="负责人">{record.leader || ''}</Descriptions.Item>
-      <Descriptions.Item label="联系电话">{record.phone || ''}</Descriptions.Item>
-      <Descriptions.Item label="邮箱">{record.email || ''}</Descriptions.Item>
-      <Descriptions.Item label="创建时间">{record.createTime}</Descriptions.Item>
+      <Descriptions.Item label="负责人">{record.leader}</Descriptions.Item>
+      <Descriptions.Item label="联系电话">{record.phone}</Descriptions.Item>
+      <Descriptions.Item label="邮箱" span={2}>{record.email}</Descriptions.Item>
+      <Descriptions.Item label="创建时间" span={2}>{record.createTime}</Descriptions.Item>
       <Descriptions.Item label="备注" span={2}>
-        {record.remark || ''}
+        {record.remark}
       </Descriptions.Item>
     </Descriptions>
   );

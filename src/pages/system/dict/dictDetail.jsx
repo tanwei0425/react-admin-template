@@ -56,8 +56,8 @@ const DictDetail = ({ record }) => {
         <Descriptions.Item label="状态">
           <Tag color={statusColorMap[record.status]}>{dictLabel('dict_status', record.status)}</Tag>
         </Descriptions.Item>
-        <Descriptions.Item label="创建时间">{record.createTime}</Descriptions.Item>
-        <Descriptions.Item label="备注">{record.remark || ''}</Descriptions.Item>
+        <Descriptions.Item label="创建时间" span={2}>{record.createTime}</Descriptions.Item>
+        <Descriptions.Item label="备注" span={2}>{record.remark}</Descriptions.Item>
       </Descriptions>
       <div style={{ marginTop: 16 }}>
         <div style={{ fontWeight: 600, marginBottom: 8 }}>字典项数据</div>

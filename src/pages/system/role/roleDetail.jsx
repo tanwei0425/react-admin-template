@@ -20,7 +20,7 @@ const RoleDetail = ({ record }) => {
       </Descriptions.Item>
       <Descriptions.Item label="创建时间">{record.createTime}</Descriptions.Item>
       <Descriptions.Item label="备注" span={2}>
-        {record.remark || ''}
+        {record.remark}
       </Descriptions.Item>
     </Descriptions>
   );
