@@ -132,7 +132,7 @@ const menuList = [
     remark: '',
   },
   {
-    id: '2-6',
+    id: '2-7',
     pid: '2',
     name: '日志管理',
     path: '/system/log',

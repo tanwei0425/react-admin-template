@@ -151,8 +151,18 @@ const loginAnalysisData = [
               isRouter: '1',
               sort: 5,
             },
-            {
+              {
               id: '2-6',
+              pid: '2',
+              name: '组织机构管理',
+              path: '/system/org',
+              cmpPath: 'pages/system/org',
+              isShow: '1',
+              isRouter: '1',
+              sort: 6,
+            },
+            {
+              id: '2-7',
               pid: '2',
               name: '日志管理',
               path: '/system/log',
