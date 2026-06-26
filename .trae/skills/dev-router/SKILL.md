@@ -27,6 +27,7 @@ This skill is the **orchestrator** that decides which specialized skill(s) shoul
 |-------|-------------|-----------------|
 | `crud-module-generator` | Create NEW module from scratch | Modify existing module |
 | `ui-ux-pro-max` | Improve visuals/UX of EXISTING components | Generate new code structure |
+| `git-commit-guide` | Git commit message 规范指导 | 执行 git 命令、PR 审查 |
 | `pre-review-checklist` | Before commit/PR, after changes done | During active development |
 
 ## Routing Decision Tree
@@ -60,7 +61,14 @@ crud-module-generator   crud-module-generator
      │
      ▼
 ┌─────────────────────────────────┐
-│ 3. Is this a REVIEW request?    │
+│ 3. Is this a COMMIT request?    │
+│    (提交/commit/写commit)        │
+└─────────────────────────────────┘
+     │ Yes → git-commit-guide (alone)
+     │
+     ▼
+┌─────────────────────────────────┐
+│ 4. Is this a REVIEW request?    │
 │    (审查/review/检查/PR)         │
 └─────────────────────────────────┘
      │ Yes
@@ -76,7 +84,7 @@ ui-ux-pro-max          pre-review-checklist
      │ No (not review)
      ▼
 ┌─────────────────────────────────┐
-│ 4. Default: No skill needed,    │
+│ 5. Default: No skill needed,    │
 │    handle directly              │
 └─────────────────────────────────┘
 ```
