@@ -65,8 +65,8 @@ const loginAnalysisData = [
         data: {
           user: {
             id: 1,
-            name: 'tanwei',
-            role: [],
+            username: 'tanwei',
+            roleArr: ['admin', '测试'],
           },
           authButton: ['test-a', 'test-b', 'test-c'],
           routesData: [

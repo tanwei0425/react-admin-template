@@ -12,6 +12,7 @@ import Menus from '@layouts/adminLayout/menus';
 import { MenuSvg } from '@assets/icons';
 const Headers = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userInfo);
   const { collapsed } = useSelector((state) => state.common);
   const { themeLayout, overallStyle, systemStyle, menuTrigger, aloneBreadcrumb } = useSelector(
     (state) => state.theme
@@ -58,7 +59,7 @@ const Headers = () => {
               themeLayout === 'transverse' && overallStyle === 'dark' && styles.transverseUsername
             )}
           >
-            {globalConfig.username}
+            {user?.username}
           </div>
           <div
             className={cx(

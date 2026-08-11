@@ -18,6 +18,7 @@ const Setting = () => {
   const { styles, cx } = useStyle();
   const editPwdFormRef = useRef();
   const { message } = App.useApp();
+   const { user } = useSelector((state) => state.userInfo);
   const { systemStyle, themeLayout, overallStyle } = useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,14 +28,11 @@ const Setting = () => {
   const apiLogout = useLogoutApi();
   const clearSysConfig = useClearSysConfig();
   const items = [
-    {
-      label: 'tanwei',
+      {
+      label: `用户：${user?.username}`,
     },
     {
-      label: '我是角色1',
-    },
-    {
-      label: 'tanwei425@gmail.com',
+      label: `角色：${user.roleArr?.join('、')}3312312312dsadasdasdasdsdasdasds、大大叔大叔的`,
     },
     {
       type: 'divider',

@@ -4,9 +4,7 @@ export const globalConfig = {
   title: 'React Admin Template',
   menuTitle: 'React Admin',
   menuIcon: '@assets/images/menu-logo.svg',
-  username: 'demo',
-  // watermarkText: 'React Admin Template',
-  watermarkText: ['React Admin Template', 'Happy Working'],
+  watermarkText: 'React Admin Template',
 };
 // 默认主题配置
 export const initTheme = {
