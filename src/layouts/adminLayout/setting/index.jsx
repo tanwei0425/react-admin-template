@@ -32,7 +32,7 @@ const Setting = () => {
       label: `用户：${user?.username}`,
     },
     {
-      label: `角色：${user.roleArr?.join('、')}3312312312dsadasdasdasdsdasdasds、大大叔大叔的`,
+      label: `角色：${user.roleArr?.join('、')}`,
     },
     {
       type: 'divider',
