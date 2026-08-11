@@ -22,6 +22,8 @@ const ThemeProviderWrapper = ({ children }) => {
     root.style.filter = filter;
     // 同步主题色到 Tailwind CSS 变量
     root.style.setProperty('--tw-color-primary', colorPrimary);
+    // 让普通 CSS / SCSS 也能使用动态主题色
+    root.style.setProperty('--ant-color-primary', colorPrimary);
   }, [colorPrimary, grayMode, weakMode]);
   return (
     <ThemeProvider
