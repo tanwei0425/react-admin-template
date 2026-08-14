@@ -1,6 +1,6 @@
 ---
-name: "crud-module-generator"
-description: "Generates complete CRUD module scaffolding (list/form/detail/api) following project conventions. Invoke when user asks to create a new management page, add CRUD features, or scaffold a new system module."
+name: 'crud-module-generator'
+description: 'Generates complete CRUD module scaffolding (list/form/detail/api) following project conventions. Invoke when user asks to create a new management page, add CRUD features, or scaffold a new system module.'
 ---
 
 # CRUD Module Generator Skill
@@ -18,6 +18,7 @@ This skill generates complete CRUD module scaffolding for the React admin templa
 ## When to Invoke
 
 Invoke this skill when:
+
 - User asks to create a new management page (e.g., "创建一个XX管理页面")
 - User asks to add CRUD features for a new entity
 - User asks to scaffold a new system module
@@ -26,6 +27,7 @@ Invoke this skill when:
 ## Project Architecture Reference
 
 ### Tech Stack
+
 - **React 19** + **React Router v7** + **Redux Toolkit** + **Ant Design 6**
 - **ahooks** for API requests (`useApiRequest` wraps `useRequest`)
 - **Vite 8** with path aliases (`@components`, `@pages`, `@api`, `@hooks`, `@utils`, etc.)
@@ -33,6 +35,7 @@ Invoke this skill when:
 - **styled-components** for styling (`useStyle` pattern)
 
 ### Path Aliases (vite.config.js)
+
 ```
 @          → src
 @components → src/components
@@ -215,8 +218,9 @@ const Index = () => {
 
   const onChange = (paginationConfig) => {
     setPagination({
-      current: paginationConfig?.current,
-      pageSize: paginationConfig?.pageSize,
+      current: paginationConfig.current,
+      pageSize: paginationConfig.pageSize,
+      total: paginationConfig.total,
     });
   };
 
@@ -440,18 +444,21 @@ export default <Module>Detail;
 ## Conventions to Follow
 
 ### Naming
+
 - **Files**: `index.jsx`, `<module>Form.jsx`, `<module>Detail.jsx`, `<module>Modal.jsx` (camelCase)
 - **Components**: PascalCase (`UserForm`, `UserDetail`)
 - **API hooks**: `use<Module><Action>Api` (e.g., `useUserCreateApi`)
 - **Variables**: camelCase
 
 ### API Patterns
+
 - All APIs use `useApiRequest` hook (wraps ahooks `useRequest`)
 - GET for list/query, POST for create/update/delete
 - Response shape: `{ code: 200, data: { list, total }, message }`
 - Code 200 = success, 901/902/903/904 = auth failure (auto-logout)
 
 ### Component Usage
+
 - **CustomTable**: Built-in dict translation via `dict` column property
   ```javascript
   // Simple dict
@@ -468,7 +475,9 @@ export default <Module>Detail;
 - **EnhancedOperateRender**: For action column with multiple buttons
 
 ### Form Component Types
+
 Available `componentType` values for `FormRenderComponent`:
+
 - `input` - Text input
 - `textArea` - Textarea
 - `select` - Select (supports `mode: 'multiple'`)
@@ -486,12 +495,15 @@ Available `componentType` values for `FormRenderComponent`:
 - `richText` - Rich text editor
 
 ### State Management
+
 - **Redux**: Used for global state (`userInfo`, `common`, `theme`)
 - **dictData**: Stored in `state.userInfo.dictData`, accessed via `useSelector`
 - **Local state**: Use `useState` for component-level state
 
 ### Descriptions Span Rule
+
 ⚠️ Critical: When using `Descriptions` with `column={2}`, ensure span sum per row = 2:
+
 - Default span is 1
 - Use `span={2}` for full-width items
 - Avoid odd number of span=1 items (last one will be lonely)
@@ -514,6 +526,7 @@ When generating a new module:
 User: "帮我创建一个产品管理模块，包含名称、价格、分类、状态字段"
 
 Generated files:
+
 - `src/api/product.js` - API hooks
 - `src/pages/system/product/index.jsx` - List page
 - `src/pages/system/product/productForm.jsx` - Form

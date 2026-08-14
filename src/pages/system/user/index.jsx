@@ -200,8 +200,9 @@ const Index = () => {
 
   const onChange = (paginationConfig) => {
     setPagination({
-      current: paginationConfig?.current,
-      pageSize: paginationConfig?.pageSize,
+      current: paginationConfig.current,
+      pageSize: paginationConfig.pageSize,
+      total: paginationConfig.total,
     });
   };
 
