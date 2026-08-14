@@ -40,8 +40,8 @@ export const useStyle = createStyles(({ token, css }) => {
       padding: 0 ${token.paddingSM}px;
     `,
     siderLogo: css`
-      width: 45px;
-      height: 45px;
+      width: 41px;
+      height: 41px;
       color: ${token.colorPrimary};
     `,
     siderTitle: css`
@@ -148,7 +148,10 @@ export const useStyle = createStyles(({ token, css }) => {
       color: ${token.myDarkColor};
     `,
     mainContent: css`
+      padding-bottom: 10px!important;
       padding: 0 ${token.paddingSM}px;
+      display: flex;
+      flex-direction: column;
       ${'' /* overflow-x: hidden; */}
     `,
     breadcrumb: css`
@@ -157,12 +160,17 @@ export const useStyle = createStyles(({ token, css }) => {
     aloneBreadcrumb: css`
       padding-top: ${token.paddingSM}px;
     `,
-    mainOutletFixed: css`
-      overflow-y: auto;
-    `,
     mainOutlet: css`
       border-radius: ${token.borderRadius}px;
       background-color: ${token.colorBgContainer};
+    `,
+    mainOutletFixed: css`
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    `,
+    mainOutletFluid: css`
+      min-height: auto;
     `,
     mainFooter: css`
       display: flex;
@@ -172,7 +180,7 @@ export const useStyle = createStyles(({ token, css }) => {
       padding: 0;
       background-color: ${token.colorBgContainer};
       border-top: 1px solid ${token.colorBorderSecondary};
-      margin-top: ${token.paddingSM}px;
+      ${'' /* margin-top: ${token.paddingSM}px; */}
     `,
 
     // 横向布局
@@ -203,9 +211,6 @@ export const useStyle = createStyles(({ token, css }) => {
       flex-shrink: 0;
     `,
     transverseUsername: css`
-      color: ${token.myLightColor};
-    `,
-    transverseGithub: css`
       color: ${token.myLightColor};
     `,
   };

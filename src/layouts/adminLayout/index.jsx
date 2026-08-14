@@ -30,8 +30,8 @@ const LayoutVertical = () => {
           theme={overallStyle}
           className={styles.sider}
           collapsed={collapsed}
-          collapsedWidth={70}
-          width={220}
+          collapsedWidth={65}
+          width={230}
         >
           <div className={styles.siderHeader}>
             <MenuSvg className={styles.siderLogo} />
@@ -67,15 +67,17 @@ const LayoutVertical = () => {
         <Content
           className={cx(
             styles.mainContent,
-            !(aloneBreadcrumb && breadcrumb) && styles.aloneBreadcrumb,
-            fixedHeader && styles.mainOutletFixed
+            !(aloneBreadcrumb && breadcrumb) && styles.aloneBreadcrumb
           )}
         >
-          <div className={cx(styles.mainOutlet)}>
+          <div className={cx(
+            styles.mainOutlet,
+            fixedHeader ? styles.mainOutletFixed : styles.mainOutletFluid
+          )}>
             <Outlet />
           </div>
         </Content>
-        {showFooter && (
+        {showFooter && fixedHeader && (
           <Footer className={styles.mainFooter}>
             <Footers />
           </Footer>

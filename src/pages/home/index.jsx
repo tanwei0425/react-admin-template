@@ -173,7 +173,7 @@ const Index = () => {
       </Row>
 
       {/* 排名表格 */}
-      <Row gutter={[16, 16]} style={{ marginTop: 16, marginBottom: 16 }}>
+      <Row gutter={[16, 16]} style={{ marginTop: 16 }}>
         <Col xs={24} lg={12}>
           <Card
             title={<span style={cardTitleStyle}>销售额排名</span>}

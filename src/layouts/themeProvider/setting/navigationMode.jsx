@@ -36,7 +36,7 @@ const NavigationMode = () => {
     { key: 'dynamicTitle', title: '动态标题', value: dynamicTitle, show: true },
     { key: 'fixedHeader', title: '固定Header', value: fixedHeader, show: true },
     { key: 'watermark', title: '水印', value: watermark, show: true },
-    { key: 'showFooter', title: '页脚', value: showFooter, show: true },
+    { key: 'showFooter', title: '页脚', value: showFooter, show: fixedHeader },
   ];
   const onChange = (e, key) => setThemeSkin({ [key]: e });
 
