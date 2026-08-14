@@ -32,6 +32,7 @@ const CustomTable = ({ pagination, columns = [], title, toolBarRender, size = 's
         pagination={
           pagination
             ? {
+                style: { margin: '16px' },
                 size: 'small',
                 showQuickJumper: true,
                 showSizeChanger: true,
