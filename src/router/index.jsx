@@ -1,11 +1,5 @@
 import { useMemo, useEffect } from 'react';
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-  useNavigation,
-  Outlet,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider, useNavigation, Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Layouts from '@layouts/adminLayout';
@@ -57,9 +51,7 @@ const createRoutes = (dynamicRoutes) => [
             <Layouts />
           </AuthRouter>
         ),
-        children: [
-          ...dynamicRoutes,
-        ],
+        children: [...dynamicRoutes],
       },
 
       {

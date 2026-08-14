@@ -8,9 +8,7 @@ const lazyLoad = (cmpPath) => {
   }
 
   const routeModule = async () => {
-    const loader =
-      modules[`../${cmpPath}/index.jsx`] ||
-      modules[`../${cmpPath}/index.tsx`];
+    const loader = modules[`../${cmpPath}/index.jsx`] || modules[`../${cmpPath}/index.tsx`];
 
     if (!loader) {
       console.error('当前所有页面：', Object.keys(modules));

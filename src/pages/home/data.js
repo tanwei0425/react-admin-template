@@ -94,12 +94,13 @@ export const storeData = [
 ];
 
 export const miniAreaData = [
-  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513, 546, 983, 340, 539, 243, 226, 192,
+  264, 417, 438, 887, 309, 397, 550, 575, 563, 430, 525, 592, 492, 467, 513, 546, 983, 340, 539, 243, 226,
+  192,
 ].map((value, index) => ({ value, index }));
 
-export const miniColumnData = [
-  32, 28, 35, 42, 38, 72, 68, 75, 82, 78, 85, 92, 88, 95, 102,
-].map((value, index) => ({ value, index }));
+export const miniColumnData = [32, 28, 35, 42, 38, 72, 68, 75, 82, 78, 85, 92, 88, 95, 102].map(
+  (value, index) => ({ value, index })
+);
 
 export const statCardsData = [
   {
@@ -110,7 +111,7 @@ export const statCardsData = [
     daily: '¥12,423',
     footer: '日销售额',
     tip: '指标说明：今日销售额是指当日所有已完成订单的金额总和',
-    type: 'trend'
+    type: 'trend',
   },
   {
     title: '访问量',
@@ -120,7 +121,7 @@ export const statCardsData = [
     daily: '324',
     footer: '日访问量',
     tip: '指标说明：今日访问量是指当日网站的总访问次数',
-    type: 'area'
+    type: 'area',
   },
   {
     title: '支付笔数',
@@ -130,7 +131,7 @@ export const statCardsData = [
     daily: '60%',
     footer: '转化率',
     tip: '指标说明：今日订单数是指当日所有已提交的订单数量',
-    type: 'column'
+    type: 'column',
   },
   {
     title: '运营活动效果',
@@ -140,7 +141,7 @@ export const statCardsData = [
     daily: '213',
     footer: '运营增量',
     tip: '指标说明：今日新增用户是指当日新注册的用户数量',
-    type: 'progress'
+    type: 'progress',
   },
 ];
 

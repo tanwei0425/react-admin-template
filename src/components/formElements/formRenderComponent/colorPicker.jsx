@@ -84,13 +84,11 @@ const Index = ({
   };
 
   // 合并预设：默认预设 + 追加预设
-  const finalPresets = showPresets
-    ? [...(presets || DEFAULT_PRESETS), ...appendPresets]
-    : undefined;
+  const finalPresets = showPresets ? [...(presets || DEFAULT_PRESETS), ...appendPresets] : undefined;
 
   // 面板渲染：自定义 > 带扩展节点的默认 > undefined
   const finalPanelRender = showPresets
-    ? (panelRender || createDefaultPanelRender(extraNode, defaultPanelLayout))
+    ? panelRender || createDefaultPanelRender(extraNode, defaultPanelLayout)
     : panelRender;
 
   return (

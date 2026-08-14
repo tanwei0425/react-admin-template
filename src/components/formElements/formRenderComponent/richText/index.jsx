@@ -171,7 +171,8 @@ const RichText = ({
         {showWordCount && (
           <div className={styles.fullscreenFooter}>
             <span className={isOverLimit ? styles.overLimit : ''}>
-              字数: {characterCount}{maxLength && ` / ${maxLength}`}
+              字数: {characterCount}
+              {maxLength && ` / ${maxLength}`}
             </span>
           </div>
         )}

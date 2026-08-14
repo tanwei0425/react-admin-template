@@ -18,7 +18,7 @@ const Setting = () => {
   const { styles, cx } = useStyle();
   const editPwdFormRef = useRef();
   const { message } = App.useApp();
-   const { user } = useSelector((state) => state.userInfo);
+  const { user } = useSelector((state) => state.userInfo);
   const { systemStyle, themeLayout, overallStyle } = useSelector((state) => state.theme);
   const { setThemeSkin } = useSetSysTheme();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,7 +28,7 @@ const Setting = () => {
   const apiLogout = useLogoutApi();
   const clearSysConfig = useClearSysConfig();
   const items = [
-      {
+    {
       label: `用户：${user?.username}`,
     },
     {

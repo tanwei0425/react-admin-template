@@ -9,13 +9,17 @@ const StatCard = ({ card, loading, getMiniChart }) => {
       return (
         <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-start' }}>
           <div style={{ marginRight: 20 }}>
-            <Text type="secondary" style={{ fontSize: 12 }}>周同比</Text>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              周同比
+            </Text>
             <Text style={{ fontSize: 14, marginLeft: 6 }} type={card.weekTrend > 0 ? 'success' : 'danger'}>
               {card.weekTrend > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />} {Math.abs(card.weekTrend)}%
             </Text>
           </div>
           <div>
-            <Text type="secondary" style={{ fontSize: 12 }}>日同比</Text>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              日同比
+            </Text>
             <Text style={{ fontSize: 14, marginLeft: 6 }} type={card.dayTrend > 0 ? 'success' : 'danger'}>
               {card.dayTrend > 0 ? <ArrowUpOutlined /> : <ArrowDownOutlined />} {Math.abs(card.dayTrend)}%
             </Text>
@@ -27,10 +31,17 @@ const StatCard = ({ card, loading, getMiniChart }) => {
       return <div style={{ height: 40 }}>{getMiniChart(card.type)}</div>;
     }
     if (card.type === 'progress') {
-      return <Progress percent={78} style={{ marginTop: 25 }} showInfo={false} strokeColor={{
-        '0%': '#108ee9',
-        '100%': '#87d068',
-      }} />;
+      return (
+        <Progress
+          percent={78}
+          style={{ marginTop: 25 }}
+          showInfo={false}
+          strokeColor={{
+            '0%': '#108ee9',
+            '100%': '#87d068',
+          }}
+        />
+      );
     }
     return null;
   };
@@ -44,13 +55,20 @@ const StatCard = ({ card, loading, getMiniChart }) => {
   }
 
   return (
-    <Card
-      styles={{ body: { padding: '5px 10px', height: 210 } }}
-      style={{ overflow: 'hidden' }}
-      hoverable
-    >
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: 48 }}>
-        <Text type="secondary" style={{ fontSize: 16 }}>{card.title}</Text>
+    <Card styles={{ body: { padding: '5px 10px', height: 210 } }} style={{ overflow: 'hidden' }} hoverable>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #f0f0f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          minHeight: 48,
+        }}
+      >
+        <Text type="secondary" style={{ fontSize: 16 }}>
+          {card.title}
+        </Text>
         <Tooltip title={card.tip}>
           <QuestionCircleOutlined style={{ fontSize: 16, color: '#8c8c8c', cursor: 'pointer' }} />
         </Tooltip>
@@ -60,7 +78,9 @@ const StatCard = ({ card, loading, getMiniChart }) => {
         {renderMiddleContent()}
       </div>
       <div style={{ padding: '12px 16px', minHeight: 44 }}>
-        <Text type="secondary" style={{ fontSize: 14 }}>{card.footer}</Text>
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          {card.footer}
+        </Text>
         <Text style={{ fontSize: 14, marginLeft: 8 }}>{card.daily}</Text>
       </div>
     </Card>

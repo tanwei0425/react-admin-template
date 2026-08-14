@@ -65,15 +65,11 @@ const LayoutVertical = () => {
         </Header>
         {aloneBreadcrumb && <Breadcrumb />}
         <Content
-          className={cx(
-            styles.mainContent,
-            !(aloneBreadcrumb && breadcrumb) && styles.aloneBreadcrumb
-          )}
+          className={cx(styles.mainContent, !(aloneBreadcrumb && breadcrumb) && styles.aloneBreadcrumb)}
         >
-          <div className={cx(
-            styles.mainOutlet,
-            fixedHeader ? styles.mainOutletFixed : styles.mainOutletFluid
-          )}>
+          <div
+            className={cx(styles.mainOutlet, fixedHeader ? styles.mainOutletFixed : styles.mainOutletFluid)}
+          >
             <Outlet />
           </div>
         </Content>

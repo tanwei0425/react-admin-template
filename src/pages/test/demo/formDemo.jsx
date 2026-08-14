@@ -100,8 +100,11 @@ const Operate = ({ formRef, name }) => {
             if (!value) {
               return Promise.resolve();
             }
-            const content = value.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-            
+            const content = value
+              .replace(/<[^>]*>/g, '')
+              .replace(/&nbsp;/g, ' ')
+              .trim();
+
             if (content.length > 500) {
               return Promise.reject(new Error('内容不能超过500个字符'));
             }

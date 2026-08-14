@@ -34,12 +34,7 @@ const ThemeColor = () => {
       <div className="tw:flex tw:items-center tw:justify-between tw:pb-[15px]">
         <div>主题颜色</div>
         <Tooltip placement="left" title={colorPrimary}>
-          <ColorPicker
-            value={colorPrimary}
-            placement="left"
-            onChange={handleChange}
-            showText={false}
-          />
+          <ColorPicker value={colorPrimary} placement="left" onChange={handleChange} showText={false} />
         </Tooltip>
       </div>
       <Flex className={styles.themeListItem} vertical gap={4}>

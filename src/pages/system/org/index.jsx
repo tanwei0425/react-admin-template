@@ -6,12 +6,7 @@ import CustomDrawer from '@components/customDrawer';
 import CustomTable, { EnhancedOperateRender } from '@components/customTable';
 import AuthButton from '@components/authButton';
 import SearchForm from '@components/searchForm';
-import {
-  useOrgListApi,
-  useOrgCreateApi,
-  useOrgUpdateApi,
-  useOrgDeleteApi,
-} from '@api/org';
+import { useOrgListApi, useOrgCreateApi, useOrgUpdateApi, useOrgDeleteApi } from '@api/org';
 import OrgForm from './orgForm';
 import OrgDetail from './orgDetail';
 

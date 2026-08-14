@@ -148,10 +148,11 @@ export const useStyle = createStyles(({ token, css }) => {
       color: ${token.myDarkColor};
     `,
     mainContent: css`
-      padding-bottom: 10px!important;
+      padding-bottom: 10px !important;
       padding: 0 ${token.paddingSM}px;
       display: flex;
       flex-direction: column;
+      min-height: 0;
       ${'' /* overflow-x: hidden; */}
     `,
     breadcrumb: css`

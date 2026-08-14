@@ -30,9 +30,17 @@ const Index = () => {
     statCardsData,
   } = useDashboard();
 
-  const renderSalesRankColumns = salesRankColumns.map(col => {
+  const renderSalesRankColumns = salesRankColumns.map((col) => {
     if (col.key === 'range') {
-      return { ...col, render: (v) => <Text type={v > 0 ? 'success' : 'danger'}>{v > 0 ? '+' : ''}{v}%</Text> };
+      return {
+        ...col,
+        render: (v) => (
+          <Text type={v > 0 ? 'success' : 'danger'}>
+            {v > 0 ? '+' : ''}
+            {v}%
+          </Text>
+        ),
+      };
     }
     if (col.key === 'rank') {
       return {
@@ -40,22 +48,31 @@ const Index = () => {
         render: (v) => {
           let color = '#8c8c8c';
           let background = '#f5f5f5';
-          if (v === 1) { color = '#fff'; background = '#f5222d'; }
-          else if (v === 2) { color = '#fff'; background = '#fa8c16'; }
-          else if (v === 3) { color = '#fff'; background = '#faad14'; }
+          if (v === 1) {
+            color = '#fff';
+            background = '#f5222d';
+          } else if (v === 2) {
+            color = '#fff';
+            background = '#fa8c16';
+          } else if (v === 3) {
+            color = '#fff';
+            background = '#faad14';
+          }
           return (
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 22,
-              height: 22,
-              borderRadius: '50%',
-              background,
-              color,
-              fontSize: 12,
-              fontWeight: 600,
-            }}>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background,
+                color,
+                fontSize: 12,
+                fontWeight: 600,
+              }}
+            >
               {v}
             </span>
           );
@@ -65,29 +82,38 @@ const Index = () => {
     return col;
   });
 
-  const renderStoreColumns = storeColumns.map(col => {
+  const renderStoreColumns = storeColumns.map((col) => {
     if (col.key === 'rank') {
       return {
         ...col,
         render: (v) => {
           let color = '#8c8c8c';
           let background = '#f5f5f5';
-          if (v === 1) { color = '#fff'; background = '#f5222d'; }
-          else if (v === 2) { color = '#fff'; background = '#fa8c16'; }
-          else if (v === 3) { color = '#fff'; background = '#faad14'; }
+          if (v === 1) {
+            color = '#fff';
+            background = '#f5222d';
+          } else if (v === 2) {
+            color = '#fff';
+            background = '#fa8c16';
+          } else if (v === 3) {
+            color = '#fff';
+            background = '#faad14';
+          }
           return (
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 22,
-              height: 22,
-              borderRadius: '50%',
-              background,
-              color,
-              fontSize: 12,
-              fontWeight: 600,
-            }}>
+            <span
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 22,
+                height: 22,
+                borderRadius: '50%',
+                background,
+                color,
+                fontSize: 12,
+                fontWeight: 600,
+              }}
+            >
               {v}
             </span>
           );
@@ -102,13 +128,32 @@ const Index = () => {
 
   const renderTabItems = tabItems.map((item) => ({
     ...item,
-    children: item.key === '1'
-      ? <Table columns={renderSalesRankColumns} dataSource={salesRankData} pagination={false} size="small" loading={loading} rowKey="rank" scroll={{ y: 380 }} />
-      : <Table columns={renderSalesRankColumns} dataSource={salesRankData.map(d => ({ ...d, count: Math.floor(d.count * 0.8) }))} pagination={false} size="small" loading={loading} rowKey="rank" scroll={{ y: 380 }} />,
+    children:
+      item.key === '1' ? (
+        <Table
+          columns={renderSalesRankColumns}
+          dataSource={salesRankData}
+          pagination={false}
+          size="small"
+          loading={loading}
+          rowKey="rank"
+          scroll={{ y: 380 }}
+        />
+      ) : (
+        <Table
+          columns={renderSalesRankColumns}
+          dataSource={salesRankData.map((d) => ({ ...d, count: Math.floor(d.count * 0.8) }))}
+          pagination={false}
+          size="small"
+          loading={loading}
+          rowKey="rank"
+          scroll={{ y: 380 }}
+        />
+      ),
   }));
 
   return (
-    <div style={{ padding: 0, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <div style={{ padding: 0, overflow: 'hidden', backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
       {/* 顶部统计卡片 */}
       <Row gutter={[16, 16]}>
         {statCardsData.map((card, index) => (
@@ -124,7 +169,11 @@ const Index = () => {
           <Card
             title={<span style={cardTitleStyle}>销售趋势</span>}
             loading={loading}
-            extra={<Text type="secondary" style={{ fontSize: 13 }}>单位：万元</Text>}
+            extra={
+              <Text type="secondary" style={{ fontSize: 13 }}>
+                单位：万元
+              </Text>
+            }
             styles={{ body: { ...cardBodyStyle, height: 350 } }}
             style={{ borderRadius: 8 }}
           >
@@ -163,7 +212,11 @@ const Index = () => {
           <Card
             title={<span style={cardTitleStyle}>热门搜索</span>}
             loading={loading}
-            extra={<Tag color="blue" style={{ borderRadius: 10, padding: '0 8px' }}>TOP 7</Tag>}
+            extra={
+              <Tag color="blue" style={{ borderRadius: 10, padding: '0 8px' }}>
+                TOP 7
+              </Tag>
+            }
             styles={{ body: { ...cardBodyStyle, height: 350 } }}
             style={{ borderRadius: 8 }}
           >

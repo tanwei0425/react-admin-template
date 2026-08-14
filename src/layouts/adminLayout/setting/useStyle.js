@@ -14,9 +14,11 @@ export const useStyle = createStyles(({ token, css }) => {
       inset: 60px 52px auto auto !important;
       max-width: 300px;
       .ant-dropdown-menu-title-content {
-        ${'' /* overflow: hidden;
+        ${
+          '' /* overflow: hidden;
         white-space: nowrap;
-        text-overflow: ellipsis; */}
+        text-overflow: ellipsis; */
+        }
       }
     `,
     settingIcon: css`
