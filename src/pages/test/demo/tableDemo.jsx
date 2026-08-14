@@ -130,7 +130,7 @@ const Index = () => {
   }, [pagination?.current, pagination?.pageSize, searchFormData]);
   const reset = () => {
     setPagination({ current: 1, pageSize: 10, total: 0 });
-    setSearchFormData(initSearchFormData);
+    setSearchFormData({ ...initSearchFormData });
   };
   const onFinish = async (values) => {
     console.log(values, 'values');

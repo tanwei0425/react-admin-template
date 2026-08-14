@@ -151,7 +151,7 @@ const Index = () => {
   }, [searchFormData]);
 
   const reset = () => {
-    setSearchFormData(initSearchFormData);
+    setSearchFormData({ ...initSearchFormData });
   };
 
   const onFinish = async (values) => {
