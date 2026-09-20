@@ -9,18 +9,26 @@ const AxiosInterceptor = () => {
   return null; // 这个组件不渲染任何内容
 };
 
-axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 const requestInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API, // 根据需要修改
   timeout: 10000, // 超时时间
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
 });
 
 // 可在此处添加请求/响应拦截器
 requestInstance.interceptors.request.use(
   (config) => {
-    // 在请求里加入token认证信息
-    const token = getLocalStorageItem('token');
-    token && (config.headers.authorization = token);
+    // 是否需要验证token，默认需要
+    if (!config.skipToken) {
+      // 在请求里加入token认证信息
+      const token = getLocalStorageItem('token');
+      // 接口如果需要独立设置保证全局不覆盖个体的token
+      if (token && !config.headers?.authorization) {
+        config.headers.authorization = token;
+      }
+    }
     NProgress.start(); // 设置加载进度条(开始..)
     return config;
   },
@@ -50,7 +58,7 @@ requestInstance.interceptors.response.use(
   (error) => {
     NProgress.done();
     // 网络错误或服务器未响应的情况
-    messageApi.error('网络错误或服务端异常');
+    messageApi?.error?.('网络错误或服务端异常');
     return Promise.reject(error);
   }
 );
